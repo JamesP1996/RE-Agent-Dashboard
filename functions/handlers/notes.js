@@ -21,7 +21,7 @@ exports.getAllNotes = (req, res) => {
 };
 
 exports.postNewNote = (req, res) => {
-  if (req.body.body.trim() === '') {
+  if (req.body.Description.trim() === '') {
     return res.status(400).json({ body: 'Body must not be empty' });
   }
 
