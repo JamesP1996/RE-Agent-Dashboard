@@ -18,29 +18,27 @@ exports.getAllNotes = (req, res) => {
         return res.json(notes);
       })
       .catch((err) => console.error(err));
-}
+};
 
 exports.postNewNote = (req, res) => {
-  if (req.method !== "POST") {
-    return res.status(400).json({ error: "Using GET request on wrong Route!" });
+  if (req.body.body.trim() === '') {
+    return res.status(400).json({ body: 'Body must not be empty' });
   }
 
   const newNotes = {
     Title: req.body.Title,
     Description: req.body.Description,
     userHandle: req.user.handle,
-    createdAt: new Date().toISOString(),
+    createdAt: new Date().toISOString()
   };
 
   db.collection("notes")
     .add(newNotes)
     .then((doc) => {
       res.json({ message: `document ${doc.id} created successfully` });
-      return null;
     })
     .catch((err) => {
       res.status(500).json({ error: "Something went wrong." });
       console.log(err);
-      return err;
     });
-}
+};
