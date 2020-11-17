@@ -1,35 +1,35 @@
-const {db} = require('../utilities/admin');
+const { db } = require("../utilities/admin");
 
 exports.getAllNotes = (req, res) => {
-    db.collection("notes")
-      .orderBy("createdAt", "desc")
-      .get()
-      .then((data) => {
-        let notes = [];
-        data.forEach((doc) => {
-          notes.push({
-            noteID: doc.id,
-            Title: doc.data().Title,
-            Description: doc.data().Description,
-            userHandle: doc.data().userHandle,
-            createdAt: doc.data().createdAt,
-          });
+  db.collection("notes")
+    .orderBy("createdAt", "desc")
+    .get()
+    .then((data) => {
+      let notes = [];
+      data.forEach((doc) => {
+        notes.push({
+          noteID: doc.id,
+          Title: doc.data().Title,
+          Description: doc.data().Description,
+          userHandle: doc.data().userHandle,
+          createdAt: doc.data().createdAt,
         });
-        return res.json(notes);
-      })
-      .catch((err) => console.error(err));
+      });
+      return res.json(notes);
+    })
+    .catch((err) => console.error(err));
 };
 
 exports.postNewNote = (req, res) => {
-  if (req.body.Description.trim() === '') {
-    return res.status(400).json({ body: 'Body must not be empty' });
+  if (req.body.Description.trim() === "") {
+    return res.status(400).json({ body: "Body must not be empty" });
   }
 
   const newNotes = {
     Title: req.body.Title,
     Description: req.body.Description,
     userHandle: req.user.handle,
-    createdAt: new Date().toISOString()
+    createdAt: new Date().toISOString(),
   };
 
   db.collection("notes")
