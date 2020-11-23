@@ -1,22 +1,29 @@
 const { db } = require("../utilities/admin");
 
-exports.getAllHouses = (req, res) => {
-  db.collection("open_houses")
+exports.getAllListings = (req, res) => {
+  db.collection("listings")
     .orderBy("createdAt", "desc")
     .get()
     .then((data) => {
-      let open_houses = [];
+      let listings = [];
       data.forEach((doc) => {
-        open_houses.push({
-          houseID: doc.id,
-          property_Name: doc.data().Title,
+        listings.push({
+          listingID: doc.id,
+          owners: doc.data().owners,
           sqft: doc.data().sqft,
           sqft_Lot: doc.data().sqft_lot,
           address: doc.data().address,
-          date: doc.data().date,
-          sellers_Names: doc.data().sellers_Names,
           price: doc.data().price,
-          attendees: doc.data().attendees,
+
+          style: doc.data().style,
+          stories: doc.data().stories,
+          bedrooms: doc.data().bedrooms,
+          bathrooms: doc.data().bathrooms,
+          cooling: doc.data().cooling,
+          heating: doc.data().heating,
+          parking: doc.data().parking,
+          basement: doc.data().basement,
+          other_Features: doc.data().other_features,
 
           userHandle: doc.data().userHandle,
           createdAt: doc.data().createdAt,
@@ -27,28 +34,35 @@ exports.getAllHouses = (req, res) => {
     .catch((err) => console.error(err));
 };
 
-exports.postNewHouse = (req, res) => {
+exports.postNewListing = (req, res) => {
   if (req.body.Description.trim() === "") {
     return res.status(400).json({ body: "Body must not be empty" });
   }
 
-  const newHouse = {
-    houseID: req.body.houseID,
-    property_Name: req.body.property_Name,
+  const newListing = {
+    listingID: req.body.listingID,
+    owners: req.body.owners,
     sqft: req.body.sqft,
     sqft_Lot: req.body.sqft_Lot,
     address: req.body.address,
-    date: req.body.date,
-    sellers_Names: req.body.sellers_Names,
     price: req.body.price,
-    attendees: req.body.attendees,
+
+    style: req.body.style,
+    stories: req.body.stories,
+    bedrooms: req.body.bedrooms,
+    bathrooms: req.body.bathrooms,
+    cooling: req.body.cooling,
+    heating: req.body.heating,
+    parking: req.body.parking,
+    basement: req.body.basement,
+    other_features: req.body.other_Features,
 
     userHandle: req.user.handle,
     createdAt: new Date().toISOString(),
   };
 
-  db.collection("open_houses")
-    .add(newHouse)
+  db.collection("listings")
+    .add(newListing)
     .then((doc) => {
       res.json({ message: `document ${doc.id} created successfully` });
     })
@@ -58,23 +72,23 @@ exports.postNewHouse = (req, res) => {
     });
 };
 
-exports.getHouse = (req, res) => {
-  let houseData = {};
-  db.doc(`/open_houses/${req.params.houseID}`)
+exports.getListing = (req, res) => {
+  let listingData = {};
+  db.doc(`/listings/${req.params.listingID}`)
     .get()
     .then((doc) => {
       if (!doc.exists) {
-        return res.status(404).json({ error: "House not found" });
+        return res.status(404).json({ error: "Listing not found" });
       }
-      houseData = doc.data();
-      houseData.houseID = doc.houseID;
+      listingData = doc.data();
+      listingData.listingID = doc.listingID;
       return db
-        .collection("open_houses")
-        .where("houseID", "==", req.params.houseID)
+        .collection("listings")
+        .where("listingID", "==", req.params.listingID)
         .get();
     })
     .then((data) => {
-      return res.json(houseID);
+      return res.json(listingID);
     })
     .catch((err) => {
       console.error(err);
@@ -82,13 +96,13 @@ exports.getHouse = (req, res) => {
     });
 };
 
-exports.deleteHouse = (req, res) => {
-  const document = db.doc(`/open_houses/${req.params.houseID}`);
+exports.deleteListing = (req, res) => {
+  const document = db.doc(`/listings/${req.params.listingID}`);
   document
     .get()
     .then((doc) => {
       if (!doc.exists) {
-        return res.status(404).json({ error: "House not found" });
+        return res.status(404).json({ error: "Listing not found" });
       }
       if (doc.data().userHandle !== req.user.handle) {
         return res.status(403).json({ error: "Unauthorized" });
@@ -97,7 +111,7 @@ exports.deleteHouse = (req, res) => {
       }
     })
     .then(() => {
-      res.json({ message: "House deleted successfully" });
+      res.json({ message: "Listing deleted successfully" });
     })
     .catch((err) => {
       console.error(err);
@@ -105,32 +119,39 @@ exports.deleteHouse = (req, res) => {
     });
 };
 
-exports.updateHouse = (req, res) => {
-  const document = db.doc(`/open_houses/${req.params.houseID}`);
+exports.updateListing = (req, res) => {
+  const document = db.doc(`/listings/${req.params.listingID}`);
   document.get().then((doc) => {
     if (!doc.exists) {
-      return res.status(404).json({ error: "House not found" });
+      return res.status(404).json({ error: "Listing not found" });
     }
     if (doc.data().userHandle !== req.user.handle) {
       return res.status(403).json({ error: "Unauthorized" });
     } else {
       document
         .set({
-          houseID: req.body.houseID,
-          property_Name: req.body.property_Name,
+          listingID: req.body.listingID,
+          owners: req.body.owners,
           sqft: req.body.sqft,
           sqft_Lot: req.body.sqft_Lot,
           address: req.body.address,
-          date: req.body.date,
-          sellers_Names: req.body.sellers_Names,
           price: req.body.price,
-          attendees: req.body.attendees,
+
+          style: req.body.style,
+          stories: req.body.stories,
+          bedrooms: req.body.bedrooms,
+          bathrooms: req.body.bathrooms,
+          cooling: req.body.cooling,
+          heating: req.body.heating,
+          parking: req.body.parking,
+          basement: req.body.basement,
+          other_features: req.body.other_Features,
 
           userHandle: req.user.handle,
           createdAt: new Date().toISOString(),
         })
         .then(() => {
-          res.json("House updated Successfully");
+          res.json("Listing updated Successfully");
         })
         .catch((err) => {
           console.log(err);

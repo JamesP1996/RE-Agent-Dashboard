@@ -9,8 +9,8 @@ exports.getAllNotes = (req, res) => {
       data.forEach((doc) => {
         notes.push({
           noteID: doc.id,
-          Title: doc.data().Title,
-          Description: doc.data().Description,
+          title: doc.data().title,
+          description: doc.data().description,
           userHandle: doc.data().userHandle,
           createdAt: doc.data().createdAt,
         });
@@ -21,13 +21,13 @@ exports.getAllNotes = (req, res) => {
 };
 
 exports.postNewNote = (req, res) => {
-  if (req.body.Description.trim() === "") {
+  if (req.body.description.trim() === "") {
     return res.status(400).json({ body: "Body must not be empty" });
   }
 
   const newNotes = {
-    Title: req.body.Title,
-    Description: req.body.Description,
+    title: req.body.title,
+    description: req.body.description,
     userHandle: req.user.handle,
     createdAt: new Date().toISOString(),
   };
@@ -102,8 +102,8 @@ exports.updateNote = (req, res) => {
     }
     else{
       document.set(({
-        Title: req.body.Title,
-        Description: req.body.Description,
+        title: req.body.title,
+        description: req.body.description,
         userHandle: req.user.handle,
         createdAt: new Date().toISOString(),
       }))

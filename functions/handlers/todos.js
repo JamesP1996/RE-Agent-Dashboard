@@ -93,31 +93,29 @@ exports.deleteTodo = (req, res) => {
 };
 
 exports.updateTodo = (req, res) => {
-  
-    const document = db.doc(`/todos/${req.params.todoID}`);
-    document.get().then((doc)=>{
-      if(!doc.exists){
-        return res.status(404).json({ error: 'Todo not found' }); 
-      }
-      if(doc.data().userHandle !== req.user.handle){
-        return res.status(403).json({ error: 'Unauthorized' });
-      }
-      else{
-        document.set(({
+  const document = db.doc(`/todos/${req.params.todoID}`);
+  document.get().then((doc) => {
+    if (!doc.exists) {
+      return res.status(404).json({ error: "Todo not found" });
+    }
+    if (doc.data().userHandle !== req.user.handle) {
+      return res.status(403).json({ error: "Unauthorized" });
+    } else {
+      document
+        .set({
           Title: req.body.Title,
           Description: req.body.Description,
           userHandle: req.user.handle,
           Checked: req.body.Checked,
           createdAt: new Date().toISOString(),
-        }))
-      .then(() =>{
-        res.json("Todo updated Successfully");
-      })
-      .catch(err=>{
-        console.log(err);
-        return res.status(500).json({error: err.code});
-      })
+        })
+        .then(() => {
+          res.json("Todo updated Successfully");
+        })
+        .catch((err) => {
+          console.log(err);
+          return res.status(500).json({ error: err.code });
+        });
     }
-    })
-    
-  };
+  });
+};
