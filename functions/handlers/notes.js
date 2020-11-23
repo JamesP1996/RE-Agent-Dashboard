@@ -42,3 +42,80 @@ exports.postNewNote = (req, res) => {
       console.log(err);
     });
 };
+
+exports.getNote = (req,res)=>{
+  let noteData = {};
+  db.doc(`/notes/${req.params.noteID}`)
+    .get()
+    .then((doc) => {
+      if (!doc.exists) {
+        return res.status(404).json({ error: 'Note not found' });
+      }
+      noteData = doc.data();
+      noteData.noteID = doc.noteID;
+      return db
+        .collection('notes')
+        .where('noteID', '==', req.params.noteID)
+        .get();
+    })
+    .then((data) => {
+      return res.json(noteData);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({ error: err.code });
+    });
+};
+
+exports.deleteNote = (req, res) => {
+  const document = db.doc(`/notes/${req.params.noteID}`);
+  document
+    .get()
+    .then((doc) => {
+      if (!doc.exists) {
+        return res.status(404).json({ error: 'Note not found' });
+      }
+      if (doc.data().userHandle !== req.user.handle) {
+        return res.status(403).json({ error: 'Unauthorized' });
+      } else {
+        return document.delete();
+      }
+    })
+    .then(() => {
+      res.json({ message: 'Note deleted successfully' });
+    })
+    .catch((err) => {
+      console.error(err);
+      return res.status(500).json({ error: err.code });
+    });
+};
+
+exports.updateNote = (req, res) => {
+  
+  const document = db.doc(`/notes/${req.params.noteID}`);
+  document.get().then((doc)=>{
+    if(!doc.exists){
+      return res.status(404).json({ error: 'Note not found' }); 
+    }
+    if(doc.data().userHandle !== req.user.handle){
+      return res.status(403).json({ error: 'Unauthorized' });
+    }
+    else{
+      document.set(({
+        Title: req.body.Title,
+        Description: req.body.Description,
+        userHandle: req.user.handle,
+        createdAt: new Date().toISOString(),
+      }))
+    .then(() =>{
+      res.json("Note updated Successfully");
+    })
+    .catch(err=>{
+      console.log(err);
+      return res.status(500).json({error: err.code});
+    })
+  }
+  })
+  
+};
+

@@ -1,10 +1,6 @@
 const functions = require("firebase-functions");
-
-const Authorization = require("./utilities/FBAuth");
-
 const { signup, login ,uploadImage} = require("./handlers/users");
-const {getAllNotes} = require("../functions/handlers/notes");
-const {postNewNote } = require("./handlers/notes");
+const {getAllNotes,getNote,deleteNote,postNewNote,updateNote} = require("./handlers/notes");
 const FBAuth = require("./utilities/FBAuth");
 
 const app = require("express")();
@@ -12,7 +8,12 @@ const app = require("express")();
 
 // --NOTES ROUTES--
 app.get("/notes", getAllNotes);
-app.post("/notes",Authorization,postNewNote);
+app.get("/notes/:noteID",getNote);
+app.delete('/notes/:noteID', FBAuth, deleteNote);
+
+app.post("/notes",FBAuth,postNewNote);
+
+app.put('/notes/:noteID',FBAuth,updateNote);
 
 
 // --USER ROUTES--
