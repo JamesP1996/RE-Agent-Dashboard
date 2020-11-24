@@ -1,7 +1,7 @@
 const { db } = require("../utilities/admin");
 
 exports.getAllAttendees = (req, res) => {
-  db.collection("open_house_attendees")
+  db.collection("attendees")
     .orderBy("createdAt", "desc")
     .get()
     .then((data) => {
@@ -41,7 +41,7 @@ exports.postAttendee = (req, res) => {
     createdAt: new Date().toISOString(),
   };
 
-  db.collection("open_house_attendees")
+  db.collection("attendees")
     .add(newAttendee)
     .then((doc) => {
       res.json({ message: `document ${doc.id} created successfully` });
@@ -54,7 +54,7 @@ exports.postAttendee = (req, res) => {
 
 exports.getAttendee = (req, res) => {
   let attendeeData = {};
-  db.doc(`/open_house_attendees/${req.params.attendeeID}`)
+  db.doc(`/attendees/${req.params.attendeeID}`)
     .get()
     .then((doc) => {
       if (!doc.exists) {
@@ -63,7 +63,7 @@ exports.getAttendee = (req, res) => {
       attendeeData = doc.data();
       attendeeData.attendeeID = doc.attendeeID;
       return db
-        .collection("open_house_attendees")
+        .collection("attendees")
         .where("attendeeID", "==", req.params.attendeeID)
         .get();
     })
@@ -77,7 +77,7 @@ exports.getAttendee = (req, res) => {
 };
 
 exports.deleteAttendee = (req, res) => {
-  const document = db.doc(`/open_house_attendees/${req.params.attendeeID}`);
+  const document = db.doc(`/attendees/${req.params.attendeeID}`);
   document
     .get()
     .then((doc) => {
@@ -99,8 +99,8 @@ exports.deleteAttendee = (req, res) => {
     });
 };
 
-exports.updateHouse = (req, res) => {
-  const document = db.doc(`/open_house_attendees/${req.params.attendeeID}`);
+exports.updateAttendee = (req, res) => {
+  const document = db.doc(`/attendees/${req.params.attendeeID}`);
   document.get().then((doc) => {
     if (!doc.exists) {
       return res.status(404).json({ error: "Attendee not found" });

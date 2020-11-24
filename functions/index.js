@@ -1,26 +1,102 @@
 const functions = require("firebase-functions");
-const { signup, login ,uploadImage} = require("./handlers/users");
-const {getAllNotes,getNote,deleteNote,postNewNote,updateNote} = require("./handlers/notes");
+const { signup, login, uploadImage } = require("./handlers/users");
+const {
+  getAllNotes,
+  getNote,
+  deleteNote,
+  postNewNote,
+  updateNote,
+} = require("./handlers/notes");
+const {
+  updateListing,
+  deleteListing,
+  getListing,
+  postNewListing,
+  getAllListings,
+} = require("./handlers/listings");
+const {
+  getAllTodos,
+  postNewTodo,
+  getTodo,
+  deleteTodo,
+  updateTodo,
+} = require("./handlers/todos");
+
+const {
+  getAllCalendarEntries,
+  postNewCalendar,
+  getCalendar,
+  deleteCalendar,
+  updateCalendar,
+} = require("./handlers/calendar");
+
+const {
+  getAllHouses,
+  postNewHouse,
+  getHouse,
+  deleteHouse,
+  updateHouse,
+} = require("./handlers/open_houses");
+
+const {
+  getAllAttendees,
+  postAttendee,
+  getAttendee,
+  deleteAttendee,
+  updateAttendee,
+} = require("./handlers/attendees");
+
 const FBAuth = require("./utilities/FBAuth");
 
 const app = require("express")();
 
-
 // --NOTES ROUTES--
 app.get("/notes", getAllNotes);
-app.get("/notes/:noteID",getNote);
-app.delete('/notes/:noteID', FBAuth, deleteNote);
+app.get("/notes/:noteID", getNote);
+app.delete("/notes/:noteID", FBAuth, deleteNote);
+app.post("/notes", FBAuth, postNewNote);
+app.put("/notes/:noteID", FBAuth, updateNote);
 
-app.post("/notes",FBAuth,postNewNote);
+// --TODO's ROUTES--
+app.get("/todos", getAllTodos);
+app.get("/todos/:todoID", getTodo);
+app.delete("/todos/:todoID", FBAuth, deleteTodo);
+app.post("/todos", FBAuth, postNewTodo);
+app.put("/todos/:todoID", FBAuth, updateTodo);
 
-app.put('/notes/:noteID',FBAuth,updateNote);
+// --CALENDAR ROUTES --
+app.get("/calendars", getAllCalendarEntries);
+app.get("/calendars/:calendarID", getCalendar);
+app.delete("/calendars/:calendarID", FBAuth, deleteCalendar);
+app.post("/calendars", FBAuth, postNewCalendar);
+app.put("/calendars/:calendarID", FBAuth, updateCalendar);
 
+// --LISTING ROUTES--
+app.get("/listings", getAllListings);
+app.get("/listings/:listingID", getListing);
+app.delete("/listings/:listingID", FBAuth, deleteListing);
+app.post("/listings", FBAuth, postNewListing);
+app.put("/listings/:listingID", FBAuth, updateListing);
+
+// -- OPEN-HOUSES ROUTES --
+app.get("/open_houses", getAllHouses);
+app.get("/open_houses/:houseID", getHouse);
+app.delete("/open_houses/:houseID", FBAuth, deleteHouse);
+app.post("/open_houses", FBAuth, postNewHouse);
+app.put("/open_houses/:houseID", FBAuth, updateHouse);
+
+// -- ATTENDEES ROUTES --
+app.get("/attendees", getAllAttendees);
+app.get("/attendees/:attendeeID", getAttendee);
+app.delete("/attendees/:attendeeID", FBAuth, deleteAttendee);
+app.post("/attendees", FBAuth, postAttendee);
+app.put("/attendees/:attendeeID", FBAuth, updateAttendee);
 
 // --USER ROUTES--
 app.post("/signup", signup);
 app.post("/login", login);
-app.post('/user/image',FBAuth,uploadImage);
+app.post("/user/image", FBAuth, uploadImage);
 
 // Exporting the Express App that contains all the routes needed
 // Uses the Firebase Functions Region of Europe Currently
-exports.api = functions.region('europe-west2').https.onRequest(app);
+exports.api = functions.region("europe-west2").https.onRequest(app);

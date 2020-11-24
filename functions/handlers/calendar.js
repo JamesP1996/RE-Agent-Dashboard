@@ -1,14 +1,14 @@
 const { db } = require("../utilities/admin");
 
-exports.getAllCalenderEntries = (req, res) => {
-  db.collection("calender")
+exports.getAllCalendarEntries = (req, res) => {
+  db.collection("calendar")
     .orderBy("createdAt", "desc")
     .get()
     .then((data) => {
-      let calender = [];
+      let calendar = [];
       data.forEach((doc) => {
-        calenders.push({
-          calenderID: doc.id,
+        calendars.push({
+          calendarID: doc.id,
           Title: doc.data().Title,
           Description: doc.data().Description,
           Date: doc.data().Date,
@@ -16,17 +16,17 @@ exports.getAllCalenderEntries = (req, res) => {
           createdAt: doc.data().createdAt,
         });
       });
-      return res.json(calenders);
+      return res.json(calendars);
     })
     .catch((err) => console.error(err));
 };
 
-exports.postNewcalender = (req, res) => {
+exports.postNewCalendar = (req, res) => {
   if (req.body.Description.trim() === "") {
     return res.status(400).json({ body: "Body must not be empty" });
   }
 
-  const newcalenders = {
+  const newCalendars = {
     Title: req.body.Title,
     Description: req.body.Description,
     Date: req.body.Date,
@@ -34,8 +34,8 @@ exports.postNewcalender = (req, res) => {
     createdAt: new Date().toISOString(),
   };
 
-  db.collection("calenders")
-    .add(newcalenders)
+  db.collection("calendars")
+    .add(newCalendars)
     .then((doc) => {
       res.json({ message: `document ${doc.id} created successfully` });
     })
@@ -45,23 +45,23 @@ exports.postNewcalender = (req, res) => {
     });
 };
 
-exports.getcalender = (req, res) => {
-  let calenderData = {};
-  db.doc(`/calenders/${req.params.calenderID}`)
+exports.getCalendar = (req, res) => {
+  let calendarData = {};
+  db.doc(`/calendars/${req.params.calendarID}`)
     .get()
     .then((doc) => {
       if (!doc.exists) {
-        return res.status(404).json({ error: "calender not found" });
+        return res.status(404).json({ error: "calendar not found" });
       }
-      calenderData = doc.data();
-      calenderData.calenderID = doc.calenderID;
+      calendarData = doc.data();
+      calendarData.calendarID = doc.calendarID;
       return db
-        .collection("calenders")
-        .where("calenderID", "==", req.params.calenderID)
+        .collection("calendars")
+        .where("calendarID", "==", req.params.calendarID)
         .get();
     })
     .then((data) => {
-      return res.json(calenderData);
+      return res.json(calendarData);
     })
     .catch((err) => {
       console.error(err);
@@ -69,13 +69,13 @@ exports.getcalender = (req, res) => {
     });
 };
 
-exports.deletecalender = (req, res) => {
-  const document = db.doc(`/calenders/${req.params.calenderID}`);
+exports.deleteCalendar = (req, res) => {
+  const document = db.doc(`/calendars/${req.params.calendarID}`);
   document
     .get()
     .then((doc) => {
       if (!doc.exists) {
-        return res.status(404).json({ error: "calender not found" });
+        return res.status(404).json({ error: "calendar not found" });
       }
       if (doc.data().userHandle !== req.user.handle) {
         return res.status(403).json({ error: "Unauthorized" });
@@ -84,7 +84,7 @@ exports.deletecalender = (req, res) => {
       }
     })
     .then(() => {
-      res.json({ message: "calender deleted successfully" });
+      res.json({ message: "calendar deleted successfully" });
     })
     .catch((err) => {
       console.error(err);
@@ -92,11 +92,11 @@ exports.deletecalender = (req, res) => {
     });
 };
 
-exports.upDatecalender = (req, res) => {
-  const document = db.doc(`/calenders/${req.params.calenderID}`);
+exports.updateCalendar = (req, res) => {
+  const document = db.doc(`/calendars/${req.params.calendarID}`);
   document.get().then((doc) => {
     if (!doc.exists) {
-      return res.status(404).json({ error: "calender not found" });
+      return res.status(404).json({ error: "calendar not found" });
     }
     if (doc.data().userHandle !== req.user.handle) {
       return res.status(403).json({ error: "Unauthorized" });
@@ -110,7 +110,7 @@ exports.upDatecalender = (req, res) => {
           createdAt: new Date().toISOString(),
         })
         .then(() => {
-          res.json("calender upDated Successfully");
+          res.json("calendar updated Successfully");
         })
         .catch((err) => {
           console.log(err);
