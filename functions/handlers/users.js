@@ -1,7 +1,7 @@
 const { db, admin } = require("../utilities/admin");
 
 const config = require("../utilities/config");
-
+const { v4: uuid } = require('uuid');
 const firebase = require("firebase");
 firebase.initializeApp(config);
 
@@ -103,19 +103,20 @@ exports.uploadImage = (req, res) => {
 
   const busboy = new BusBoy({ headers: req.headers });
 
+  let rand = `${Math.round(Math.random() * 1000000 )}`;
   let imageFileName;
   let imageToBeUploaded = {};
-  if(mimetype !== 'image/jpeg' && mimetype !== 'image/png'){
-    return res.status(400).json({error: "Wrong File Type Uploaded!\nOnly Accepts PNG/JPEG"})
-  }
+  let generatedToken = uuid();
+
   busboy.on("file", (fieldname, file, filename, encoding, mimetype) => {
-    console.log(fieldname);
-    console.log(filename);
-    console.log(mimetype);
+    console.log(filename,mimetype);
+    if(mimetype !== 'image/jpeg' && mimetype !== 'image/png'){
+      return res.status(400).json({error: "Wrong File Type Uploaded!\nOnly Accepts PNG/JPEG"})
+    }
     const imageExtension = filename.split(".")[filename.split(".").length - 1];
-    const imageFileName = `${Math.round(
-      Math.random() * 1000000
-    )}.${imageExtension}`;
+    
+    imageFileName = `${rand}.${imageExtension}`;
+    
     const filepath = path.join(os.tmpdir(), imageFileName);
     imageToBeUploaded = { filepath, mimetype };
     file.pipe(fs.createWriteStream(filepath));
@@ -129,19 +130,20 @@ exports.uploadImage = (req, res) => {
         metadata: {
           metadata: {
             contentType: imageToBeUploaded.mimetype,
+            firebaseStorageDownloadTokens: generatedToken,
           },
         },
       })
       .then(() => {
-        const imageUrl = `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${imageFileName}?alt=media`;
-        return db.doc("/users/${req.user.handle").update({ imageUrl });
+        const imageUrl = `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${imageFileName}?alt=media&token=${generatedToken}`;
+        return db.doc(`/users/${req.user.handle}`).update({ imageUrl });
       })
       .then(() => {
         return res.json({ message: "Image uploaded successfully" });
       })
       .catch((err) => {
         console.error(err);
-        return res.status(500).json({ error: err.code });
+        return res.status(500).json({ error: `something went wrong: ${err.code}`});
       });
   });
   busboy.end(req.rawBody);
