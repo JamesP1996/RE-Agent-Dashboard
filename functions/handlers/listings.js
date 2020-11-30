@@ -1,4 +1,7 @@
-const { db } = require("../utilities/admin");
+const { db, admin } = require("../utilities/admin");
+
+const config = require("../utilities/config");
+const { v4: uuid } = require('uuid');
 
 exports.getAllListings = (req, res) => {
   db.collection("listings")
@@ -29,7 +32,7 @@ exports.getAllListings = (req, res) => {
           createdAt: doc.data().createdAt,
         });
       });
-      return res.json(open_houses);
+      return res.json(listings);
     })
     .catch((err) => console.error(err));
 };
@@ -38,7 +41,7 @@ exports.postNewListing = (req, res) => {
   if (req.body.Description.trim() === "") {
     return res.status(400).json({ body: "Body must not be empty" });
   }
-
+  const noImg = "no-listing-img.png";
   const newListing = {
     listingID: req.body.listingID,
     owners: req.body.owners,
@@ -64,6 +67,9 @@ exports.postNewListing = (req, res) => {
   db.collection("listings")
     .add(newListing)
     .then((doc) => {
+      db.doc(`/listings/${newListing.listingID}`).set({
+        imageUrl: `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${noImg}?alt=media`,
+      });
       res.json({ message: `document ${doc.id} created successfully` });
     })
     .catch((err) => {
@@ -159,4 +165,64 @@ exports.updateListing = (req, res) => {
         });
     }
   });
+};
+
+exports.uploadListingImage = (req, res) => {
+  const BusBoy = require("busboy");
+  const path = require("path");
+  const os = require("os");
+  const fs = require("fs");
+
+  const busboy = new BusBoy({ headers: req.headers });
+
+  let rand = `${Math.round(Math.random() * 1000000)}`;
+  let imageFileName;
+  let imageToBeUploaded = {};
+  let generatedToken = uuid();
+
+  busboy.on("file", (fieldname, file, filename, encoding, mimetype) => {
+    console.log(filename, mimetype);
+    if (mimetype !== "image/jpeg" && mimetype !== "image/png") {
+      return res
+        .status(400)
+        .json({ error: "Wrong File Type Uploaded!\nOnly Accepts PNG/JPEG" });
+    }
+    const imageExtension = filename.split(".")[filename.split(".").length - 1];
+
+    imageFileName = `${rand}.${imageExtension}`;
+
+    const filepath = path.join(os.tmpdir(), imageFileName);
+    imageToBeUploaded = { filepath, mimetype };
+    file.pipe(fs.createWriteStream(filepath));
+  });
+  busboy.on("finish", () => {
+    admin
+      .storage()
+      .bucket()
+      .upload(imageToBeUploaded.filepath, {
+        resumable: false,
+        metadata: {
+          metadata: {
+            contentType: imageToBeUploaded.mimetype,
+            firebaseStorageDownloadTokens: generatedToken,
+          },
+        },
+      })
+      .then(() => {
+        const imageUrl = `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${imageFileName}?alt=media&token=${generatedToken}`;
+        return db
+          .doc(`/listings/${req.body.listingID}`)
+          .update({ imageUrl });
+      })
+      .then(() => {
+        return res.json({ message: "Image uploaded successfully" });
+      })
+      .catch((err) => {
+        console.error(err);
+        return res
+          .status(500)
+          .json({ error: `something went wrong: ${err.code}` });
+      });
+  });
+  busboy.end(req.rawBody);
 };

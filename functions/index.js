@@ -13,6 +13,7 @@ const {
   getListing,
   postNewListing,
   getAllListings,
+  uploadListingImage
 } = require("./handlers/listings");
 const {
   getAllTodos,
@@ -36,6 +37,7 @@ const {
   getHouse,
   deleteHouse,
   updateHouse,
+  uploadHouseImage
 } = require("./handlers/open_houses");
 
 const {
@@ -77,6 +79,7 @@ app.get("/listings/:listingID", getListing);
 app.delete("/listings/:listingID", FBAuth, deleteListing);
 app.post("/listings", FBAuth, postNewListing);
 app.put("/listings/:listingID", FBAuth, updateListing);
+app.post("/listings/image", FBAuth, uploadListingImage);
 
 // -- OPEN-HOUSES ROUTES --
 app.get("/open_houses", getAllHouses);
@@ -84,6 +87,7 @@ app.get("/open_houses/:houseID", getHouse);
 app.delete("/open_houses/:houseID", FBAuth, deleteHouse);
 app.post("/open_houses", FBAuth, postNewHouse);
 app.put("/open_houses/:houseID", FBAuth, updateHouse);
+app.post("/open_houses/image", FBAuth, uploadHouseImage);
 
 // -- ATTENDEES ROUTES --
 app.get("/attendees", getAllAttendees);
