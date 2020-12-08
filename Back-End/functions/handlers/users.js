@@ -1,3 +1,5 @@
+/* eslint-disable consistent-return */
+/* eslint-disable promise/always-return */
 const { db, admin } = require("../utilities/admin");
 
 const config = require("../utilities/config");
@@ -61,6 +63,7 @@ exports.signup = (req, res) => {
       console.log(err);
       return res.status(500).json({ error: err.code });
     });
+    return false;
 };
 
 exports.login = (req, res) => {
@@ -87,6 +90,46 @@ exports.login = (req, res) => {
         return res
           .status(403)
           .json({ general: "Wrong credentials, please try again" });
+    });
+    return false;
+};
+
+
+// Get own user details
+exports.getAuthenticatedUser = (req, res) => {
+  let userData = {};
+  db.doc(`/users/${req.user.handle}`)
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
+        userData.credentials = doc.data();
+        return db
+          .collection("notes")
+          .where("userHandle", "==", req.user.handle)
+          .get();
+      }
+    })
+    .then((data) => {
+      userData.notes = [];
+      data.forEach((doc) => {
+        userData.notes.push(doc.data());
+      });
+      return db
+        .collection("todos")
+        .where("userHandle", "==", req.user.handle)
+        .limit(10)
+        .get();
+    })
+    .then((data) => {
+      userData.todos = [];
+      data.forEach((doc) => {
+        userData.todos.push(doc.data());
+      });
+      return res.json(userData);
+    })
+    .catch((err) => {
+      console.error(err);
+      return res.status(500).json({ error: err.code });
     });
 };
 
@@ -115,6 +158,7 @@ exports.uploadImage = (req, res) => {
     const filepath = path.join(os.tmpdir(), imageFileName);
     imageToBeUploaded = { filepath, mimetype };
     file.pipe(fs.createWriteStream(filepath));
+    return false;
   });
   busboy.on("finish", () => {
     admin
@@ -142,4 +186,5 @@ exports.uploadImage = (req, res) => {
       });
   });
   busboy.end(req.rawBody);
+  
 };

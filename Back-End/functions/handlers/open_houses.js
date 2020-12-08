@@ -1,3 +1,8 @@
+/* eslint-disable promise/no-nesting */
+/* eslint-disable promise/catch-or-return */
+/* eslint-disable promise/always-return */
+/* eslint-disable consistent-return */
+
 const { db, admin } = require("../utilities/admin");
 
 const config = require("../utilities/config");
@@ -57,6 +62,7 @@ exports.postNewHouse = (req, res) => {
         imageUrl: `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${noImg}?alt=media`,
       });
       res.json({ message: `document ${doc.id} created successfully` });
+      return res;
     })
     .catch((err) => {
       res.status(500).json({ error: "Something went wrong." });
@@ -104,6 +110,7 @@ exports.deleteHouse = (req, res) => {
     })
     .then(() => {
       res.json({ message: "House deleted successfully" });
+      return res;
     })
     .catch((err) => {
       console.error(err);

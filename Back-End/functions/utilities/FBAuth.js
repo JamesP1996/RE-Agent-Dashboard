@@ -31,4 +31,5 @@ module.exports = (req, res, next) => {
       console.error("Error while veryifying token", err);
       return res.status(403).json(err);
     });
+    return false;
 };

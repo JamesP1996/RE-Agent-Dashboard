@@ -1,3 +1,5 @@
+/* eslint-disable promise/no-nesting */
+/* eslint-disable promise/catch-or-return */
 const { db } = require("../utilities/admin");
 
 exports.getAllNotes = (req, res) => {
@@ -36,11 +38,14 @@ exports.postNewNote = (req, res) => {
     .add(newNotes)
     .then((doc) => {
       res.json({ message: `document ${doc.id} created successfully` });
+      return res;
     })
     .catch((err) => {
       res.status(500).json({ error: "Something went wrong." });
       console.log(err);
     });
+
+    return db;
 };
 
 exports.getNote = (req,res)=>{
@@ -83,6 +88,7 @@ exports.deleteNote = (req, res) => {
     })
     .then(() => {
       res.json({ message: 'Note deleted successfully' });
+      return res;
     })
     .catch((err) => {
       console.error(err);
@@ -109,12 +115,15 @@ exports.updateNote = (req, res) => {
       }))
     .then(() =>{
       res.json("Note updated Successfully");
+      return res;
     })
     .catch(err=>{
       console.log(err);
       return res.status(500).json({error: err.code});
     })
+    return false;
   }
+  
   })
   
 };

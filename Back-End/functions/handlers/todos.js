@@ -1,3 +1,5 @@
+/* eslint-disable promise/no-nesting */
+/* eslint-disable promise/catch-or-return */
 const { db } = require("../utilities/admin");
 
 exports.getAllTodos = (req, res) => {
@@ -38,11 +40,14 @@ exports.postNewTodo = (req, res) => {
     .add(newTodos)
     .then((doc) => {
       res.json({ message: `document ${doc.id} created successfully` });
+      return res.json;
     })
     .catch((err) => {
       res.status(500).json({ error: "Something went wrong." });
       console.log(err);
     });
+
+    return false;
 };
 
 exports.getTodo = (req, res) => {
@@ -85,6 +90,7 @@ exports.deleteTodo = (req, res) => {
     })
     .then(() => {
       res.json({ message: "Todo deleted successfully" });
+      return res.json;
     })
     .catch((err) => {
       console.error(err);
@@ -111,11 +117,14 @@ exports.updateTodo = (req, res) => {
         })
         .then(() => {
           res.json("Todo updated Successfully");
+          return res.json;
         })
         .catch((err) => {
           console.log(err);
           return res.status(500).json({ error: err.code });
         });
     }
+   return false;
   });
+  
 };

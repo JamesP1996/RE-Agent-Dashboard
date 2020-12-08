@@ -1,5 +1,5 @@
 const functions = require("firebase-functions");
-const { signup, login, uploadImage } = require("./handlers/users");
+const { signup, login, uploadImage , getAuthenticatedUser } = require("./handlers/users");
 const {
   getAllNotes,
   getNote,
@@ -100,6 +100,8 @@ app.put("/attendees/:attendeeID", FBAuth, updateAttendee);
 app.post("/signup", signup);
 app.post("/login", login);
 app.post("/user/image", FBAuth, uploadImage);
+app.get('/user', FBAuth, getAuthenticatedUser);
+
 
 // Exporting the Express App that contains all the routes needed
 // Uses the Firebase Functions Region of Europe Currently

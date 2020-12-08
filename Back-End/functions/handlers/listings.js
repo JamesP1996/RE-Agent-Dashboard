@@ -1,3 +1,5 @@
+/* eslint-disable promise/no-nesting */
+/* eslint-disable promise/catch-or-return */
 const { db, admin } = require("../utilities/admin");
 
 const config = require("../utilities/config");
@@ -71,11 +73,14 @@ exports.postNewListing = (req, res) => {
         imageUrl: `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${noImg}?alt=media`,
       });
       res.json({ message: `document ${doc.id} created successfully` });
+      return res;
     })
     .catch((err) => {
       res.status(500).json({ error: "Something went wrong." });
       console.log(err);
     });
+
+    return false;
 };
 
 exports.getListing = (req, res) => {
@@ -100,6 +105,8 @@ exports.getListing = (req, res) => {
       console.error(err);
       res.status(500).json({ error: err.code });
     });
+
+    return false;
 };
 
 exports.deleteListing = (req, res) => {
@@ -118,6 +125,7 @@ exports.deleteListing = (req, res) => {
     })
     .then(() => {
       res.json({ message: "Listing deleted successfully" });
+      return res;
     })
     .catch((err) => {
       console.error(err);
@@ -158,12 +166,14 @@ exports.updateListing = (req, res) => {
         })
         .then(() => {
           res.json("Listing updated Successfully");
+          return res;
         })
         .catch((err) => {
           console.log(err);
           return res.status(500).json({ error: err.code });
         });
     }
+    return false;
   });
 };
 
@@ -194,6 +204,7 @@ exports.uploadListingImage = (req, res) => {
     const filepath = path.join(os.tmpdir(), imageFileName);
     imageToBeUploaded = { filepath, mimetype };
     file.pipe(fs.createWriteStream(filepath));
+    return false;
   });
   busboy.on("finish", () => {
     admin

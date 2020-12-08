@@ -1,3 +1,5 @@
+/* eslint-disable promise/no-nesting */
+/* eslint-disable promise/always-return */
 const { db } = require("../utilities/admin");
 
 exports.getAllAttendees = (req, res) => {
@@ -45,11 +47,13 @@ exports.postAttendee = (req, res) => {
     .add(newAttendee)
     .then((doc) => {
       res.json({ message: `document ${doc.id} created successfully` });
+      return res.json;
     })
     .catch((err) => {
       res.status(500).json({ error: "Something went wrong." });
       console.log(err);
     });
+    return null;
 };
 
 exports.getAttendee = (req, res) => {
@@ -89,9 +93,11 @@ exports.deleteAttendee = (req, res) => {
       } else {
         return document.delete();
       }
+      
     })
     .then(() => {
       res.json({ message: "Attendee deleted successfully" });
+      return res;
     })
     .catch((err) => {
       console.error(err);
@@ -101,6 +107,7 @@ exports.deleteAttendee = (req, res) => {
 
 exports.updateAttendee = (req, res) => {
   const document = db.doc(`/attendees/${req.params.attendeeID}`);
+  // eslint-disable-next-line consistent-return
   document.get().then((doc) => {
     if (!doc.exists) {
       return res.status(404).json({ error: "Attendee not found" });
@@ -122,11 +129,14 @@ exports.updateAttendee = (req, res) => {
         })
         .then(() => {
           res.json("Attendee updated Successfully");
+          return res;
         })
         .catch((err) => {
           console.log(err);
           return res.status(500).json({ error: err.code });
         });
     }
+  }).catch((err)=>{
+    console.log(err);
   });
 };
