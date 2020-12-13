@@ -28,37 +28,11 @@
   color: #61dafb;
 }
 
-
-.home-body{
-  margin: 0;
-  padding: 0;
-  width:auto;
-  height: 100%;
-  background-image: linear-gradient(to right, #7d00c5e5, #0b4d74c7),
-  url("https://listwithclever.com/static/c1d6687b570642413f17981994413524/720b2/HomePageBackground.webp");
-  background-position: center;
-  background-size: 100vw 100vh;
-  background-repeat: no-repeat;
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
-
-.home{
-  height: 100vh;
-  
-}
-
-.home-grid{
-  padding: 20% 20px 40px 20px;
-}
-
-.home h2{
-  text-align: center;
-  color: white;
-  text-shadow: 2px 2px #a100a7;
-}
-
-.home-container{
-  background-color: #1818187c;
-  align-items: center;
-
-}
-
