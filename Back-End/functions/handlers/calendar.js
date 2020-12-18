@@ -4,11 +4,11 @@
 const { db } = require("../utilities/admin");
 
 exports.getAllCalendarEntries = (req, res) => {
-  db.collection("calendar")
+  db.collection("calendars")
     .orderBy("createdAt", "desc")
     .get()
     .then((data) => {
-      let calendar = [];
+      let calendars = [];
       data.forEach((doc) => {
         calendars.push({
           calendarID: doc.id,

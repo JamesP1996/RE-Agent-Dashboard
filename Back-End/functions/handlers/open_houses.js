@@ -17,7 +17,7 @@ exports.getAllHouses = (req, res) => {
       data.forEach((doc) => {
         open_houses.push({
           houseID: doc.id,
-          property_Name: doc.data().Title,
+          property_Name: doc.data().property_Name,
           sqft: doc.data().sqft,
           sqft_Lot: doc.data().sqft_lot,
           address: doc.data().address,
@@ -25,9 +25,10 @@ exports.getAllHouses = (req, res) => {
           sellers_Names: doc.data().sellers_Names,
           price: doc.data().price,
           attendees: doc.data().attendees,
-
+          
           userHandle: doc.data().userHandle,
           createdAt: doc.data().createdAt,
+          imageUrl: doc.data().imageUrl,
         });
       });
       return res.json(open_houses);
@@ -36,12 +37,12 @@ exports.getAllHouses = (req, res) => {
 };
 
 exports.postNewHouse = (req, res) => {
-  if (req.body.Description.trim() === "") {
+  if (req.body.property_Name === "") {
     return res.status(400).json({ body: "Body must not be empty" });
   }
   const noImg = "no-house-img.png";
-  const newHouse = {
-    houseID: req.body.houseID,
+  const newHouse = {  
+
     property_Name: req.body.property_Name,
     sqft: req.body.sqft,
     sqft_Lot: req.body.sqft_Lot,
@@ -50,7 +51,7 @@ exports.postNewHouse = (req, res) => {
     sellers_Names: req.body.sellers_Names,
     price: req.body.price,
     attendees: req.body.attendees,
-
+    imageUrl: `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${noImg}?alt=media`,
     userHandle: req.user.handle,
     createdAt: new Date().toISOString(),
   };
@@ -58,9 +59,6 @@ exports.postNewHouse = (req, res) => {
   db.collection("open_houses")
     .add(newHouse)
     .then((doc) => {
-      db.doc(`/open_houses/${newHouse.houseID}`).set({
-        imageUrl: `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${noImg}?alt=media`,
-      });
       res.json({ message: `document ${doc.id} created successfully` });
       return res;
     })

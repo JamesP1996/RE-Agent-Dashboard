@@ -32,6 +32,7 @@ exports.getAllListings = (req, res) => {
 
           userHandle: doc.data().userHandle,
           createdAt: doc.data().createdAt,
+          imageUrl: doc.data().imageUrl,
         });
       });
       return res.json(listings);
@@ -40,12 +41,11 @@ exports.getAllListings = (req, res) => {
 };
 
 exports.postNewListing = (req, res) => {
-  if (req.body.Description.trim() === "") {
+  if (req.body.owners.trim() === "") {
     return res.status(400).json({ body: "Body must not be empty" });
   }
   const noImg = "no-listing-img.png";
   const newListing = {
-    listingID: req.body.listingID,
     owners: req.body.owners,
     sqft: req.body.sqft,
     sqft_Lot: req.body.sqft_Lot,
@@ -61,7 +61,7 @@ exports.postNewListing = (req, res) => {
     parking: req.body.parking,
     basement: req.body.basement,
     other_features: req.body.other_Features,
-
+    imageUrl: `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${noImg}?alt=media`,
     userHandle: req.user.handle,
     createdAt: new Date().toISOString(),
   };
@@ -69,9 +69,6 @@ exports.postNewListing = (req, res) => {
   db.collection("listings")
     .add(newListing)
     .then((doc) => {
-      db.doc(`/listings/${newListing.listingID}`).set({
-        imageUrl: `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${noImg}?alt=media`,
-      });
       res.json({ message: `document ${doc.id} created successfully` });
       return res;
     })
