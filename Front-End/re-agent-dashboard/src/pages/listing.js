@@ -24,7 +24,7 @@ export default class listing extends Component {
                 <p>{listing.sqft} SQFT -- Posted By <b>{listing.userHandle}</b></p>
                 <p><b>Owners: {listing.owners}</b></p>
                 <br/>
-                <img src={listing.imageUrl} className="card-image"></img>
+                <img src={listing.imageUrl} className="card-image" alt="house-img"></img>
             </li>
         
           ))}

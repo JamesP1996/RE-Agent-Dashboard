@@ -25,7 +25,7 @@ export default class open_house extends Component {
                 <p>{house.sqft} by sqft -- <b>{house.userHandle}</b></p>
                 <p><b>Date: {house.date}</b></p>
                 <br/>
-                <img src={house.imageUrl} className="card-image"></img>
+                <img src={house.imageUrl} className="card-image" alt="house-img"></img>
             </li>
         
           ))}
