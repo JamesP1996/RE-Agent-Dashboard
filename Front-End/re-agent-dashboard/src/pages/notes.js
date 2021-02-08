@@ -5,7 +5,6 @@ export default class notes extends Component {
   state = {
     notes: [],
   };
-
   componentDidMount() {
     axios.get(`/notes`).then((res) => {
       const notes = res.data;

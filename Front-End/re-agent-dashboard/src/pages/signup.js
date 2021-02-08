@@ -22,16 +22,16 @@ const styles = {
   },
   button: {
     marginTop: 20,
-    position: 'relative'
+    position: "relative",
   },
   customError: {
-    color: 'red',
-    fontSize: '0.8rem',
-    marginTop: "10px"
+    color: "red",
+    fontSize: "0.8rem",
+    marginTop: "10px",
   },
-  progress:{
-    position: 'absolute'
-  }
+  progress: {
+    position: "absolute",
+  },
 };
 
 // Login Class
@@ -41,6 +41,8 @@ class signup extends Component {
     this.state = {
       email: "",
       password: "",
+      confirmPassword: "",
+      handle: "",
       loading: false,
       errors: {},
     };
@@ -50,23 +52,28 @@ class signup extends Component {
     this.setState({
       loading: true,
     });
-    const userData = {
+    const newUserData = {
       email: this.state.email,
       password: this.state.password,
+      confirmPassword: this.state.confirmPassword,
+      handle: this.state.handle,
     };
-    axios.post("/signup", userData).then((res) => {
-      console.log(res.data);
-      this.setState({
-        loading: false,
-      });
-      this.props.history.push('/');
-    })
-    .catch(err => {
-      this.setState({
-        errors: err.response.data,
-        loading: false
+    axios
+      .post("/signup", newUserData)
+      .then((res) => {
+        console.log(res.data);
+        localStorage.setItem("FBIdToken",`Bearer ${res.data.token}`);
+        this.setState({
+          loading: false,
+        });
+        this.props.history.push("/");
       })
-    })
+      .catch((err) => {
+        this.setState({
+          errors: err.response.data,
+          loading: false,
+        });
+      });
   };
   handleChange = (event) => {
     this.setState({
@@ -75,13 +82,13 @@ class signup extends Component {
   };
   render() {
     const { classes } = this.props;
-    const {errors,loading} = this.state;
+    const { errors, loading } = this.state;
     return (
       <Grid container className={classes.form}>
         <Grid item sm />
         <Grid item sm>
           <Typography variant="h2" className={classes.pageTitle}>
-            signup
+            Signup
           </Typography>
           <form noValidate onSubmit={this.handleSubmit}>
             <TextField
@@ -102,8 +109,30 @@ class signup extends Component {
               label="Password"
               className={classes.textField}
               helperText={errors.password}
-              error={errors.email ? true : false}
+              error={errors.password ? true : false}
               value={this.state.password}
+              onChange={this.handleChange}
+            />
+            <TextField
+              id="confirmPassword"
+              name="confirmPassword"
+              type="password"
+              label="Confirm Password"
+              className={classes.textField}
+              helperText={errors.confirmPassword}
+              error={errors.confirmPassword ? true : false}
+              value={this.state.confirmPassword}
+              onChange={this.handleChange}
+            />
+            <TextField
+              id="handle"
+              name="handle"
+              type="text"
+              label="UserName"
+              className={classes.textField}
+              helperText={errors.handle}
+              error={errors.handle ? true : false}
+              value={this.state.handle}
               onChange={this.handleChange}
             />
             <br></br>
@@ -119,9 +148,9 @@ class signup extends Component {
               className={classes.button}
               disabled={loading}
             >
-              Log in
+              Sign Up
               {loading && (
-                <CircularProgress size={30} className={classes.progress}/>
+                <CircularProgress size={30} className={classes.progress} />
               )}
             </Button>
           </form>

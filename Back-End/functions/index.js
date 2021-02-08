@@ -53,28 +53,28 @@ const FBAuth = require("./utilities/FBAuth");
 const app = require("express")();
 
 // --NOTES ROUTES--
-app.get("/notes", getAllNotes);
+app.get("/notes", FBAuth, getAllNotes);
 app.get("/notes/:noteID", getNote);
 app.delete("/notes/:noteID", FBAuth, deleteNote);
 app.post("/notes", FBAuth, postNewNote);
 app.put("/notes/:noteID", FBAuth, updateNote);
 
 // --TODO's ROUTES--
-app.get("/todos", getAllTodos);
+app.get("/todos",FBAuth, getAllTodos);
 app.get("/todos/:todoID", getTodo);
 app.delete("/todos/:todoID", FBAuth, deleteTodo);
 app.post("/todos", FBAuth, postNewTodo);
 app.put("/todos/:todoID", FBAuth, updateTodo);
 
 // --CALENDAR ROUTES --
-app.get("/calendars", getAllCalendarEntries);
+app.get("/calendars", FBAuth, getAllCalendarEntries);
 app.get("/calendars/:calendarID", getCalendar);
 app.delete("/calendars/:calendarID", FBAuth, deleteCalendar);
 app.post("/calendars", FBAuth, postNewCalendar);
 app.put("/calendars/:calendarID", FBAuth, updateCalendar);
 
 // --LISTING ROUTES--
-app.get("/listings", getAllListings);
+app.get("/listings", FBAuth, getAllListings);
 app.get("/listings/:listingID", getListing);
 app.delete("/listings/:listingID", FBAuth, deleteListing);
 app.post("/listings", FBAuth, postNewListing);
@@ -82,7 +82,7 @@ app.put("/listings/:listingID", FBAuth, updateListing);
 app.post("/listings/image", FBAuth, uploadListingImage);
 
 // -- OPEN-HOUSES ROUTES --
-app.get("/open_houses", getAllHouses);
+app.get("/open_houses", FBAuth, getAllHouses);
 app.get("/open_houses/:houseID", getHouse);
 app.delete("/open_houses/:houseID", FBAuth, deleteHouse);
 app.post("/open_houses", FBAuth, postNewHouse);
@@ -90,7 +90,7 @@ app.put("/open_houses/:houseID", FBAuth, updateHouse);
 app.post("/open_houses/image", FBAuth, uploadHouseImage);
 
 // -- ATTENDEES ROUTES --
-app.get("/attendees", getAllAttendees);
+app.get("/attendees", FBAuth, getAllAttendees);
 app.get("/attendees/:attendeeID", getAttendee);
 app.delete("/attendees/:attendeeID", FBAuth, deleteAttendee);
 app.post("/attendees", FBAuth, postAttendee);

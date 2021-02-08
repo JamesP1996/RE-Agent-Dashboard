@@ -12,6 +12,7 @@ exports.getAllListings = (req, res) => {
     .then((data) => {
       let listings = [];
       data.forEach((doc) => {
+        if (doc.data().userHandle === req.user.handle) {
         listings.push({
           listingID: doc.id,
           owners: doc.data().owners,
@@ -34,6 +35,7 @@ exports.getAllListings = (req, res) => {
           createdAt: doc.data().createdAt,
           imageUrl: doc.data().imageUrl,
         });
+      }
       });
       return res.json(listings);
     })

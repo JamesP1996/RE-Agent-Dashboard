@@ -9,6 +9,8 @@ exports.getAllAttendees = (req, res) => {
     .then((data) => {
       let attendees = [];
       data.forEach((doc) => {
+        if(doc.data().userHandle === req.user.handle)
+        {
         attendees.push({
           attendeeID: doc.id,
           full_Name: doc.data().full_Name,
@@ -20,6 +22,7 @@ exports.getAllAttendees = (req, res) => {
           userHandle: doc.data().userHandle,
           createdAt: doc.data().createdAt,
         });
+      }
       });
       return res.json(attendees);
     })

@@ -22,16 +22,16 @@ const styles = {
   },
   button: {
     marginTop: 20,
-    position: 'relative'
+    position: "relative",
   },
   customError: {
-    color: 'red',
-    fontSize: '0.8rem',
-    marginTop: "10px"
+    color: "red",
+    fontSize: "0.8rem",
+    marginTop: "10px",
   },
-  progress:{
-    position: 'absolute'
-  }
+  progress: {
+    position: "absolute",
+  },
 };
 
 // Login Class
@@ -54,19 +54,22 @@ class login extends Component {
       email: this.state.email,
       password: this.state.password,
     };
-    axios.post("/login", userData).then((res) => {
-      console.log(res.data);
-      this.setState({
-        loading: false,
-      });
-      this.props.history.push('/');
-    })
-    .catch(err => {
-      this.setState({
-        errors: err.response.data,
-        loading: false
+    axios
+      .post("/login", userData)
+      .then((res) => {
+        console.log(res.data);
+        localStorage.setItem("FBIdToken",`Bearer ${res.data.token}`);
+        this.setState({
+          loading: false,
+        });
+        this.props.history.push("/");
       })
-    })
+      .catch((err) => {
+        this.setState({
+          errors: err.response.data,
+          loading: false,
+        });
+      });
   };
   handleChange = (event) => {
     this.setState({
@@ -75,7 +78,7 @@ class login extends Component {
   };
   render() {
     const { classes } = this.props;
-    const {errors,loading} = this.state;
+    const { errors, loading } = this.state;
     return (
       <Grid container className={classes.form}>
         <Grid item sm />
@@ -121,7 +124,7 @@ class login extends Component {
             >
               Log in
               {loading && (
-                <CircularProgress size={30} className={classes.progress}/>
+                <CircularProgress size={30} className={classes.progress} />
               )}
             </Button>
           </form>

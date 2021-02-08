@@ -9,13 +9,16 @@ exports.getAllNotes = (req, res) => {
     .then((data) => {
       let notes = [];
       data.forEach((doc) => {
-        notes.push({
-          noteID: doc.id,
-          title: doc.data().title,
-          description: doc.data().description,
-          userHandle: doc.data().userHandle,
-          createdAt: doc.data().createdAt,
-        });
+        if(doc.data().userHandle === req.user.handle)
+        {
+          notes.push({
+            noteID: doc.id,
+            title: doc.data().title,
+            description: doc.data().description,
+            userHandle: doc.data().userHandle,
+            createdAt: doc.data().createdAt,
+          });
+        }
       });
       return res.json(notes);
     })

@@ -103,29 +103,8 @@ exports.getAuthenticatedUser = (req, res) => {
     .then((doc) => {
       if (doc.exists) {
         userData.credentials = doc.data();
-        return db
-          .collection("notes")
-          .where("userHandle", "==", req.user.handle)
-          .get();
       }
-    })
-    .then((data) => {
-      userData.notes = [];
-      data.forEach((doc) => {
-        userData.notes.push(doc.data());
-      });
-      return db
-        .collection("todos")
-        .where("userHandle", "==", req.user.handle)
-        .limit(10)
-        .get();
-    })
-    .then((data) => {
-      userData.todos = [];
-      data.forEach((doc) => {
-        userData.todos.push(doc.data());
-      });
-      return res.json(userData);
+      return res.json(userData.credentials);
     })
     .catch((err) => {
       console.error(err);

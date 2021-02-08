@@ -14,23 +14,27 @@ exports.getAllHouses = (req, res) => {
     .get()
     .then((data) => {
       let open_houses = [];
+
       data.forEach((doc) => {
-        open_houses.push({
-          houseID: doc.id,
-          property_Name: doc.data().property_Name,
-          sqft: doc.data().sqft,
-          sqft_Lot: doc.data().sqft_lot,
-          address: doc.data().address,
-          date: doc.data().date,
-          sellers_Names: doc.data().sellers_Names,
-          price: doc.data().price,
-          attendees: doc.data().attendees,
-          
-          userHandle: doc.data().userHandle,
-          createdAt: doc.data().createdAt,
-          imageUrl: doc.data().imageUrl,
-        });
+        if (doc.data().userHandle === req.user.handle) {
+          open_houses.push({
+            houseID: doc.id,
+            property_Name: doc.data().property_Name,
+            sqft: doc.data().sqft,
+            sqft_Lot: doc.data().sqft_lot,
+            address: doc.data().address,
+            date: doc.data().date,
+            sellers_Names: doc.data().sellers_Names,
+            price: doc.data().price,
+            attendees: doc.data().attendees,
+
+            userHandle: doc.data().userHandle,
+            createdAt: doc.data().createdAt,
+            imageUrl: doc.data().imageUrl,
+          });
+        }
       });
+
       return res.json(open_houses);
     })
     .catch((err) => console.error(err));
@@ -41,8 +45,7 @@ exports.postNewHouse = (req, res) => {
     return res.status(400).json({ body: "Body must not be empty" });
   }
   const noImg = "no-house-img.png";
-  const newHouse = {  
-
+  const newHouse = {
     property_Name: req.body.property_Name,
     sqft: req.body.sqft,
     sqft_Lot: req.body.sqft_Lot,

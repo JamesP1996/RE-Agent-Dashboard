@@ -8,7 +8,10 @@ exports.getAllTodos = (req, res) => {
     .get()
     .then((data) => {
       let todos = [];
+     
       data.forEach((doc) => {
+        if(doc.data().userHandle === req.user.handle)
+        {
         todos.push({
           todoID: doc.id,
           Title: doc.data().Title,
@@ -17,7 +20,9 @@ exports.getAllTodos = (req, res) => {
           userHandle: doc.data().userHandle,
           createdAt: doc.data().createdAt,
         });
+       }
       });
+    
       return res.json(todos);
     })
     .catch((err) => console.error(err));

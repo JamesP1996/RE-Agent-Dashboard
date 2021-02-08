@@ -9,16 +9,20 @@ exports.getAllCalendarEntries = (req, res) => {
     .get()
     .then((data) => {
       let calendars = [];
+
       data.forEach((doc) => {
-        calendars.push({
-          calendarID: doc.id,
-          Title: doc.data().Title,
-          Description: doc.data().Description,
-          Date: doc.data().Date,
-          userHandle: doc.data().userHandle,
-          createdAt: doc.data().createdAt,
-        });
+        if (doc.data().userHandle === req.user.handle) {
+          calendars.push({
+            calendarID: doc.id,
+            Title: doc.data().Title,
+            Description: doc.data().Description,
+            Date: doc.data().Date,
+            userHandle: doc.data().userHandle,
+            createdAt: doc.data().createdAt,
+          });
+        }
       });
+
       return res.json(calendars);
     })
     .catch((err) => console.error(err));
@@ -48,7 +52,7 @@ exports.postNewCalendar = (req, res) => {
       console.log(err);
     });
 
-    return false;
+  return false;
 };
 
 exports.getCalendar = (req, res) => {
@@ -124,8 +128,7 @@ exports.updateCalendar = (req, res) => {
           console.log(err);
           return res.status(500).json({ error: err.code });
         });
-        return false;
+      return false;
     }
   });
- 
 };
