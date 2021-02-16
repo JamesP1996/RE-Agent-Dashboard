@@ -1,6 +1,7 @@
 /* eslint-disable promise/no-nesting */
 /* eslint-disable promise/catch-or-return */
 const { db } = require("../utilities/admin");
+const {validateTodoData} = require("../utilities/validators");
 
 exports.getAllTodos = (req, res) => {
   db.collection("todos")
@@ -29,10 +30,6 @@ exports.getAllTodos = (req, res) => {
 };
 
 exports.postNewTodo = (req, res) => {
-  if (req.body.Description.trim() === "") {
-    return res.status(400).json({ body: "Body must not be empty" });
-  }
-
   const newTodos = {
     Title: req.body.Title,
     Description: req.body.Description,
@@ -40,6 +37,8 @@ exports.postNewTodo = (req, res) => {
     Checked: req.body.Checked,
     createdAt: new Date().toISOString(),
   };
+  const { valid, errors } = validateTodoData(newTodos);
+  if (!valid) return res.status(400).json(errors);
 
   db.collection("todos")
     .add(newTodos)
@@ -131,5 +130,6 @@ exports.updateTodo = (req, res) => {
     }
    return false;
   });
+
   
 };

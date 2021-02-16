@@ -44,3 +44,27 @@ exports.validateLoginData = (data) => {
     valid: Object.keys(errors).length === 0 ? true : false,
   };
 }
+
+exports.validateNoteData = (data) => {
+  let errors = {};
+
+  if (isEmpty(data.Title)) errors.title = "Must not be empty";
+  if (isEmpty(data.Description)) errors.description = "Must not be empty";
+
+  return {
+    errors,
+    valid: Object.keys(errors).length === 0 ? true : false,
+  };
+}
+
+exports.validateTodoData = (data) => {
+  let errors = {};
+
+  if (isEmpty(data.Title)) errors.title = "Must not be empty";
+  if (isEmpty(data.Description)) errors.description = "Must not be empty";
+
+  return {
+    errors,
+    valid: Object.keys(errors).length === 0 ? true : false,
+  };
+}

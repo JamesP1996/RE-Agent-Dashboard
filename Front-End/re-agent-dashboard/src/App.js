@@ -19,8 +19,10 @@ import home from "./pages/home";
 // Component Imports
 // Notes Routes
 import GetNotes from "./components/Notes/GetNotes";
+import CreateNote from "./components/Notes/CreateNote";
 // Todo Routes
 import GetTodos from "./components/Todos/GetTodos";
+import CreateTodo from "./components/Todos/CreateTodo";
 // Calendar Routes
 import GetCalendar from "./components/Calendars/GetCalendar";
 // Open_House Routes
@@ -62,7 +64,9 @@ function App() {
           />
           <Route exact path="/" component={home} />
           <Route exact path="/notes" component={GetNotes} />
+          <AuthRoute exact path ="/createNote" component={CreateNote}/>
           <Route exact path="/todos" component={GetTodos} />
+          <AuthRoute exact path ="/createTodo" component={CreateTodo}/>
           <Route exact path="/calendars" component={GetCalendar} />
           <Route exact path="/open_houses" component={GetHouses} />
           <Route exact path="/listings" component={GetListings} />

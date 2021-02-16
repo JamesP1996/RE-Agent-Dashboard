@@ -1,6 +1,7 @@
 /* eslint-disable promise/no-nesting */
 /* eslint-disable promise/catch-or-return */
 const { db } = require("../utilities/admin");
+const {validateNoteData} = require("../utilities/validators");
 
 exports.getAllNotes = (req, res) => {
   db.collection("notes")
@@ -26,16 +27,15 @@ exports.getAllNotes = (req, res) => {
 };
 
 exports.postNewNote = (req, res) => {
-  if (req.body.description.trim() === "") {
-    return res.status(400).json({ body: "Body must not be empty" });
-  }
-
   const newNotes = {
     title: req.body.title,
     description: req.body.description,
     userHandle: req.user.handle,
     createdAt: new Date().toISOString(),
   };
+
+  const { valid, errors } = validateNoteData(newNotes);
+  if (!valid) return res.status(400).json(errors);
 
   db.collection("notes")
     .add(newNotes)
