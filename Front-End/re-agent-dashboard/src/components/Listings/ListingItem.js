@@ -28,10 +28,10 @@ class ListingItem extends React.Component {
                 <br/>
                 <img src={this.props.listing.imageUrl} className="card-image" alt="house-img"></img>
                 <br/>
-        <Button variant="danger" onClick={this.DeleteListing}>
+        <Button variant="contained" color="secondary" onClick={this.DeleteListing}>
           Delete
         </Button>
-        <Link to={"/edit/" +this.props.listing.listingID} variant="Secondary">
+        <Link to={"/edit/" +this.props.listing.listingID} variant="contained" color="secondary">
             Edit
         </Link>
       </li>

@@ -114,9 +114,9 @@ class CreateTodo extends React.Component
                   onChange={this.handleChange}
                 />
                 <br></br>
-                {errors.body && (
+                {errors.error && (
                   <Typography variant="body2" className={classes.customError}>
-                    {errors.body}
+                    Please Signup/Login to Create a Todo
                   </Typography>
                 )}
                 <Button

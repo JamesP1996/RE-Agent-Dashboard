@@ -20,17 +20,17 @@ class CalendarItem extends React.Component {
 
   render() {
     return (
-      <li>
+      <li style={{border: "3px solid #000000"}}>
         <b>{this.props.calendar.Title}</b>
         <br />
         <p>
           {this.props.calendar.Description} by -- {this.props.calendar.userHandle}
         </p>
         <p><b>Date: {this.props.calendar.Date}</b></p>
-        <Button variant="danger" onClick={this.DeleteCalendar}>
+        <Button variant="contained" color="secondary" onClick={this.DeleteCalendar}>
           Delete
         </Button>
-        <Link to={"/edit/" +this.props.calendar.calendarID} variant="Secondary">
+        <Link to={"/edit/" +this.props.calendar.calendarID} variant="contained" color="secondary">
             Edit
         </Link>
       </li>

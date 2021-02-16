@@ -113,9 +113,9 @@ class CreateNote extends React.Component
                   onChange={this.handleChange}
                 />
                 <br></br>
-                {errors.general && (
+                {errors.error && (
                   <Typography variant="body2" className={classes.customError}>
-                    {errors.general}
+                    Please Signup/Login to Create Notes
                   </Typography>
                 )}
                 <Button

@@ -20,16 +20,16 @@ class NoteItem extends React.Component {
 
   render() {
     return (
-      <li>
+      <li style={{border: "3px solid #000000"}}>
         <b>{this.props.note.title}</b>
         <br />
         <p>
           {this.props.note.description} by -- {this.props.note.userHandle}
         </p>
-        <Button variant="danger" onClick={this.DeleteNote}>
+        <Button variant="contained" color="secondary" onClick={this.DeleteNote}>
           Delete
         </Button>
-        <Link to={"/edit/" +this.props.note.noteID} variant="Secondary">
+        <Link to={"/edit/" +this.props.note.noteID} variant="contained" color="secondary">
             Edit
         </Link>
       </li>

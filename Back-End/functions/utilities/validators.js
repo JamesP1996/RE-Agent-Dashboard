@@ -48,8 +48,8 @@ exports.validateLoginData = (data) => {
 exports.validateNoteData = (data) => {
   let errors = {};
 
-  if (isEmpty(data.Title)) errors.title = "Must not be empty";
-  if (isEmpty(data.Description)) errors.description = "Must not be empty";
+  if (isEmpty(data.title)) errors.title = "Must not be empty";
+  if (isEmpty(data.description)) errors.description = "Must not be empty";
 
   return {
     errors,

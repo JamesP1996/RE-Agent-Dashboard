@@ -24,14 +24,14 @@ class HouseItem extends React.Component {
         <b>{this.props.house.address}</b>
                 <br/>
                 <p>{this.props.house.sqft} SQFT -- Posted By <b>{this.props.house.userHandle}</b></p>
-                <p><b>Owners: {this.props.house.owners}</b></p>
+                <p><b>Owners: {this.props.house.sellers_Names}</b></p>
                 <br/>
                 <img src={this.props.house.imageUrl} className="card-image" alt="house-img"></img>
                 <br/>
-        <Button variant="danger" onClick={this.DeleteHouse}>
+        <Button variant="contained" color="secondary" onClick={this.DeleteHouse}>
           Delete
         </Button>
-        <Link to={"/edit/" +this.props.house.houseID} variant="Secondary">
+        <Link to={"/edit/" +this.props.house.houseID} variant="contained" color="secondary">
             Edit
         </Link>
       </li>

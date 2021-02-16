@@ -20,16 +20,18 @@ class TodoItem extends React.Component {
 
   render() {
     return (
-      <li>
+      <li style={{border: "3px solid #000000"}}>
         <b>{this.props.todo.Title}</b>
         <br />
         <p>
           {this.props.todo.Description} by -- {this.props.todo.userHandle}
         </p>
-        <Button variant="danger" onClick={this.DeleteTodo}>
+        <b>{this.props.todo.Checked}</b>
+        <br></br>
+        <Button variant="contained" color="secondary" onClick={this.DeleteTodo} size="small">
           Delete
         </Button>
-        <Link to={"/edit/" +this.props.todo.todoID} variant="Secondary">
+        <Link to={"/edit/" +this.props.todo.todoID} variant="contained" color="secondary">
             Edit
         </Link>
       </li>
