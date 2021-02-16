@@ -1,20 +1,32 @@
 import "./App.css";
+
+// Module Imports
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import jwtDecode from "jwt-decode";
+import axios from "axios";
 
 // Utilities
-import AuthRoute from "./util/AuthRoute";
+// Route for Grabbing User ID and Ensuring User has a Token
+import AuthRoute from "./util/AuthRoute"; 
 
-// Page Imports
+// User Routes
 import signup from "./pages/signup";
 import login from "./pages/login";
+
+// Home Route
 import home from "./pages/home";
-import notes from "./pages/notes";
-import todos from "./pages/todos";
-import calendar from "./pages/calendar";
-import open_house from "./pages/open_house";
-import listing from "./pages/listing";
-import axios from "axios";
+
+// Component Imports
+// Notes Routes
+import GetNotes from "./components/Notes/GetNotes";
+// Todo Routes
+import GetTodos from "./components/Todos/GetTodos";
+// Calendar Routes
+import GetCalendar from "./components/Calendars/GetCalendar";
+// Open_House Routes
+import GetHouses from "./components/Open_House/GetHouses";
+// Listing Routes
+import GetListings from "./components/Listings/GetListings";
 
 // Token Handling
 let authenticated;
@@ -23,11 +35,11 @@ if (token) {
   const decodedToken = jwtDecode(token);
   console.log(decodedToken);
   if (decodedToken.exp * 1000 < Date.now()) {
-    window.location.href = '/login';
+    window.location.href = "/login";
     authenticated = false;
   } else {
     authenticated = true;
-    axios.defaults.headers.common['Authorization'] = token 
+    axios.defaults.headers.common["Authorization"] = token;
   }
 }
 
@@ -49,11 +61,11 @@ function App() {
             authenticated={authenticated}
           />
           <Route exact path="/" component={home} />
-          <Route exact path="/notes" component={notes} />
-          <Route exact path="/todos" component={todos} />
-          <Route exact path="/calendars" component={calendar} />
-          <Route exact path="/open_houses" component={open_house} />
-          <Route exact path="/listings" component={listing} />
+          <Route exact path="/notes" component={GetNotes} />
+          <Route exact path="/todos" component={GetTodos} />
+          <Route exact path="/calendars" component={GetCalendar} />
+          <Route exact path="/open_houses" component={GetHouses} />
+          <Route exact path="/listings" component={GetListings} />
         </Switch>
       </Router>
     </div>
