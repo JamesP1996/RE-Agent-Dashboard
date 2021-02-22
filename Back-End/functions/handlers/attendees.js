@@ -19,6 +19,7 @@ exports.getAllAttendees = (req, res) => {
           contacted: doc.data().contacted,
           interested: doc.data().interested,
 
+          houseID: doc.data.houseID,
           userHandle: doc.data().userHandle,
           createdAt: doc.data().createdAt,
         });
@@ -42,6 +43,7 @@ exports.postAttendee = (req, res) => {
     contacted: req.body.contacted,
     interested: req.body.interested,
 
+    houseID: req.body.houseID,
     userHandle: req.user.handle,
     createdAt: new Date().toISOString(),
   };
@@ -126,7 +128,8 @@ exports.updateAttendee = (req, res) => {
           email: req.body.email,
           contacted: req.body.contacted,
           interested: req.body.interested,
-      
+          
+          houseID: req.body.houseID,
           userHandle: req.user.handle,
           createdAt: new Date().toISOString(),
         })
