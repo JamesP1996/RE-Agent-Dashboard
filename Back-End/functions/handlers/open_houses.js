@@ -69,6 +69,15 @@ exports.postNewHouse = (req, res) => {
       res.status(500).json({ error: "Something went wrong." });
       console.log(err);
     });
+  
+   if(req.body.imageUrl !== null){
+     try{
+      this.uploadHouseImage(this.req , this.res);
+     }
+     catch(error){
+       console.log(error);
+     }
+   }
 };
 
 exports.getHouse = (req, res) => {

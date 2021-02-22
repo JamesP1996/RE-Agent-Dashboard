@@ -35,13 +35,14 @@ const styles = {
     },
   };
 
-class CreateNote extends React.Component
+class CreateCalendar extends React.Component
 {
     constructor() {
         super();
         this.state = {
-          title: "",
-          description: "",
+          Title: "",
+          Description: "",
+          Date: "",
           loading: false,
           errors: {},
         };
@@ -52,18 +53,19 @@ class CreateNote extends React.Component
         this.setState({
           loading: true,
         });
-        const newNote = {
-          title: this.state.title,
-          description: this.state.description,
+        const newCalendar = {
+          Title: this.state.title,
+          Description: this.state.description,
+          Date: this.state.date
         };
         axios
-          .post("/notes", newNote)
+          .post("/calendars", newCalendar)
           .then((res) => {
             console.log(res.data);
             this.setState({
               loading: false,
             });
-            this.props.history.push("/notes");
+            this.props.history.push("/calendars");
           })
           .catch((err) => {
             this.setState({
@@ -87,7 +89,7 @@ class CreateNote extends React.Component
             <Grid item sm />
             <Grid item sm>
               <Typography variant="h2" className={classes.pageTitle}>
-                Create a Note
+                Create a Calendar Entry
               </Typography>
               <form noValidate onSubmit={this.handleSubmit}>
                 <TextField
@@ -113,9 +115,21 @@ class CreateNote extends React.Component
                   onChange={this.handleChange}
                 />
                 <br></br>
+                <p>Date Entry:</p>
+                <TextField
+                  id="date"
+                  name="date"
+                  type="date"
+                  className={classes.textField}
+                  helperText={errors.date}
+                  error={errors.date ? true : false}
+                  value={this.state.date}
+                  onChange={this.handleChange}
+                />
+                <br></br>
                 {errors.error && (
                   <Typography variant="body2" className={classes.customError}>
-                    Please Signup/Login to Create Notes
+                    Please Signup/Login to Create Calendar Entries
                   </Typography>
                 )}
                 <Button
@@ -140,7 +154,7 @@ class CreateNote extends React.Component
 
       
 }
-CreateNote.propTypes = {
+CreateCalendar.propTypes = {
     classes: PropTypes.object.isRequired,
   };
-  export default withStyles(styles)(CreateNote);
+  export default withStyles(styles)(CreateCalendar);

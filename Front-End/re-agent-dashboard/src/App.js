@@ -25,10 +25,13 @@ import GetTodos from "./components/Todos/GetTodos";
 import CreateTodo from "./components/Todos/CreateTodo";
 // Calendar Routes
 import GetCalendar from "./components/Calendars/GetCalendar";
+import CreateCalendar from "./components/Calendars/CreateCalendar";
 // Open_House Routes
 import GetHouses from "./components/Open_House/GetHouses";
+import CreateHouse from "./components/Open_House/CreateHouse";
 // Listing Routes
 import GetListings from "./components/Listings/GetListings";
+import CreateListing from "./components/Listings/CreateListing";
 
 // Token Handling
 let authenticated;
@@ -68,8 +71,11 @@ function App() {
           <Route exact path="/todos" component={GetTodos} />
           <AuthRoute exact path ="/createTodo" component={CreateTodo}/>
           <Route exact path="/calendars" component={GetCalendar} />
+          <AuthRoute exact path ="/createCalendar" component={CreateCalendar}/>
           <Route exact path="/open_houses" component={GetHouses} />
+          <AuthRoute exact path="/createHouse" component={CreateHouse}/>
           <Route exact path="/listings" component={GetListings} />
+          <AuthRoute exact path="/createListing" component={CreateListing}/>
         </Switch>
       </Router>
     </div>

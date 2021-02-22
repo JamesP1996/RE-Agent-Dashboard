@@ -52,13 +52,13 @@ class CreateTodo extends React.Component
         this.setState({
           loading: true,
         });
-        const newNote = {
+        const newTodo = {
           Title: this.state.title,
           Description: this.state.description,
           Checked: "Unchecked"
         };
         axios
-          .post("/todos", newNote)
+          .post("/todos", newTodo)
           .then((res) => {
             console.log(res.data);
             this.setState({
@@ -94,7 +94,7 @@ class CreateTodo extends React.Component
                 <TextField
                   id="title"
                   name="title"
-                  type="title"
+                  type="text"
                   label="Title"
                   className={classes.textField}
                   helperText={errors.title}
@@ -105,7 +105,7 @@ class CreateTodo extends React.Component
                 <TextField
                   id="description"
                   name="description"
-                  type="description"
+                  type="text"
                   label="Description"
                   className={classes.textField}
                   helperText={errors.description}
@@ -126,7 +126,7 @@ class CreateTodo extends React.Component
                   className={classes.button}
                   disabled={loading}
                 >
-                  Create Note
+                  Create Todo
                   {loading && (
                     <CircularProgress size={30} className={classes.progress} />
                   )}
