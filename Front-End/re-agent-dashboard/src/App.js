@@ -1,5 +1,4 @@
 import "./App.css";
-
 // Module Imports
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import jwtDecode from "jwt-decode";
@@ -8,6 +7,7 @@ import axios from "axios";
 // Utilities
 // Route for Grabbing User ID and Ensuring User has a Token
 import AuthRoute from "./util/AuthRoute"; 
+import Navbar from "./components/Navbar/navbar";
 
 // User Routes
 import signup from "./pages/signup";
@@ -48,10 +48,22 @@ if (token) {
   }
 }
 
+const signout = () => {
+  try{
+    localStorage.clear();
+    authenticated=false;
+    axios.defaults.headers.common["Authorization"] = null;
+  }catch(err){console.log(err);}
+  window.location.replace("/login");
+  return null;
+}
+
+
 function App() {
   return (
     <div className="App">
       <Router>
+        <Navbar />
         <Switch>
           <AuthRoute
             exact
@@ -76,6 +88,7 @@ function App() {
           <AuthRoute exact path="/createHouse" component={CreateHouse}/>
           <Route exact path="/listings" component={GetListings} />
           <AuthRoute exact path="/createListing" component={CreateListing}/>
+          <Route exacth path="/signout" component={signout}/>
         </Switch>
       </Router>
     </div>
