@@ -206,7 +206,7 @@ exports.uploadHouseImage = (req, res) => {
       })
       .then(() => {
         const imageUrl = `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${imageFileName}?alt=media&token=${generatedToken}`;
-        return db.doc(`/open_houses/${req.body.houseID}`).update({ imageUrl });
+        return db.doc(`/open_houses/${req.params.houseID}`).update({ imageUrl });
       })
       .then(() => {
         return res.json({ message: "Image uploaded successfully" });

@@ -56,7 +56,7 @@ exports.postNewTodo = (req, res) => {
 
 exports.getTodo = (req, res) => {
   let todoData = {};
-  db.doc(`/todos/${req.params.totoID}`)
+  db.doc(`/todos/${req.params.todoID}`)
     .get()
     .then((doc) => {
       if (!doc.exists) {
@@ -70,7 +70,7 @@ exports.getTodo = (req, res) => {
         .get();
     })
     .then((data) => {
-      return res.json(todoID);
+      return res.json(todoData);
     })
     .catch((err) => {
       console.error(err);

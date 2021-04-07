@@ -15,6 +15,7 @@ class GetCalendar extends React.Component
         axios.get('/calendars')
             .then((response)=>{
                 this.setState({calendars: response.data})
+                console.log(this.state.calendars);
             })
             .catch((error) => {
                 console.log(error);

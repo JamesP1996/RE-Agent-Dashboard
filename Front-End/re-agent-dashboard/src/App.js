@@ -23,6 +23,7 @@ import CreateNote from "./components/Notes/CreateNote";
 // Todo Routes
 import GetTodos from "./components/Todos/GetTodos";
 import CreateTodo from "./components/Todos/CreateTodo";
+import TodoView from "./components/Todos/TodoView";
 // Calendar Routes
 import GetCalendar from "./components/Calendars/GetCalendar";
 import CreateCalendar from "./components/Calendars/CreateCalendar";
@@ -82,6 +83,7 @@ function App() {
           <AuthRoute exact path ="/createNote" component={CreateNote}/>
           <Route exact path="/todos" component={GetTodos} />
           <AuthRoute exact path ="/createTodo" component={CreateTodo}/>
+          <AuthRoute path ="/todos/:id" component={TodoView} />
           <Route exact path="/calendars" component={GetCalendar} />
           <AuthRoute exact path ="/createCalendar" component={CreateCalendar}/>
           <Route exact path="/open_houses" component={GetHouses} />
