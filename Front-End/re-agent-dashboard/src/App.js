@@ -23,16 +23,17 @@ import CreateNote from "./components/Notes/CreateNote";
 // Todo Routes
 import GetTodos from "./components/Todos/GetTodos";
 import CreateTodo from "./components/Todos/CreateTodo";
-import TodoView from "./components/Todos/TodoView";
 // Calendar Routes
 import GetCalendar from "./components/Calendars/GetCalendar";
 import CreateCalendar from "./components/Calendars/CreateCalendar";
 // Open_House Routes
 import GetHouses from "./components/Open_House/GetHouses";
 import CreateHouse from "./components/Open_House/CreateHouse";
+import OpenHouseView from "./components/Open_House/OpenHouseView";
 // Listing Routes
 import GetListings from "./components/Listings/GetListings";
 import CreateListing from "./components/Listings/CreateListing";
+import ListingView from "./components/Listings/ListingView";
 
 // Token Handling
 let authenticated;
@@ -63,6 +64,10 @@ const signout = () => {
 function App() {
   return (
     <div className="App">
+       <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, user-scalable=0, maximum-scale=1, minimum-scale=1"
+        />
       <Router>
         <Navbar />
         <Switch>
@@ -83,12 +88,13 @@ function App() {
           <AuthRoute exact path ="/createNote" component={CreateNote}/>
           <Route exact path="/todos" component={GetTodos} />
           <AuthRoute exact path ="/createTodo" component={CreateTodo}/>
-          <AuthRoute path ="/todos/:id" component={TodoView} />
           <Route exact path="/calendars" component={GetCalendar} />
           <AuthRoute exact path ="/createCalendar" component={CreateCalendar}/>
           <Route exact path="/open_houses" component={GetHouses} />
+          <AuthRoute exact path="/open_houses/:id" component={OpenHouseView}/>
           <AuthRoute exact path="/createHouse" component={CreateHouse}/>
           <Route exact path="/listings" component={GetListings} />
+          <AuthRoute exact path="/listings/:id" component={ListingView} />
           <AuthRoute exact path="/createListing" component={CreateListing}/>
           <Route exacth path="/signout" component={signout}/>
         </Switch>

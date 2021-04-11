@@ -34,6 +34,13 @@ class HouseItem extends React.Component {
         <Link to={"/edit/" +this.props.house.houseID} variant="contained" color="secondary">
             Edit
         </Link>
+        <Link
+          to={"/open_houses/" + this.props.house.houseID}
+          variant="contained"
+          color="secondary"
+        >
+          View Open House
+        </Link>
       </li>
     );
   }

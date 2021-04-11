@@ -2,7 +2,6 @@ import React from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
-import TodoView from "./TodoView";
 
 class TodoItem extends React.Component {
   // Set up Constructor and Delete Reference
@@ -44,13 +43,7 @@ class TodoItem extends React.Component {
         >
           Edit
         </Link>
-        <Link
-          to={"/todos/" + this.props.todo.todoID}
-          variant="contained"
-          color="secondary"
-        >
-          View Todo
-        </Link>
+        <Button style={{backgroundColor:"Green"}}>Check as Done</Button>
       </li>
     );
   }

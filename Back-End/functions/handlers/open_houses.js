@@ -96,7 +96,7 @@ exports.getHouse = (req, res) => {
         .get();
     })
     .then((data) => {
-      return res.json(houseID);
+      return res.json(houseData);
     })
     .catch((err) => {
       console.error(err);

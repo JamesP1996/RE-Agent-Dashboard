@@ -51,6 +51,13 @@ class ListingItem extends React.Component {
         >
           Edit
         </Link>
+        <Link
+          to={"/listings/" + this.props.listing.listingID}
+          variant="contained"
+          color="secondary"
+        >
+          View Listing
+        </Link>
       </li>
     );
   }

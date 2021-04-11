@@ -98,7 +98,7 @@ exports.getListing = (req, res) => {
         .get();
     })
     .then((data) => {
-      return res.json(listingID);
+      return res.json(listingData);
     })
     .catch((err) => {
       console.error(err);
@@ -194,7 +194,7 @@ exports.uploadListingImage = (req, res) => {
     if (mimetype !== "image/jpeg" && mimetype !== "image/png") {
       return res
         .status(400)
-        .json({ error: "Wrong File Type Uploaded!\nOnly Accepts PNG/JPEG" });
+        .json({ error: "Wrong File Type Uploaded! -- Only Accepts PNG/JPEG/JPG" });
     }
     const imageExtension = filename.split(".")[filename.split(".").length - 1];
 
@@ -221,7 +221,7 @@ exports.uploadListingImage = (req, res) => {
       .then(() => {
         const imageUrl = `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${imageFileName}?alt=media&token=${generatedToken}`;
         return db
-          .doc(`/listings/${req.body.listingID}`)
+          .doc(`/listings/${req.params.listingID}`)
           .update({ imageUrl });
       })
       .then(() => {
@@ -236,3 +236,4 @@ exports.uploadListingImage = (req, res) => {
   });
   busboy.end(req.rawBody);
 };
+
