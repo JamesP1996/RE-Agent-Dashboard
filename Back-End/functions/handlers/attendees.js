@@ -61,31 +61,6 @@ exports.postAttendee = (req, res) => {
     });
     return null;
 };
-
-exports.getAttendee = (req, res) => {
-  let attendeeData = {};
-  db.doc(`/attendees/${req.params.attendeeID}`)
-    .get()
-    .then((doc) => {
-      if (!doc.exists) {
-        return res.status(404).json({ error: "Attendee not found" });
-      }
-      attendeeData = doc.data();
-      attendeeData.attendeeID = doc.attendeeID;
-      return db
-        .collection("attendees")
-        .where("attendeeID", "==", req.params.attendeeID)
-        .get();
-    })
-    .then((data) => {
-      return res.json(attendeeID);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).json({ error: err.code });
-    });
-};
-
 exports.deleteAttendee = (req, res) => {
   const document = db.doc(`/attendees/${req.params.attendeeID}`);
   document

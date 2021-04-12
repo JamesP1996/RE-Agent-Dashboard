@@ -1,0 +1,172 @@
+import React from "react";
+import withStyles from "@material-ui/core/styles/withStyles";
+import PropTypes from "prop-types";
+import axios from "axios";
+
+// Material UI Imports
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import CircularProgress from "@material-ui/core/CircularProgress";
+
+// Material UI Styles
+const styles = {
+    form: {
+      textAlign: "center",
+    },
+    pageTitle: {
+      margin: "10px auto 10px auto",
+    },
+    textField: {
+      margin: "10px auto 10px auto",
+    },
+    button: {
+      marginTop: 20,
+      position: "relative",
+    },
+    customError: {
+      color: "red",
+      fontSize: "0.8rem",
+      marginTop: "10px",
+    },
+    progress: {
+      position: "absolute",
+    },
+  };
+  // attendeeID: req.body.attendeeID,
+  // full_Name: req.body.full_Name,
+  // number: req.body.number,
+  // email: req.body.email,
+  // contacted: req.body.contacted,
+  // interested: req.body.interested,
+
+  // houseID: req.params.houseID,
+  // userHandle: req.user.handle,
+  // createdAt: new Date().toISOString(),
+class CreateAttendee extends React.Component
+{
+    constructor() {
+        super();
+        this.state = {
+          full_name: "",
+          number: "",
+          email: "",
+          contacted: false,
+          interested: false,
+          loading: false,
+          errors: {},
+        };
+      }
+
+      handleSubmit = (event) => {
+        event.preventDefault();
+        this.setState({
+          loading: true,
+        });
+        const newAttendee = {
+          full_name: this.state.full_name,
+          number: this.state.number,
+          email: this.state.email,
+          contacted: this.state.contacted,
+          interesed: this.state.interested
+        };
+        axios
+          .post("/attendees/", newAttendee)
+          .then((res) => {
+            console.log(res.data);
+            this.setState({
+              loading: false,
+            });
+            this.props.history.push(`/attendees/${houseID}`);
+          })
+          .catch((err) => {
+            this.setState({
+              errors: err.response.data,
+              loading: false,
+            });
+          });
+      };
+
+      handleChange = (event) => {
+        this.setState({
+          [event.target.name]: event.target.value,
+        });
+      };
+
+      render() {
+        const { classes } = this.props;
+        const { errors, loading } = this.state;
+        return (
+          <Grid container className={classes.form}>
+            <Grid item sm />
+            <Grid item sm>
+              <Typography variant="h2" className={classes.pageTitle}>
+                Create a Attendee
+              </Typography>
+              <form noValidate onSubmit={this.handleSubmit}>
+                <TextField
+                  id="full_name"
+                  name="full_name"
+                  type="text"
+                  label="Full Name of Attendee"
+                  className={classes.textField}
+                  helperText={errors.full_name}
+                  error={errors.full_name ? true : false}
+                  value={this.state.full_name}
+                  onChange={this.handleChange}
+                />
+                <TextField
+                  id="number"
+                  name="number"
+                  type="text"
+                  label="Phone Number"
+                  className={classes.textField}
+                  helperText={errors.number}
+                  error={errors.number ? true : false}
+                  value={this.state.number}
+                  onChange={this.handleChange}
+                />
+                <TextField
+                  id="email"
+                  name="email"
+                  type="text"
+                  label="Email Address"
+                  className={classes.textField}
+                  helperText={errors.email}
+                  error={errors.email ? true : false}
+                  value={this.state.email}
+                  onChange={this.handleChange}
+                />
+                <br></br>
+                {errors.error && (
+                  <Typography variant="body2" className={classes.customError}>
+                    Please Signup/Login to Create Attendees
+                  </Typography>
+                )}
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                  disabled={loading}
+                >
+                  Create Attendee
+                  {loading && (
+                    <CircularProgress size={30} className={classes.progress} />
+                  )}
+                </Button>
+              </form>
+            </Grid>
+            <Grid item sm />
+          </Grid>
+        );
+      }
+
+
+      
+}
+CreateAttendee.propTypes = {
+    classes: PropTypes.object.isRequired,
+  };
+  export default withStyles(styles)(CreateAttendee);

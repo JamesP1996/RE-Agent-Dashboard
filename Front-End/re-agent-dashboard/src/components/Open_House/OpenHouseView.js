@@ -103,6 +103,12 @@ function OpenHouseView() {
         <p>Lot Size Sqft:{house.sqft_Lot}</p>
         <p>Sqft:{house.sqft}</p>
         <p>Attendees:{house.attendees}</p>
+        <Button
+            component={Link}
+            to={`/attendees/${house.houseID}`}
+            variant="contained"
+            color="primary"
+          >See Attendees</Button>
       </div>
       <div>
         <Button variant="outlined" color="primary" onClick={handleClickOpen}>

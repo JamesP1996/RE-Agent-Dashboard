@@ -95,10 +95,9 @@ app.put("/open_houses/:houseID", FBAuth, updateHouse);
 app.put("/open_houses/image/:houseID", FBAuth, uploadHouseImage);
 
 // -- ATTENDEES ROUTES --
-app.get("/attendees", FBAuth, getAllAttendees);
-app.get("/attendees/:attendeeID", getAttendee);
+app.get("/attendees/:houseID", FBAuth, getAllAttendees);
 app.delete("/attendees/:attendeeID", FBAuth, deleteAttendee);
-app.post("/attendees", FBAuth, postAttendee);
+app.post("/attendees:houseID", FBAuth, postAttendee);
 app.put("/attendees/:attendeeID", FBAuth, updateAttendee);
 
 // --USER ROUTES--
