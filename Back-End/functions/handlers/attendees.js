@@ -5,6 +5,7 @@ const { db } = require("../utilities/admin");
 exports.getAllAttendees = (req, res) => {
   db.collection("attendees")
     .orderBy("createdAt", "desc")
+    .where('houseID', '==', req.params.houseID)
     .get()
     .then((data) => {
       let attendees = [];
@@ -43,7 +44,7 @@ exports.postAttendee = (req, res) => {
     contacted: req.body.contacted,
     interested: req.body.interested,
 
-    houseID: req.body.houseID,
+    houseID: req.params.houseID,
     userHandle: req.user.handle,
     createdAt: new Date().toISOString(),
   };
@@ -129,7 +130,7 @@ exports.updateAttendee = (req, res) => {
           contacted: req.body.contacted,
           interested: req.body.interested,
           
-          houseID: req.body.houseID,
+          houseID: req.params.houseID,
           userHandle: req.user.handle,
           createdAt: new Date().toISOString(),
         })
