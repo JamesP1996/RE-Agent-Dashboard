@@ -32,17 +32,12 @@ exports.getAllAttendees = (req, res) => {
 };
 
 exports.postAttendee = (req, res) => {
-  if (req.body.Description.trim() === "") {
-    return res.status(400).json({ body: "Body must not be empty" });
-  }
-
   const newAttendee = {
-    attendeeID: req.body.attendeeID,
     full_Name: req.body.full_Name,
     number: req.body.number,
     email: req.body.email,
-    contacted: req.body.contacted,
-    interested: req.body.interested,
+    contacted: false,
+    interested: false,
 
     houseID: req.params.houseID,
     userHandle: req.user.handle,

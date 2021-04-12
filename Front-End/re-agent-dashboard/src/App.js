@@ -34,6 +34,9 @@ import OpenHouseView from "./components/Open_House/OpenHouseView";
 import GetListings from "./components/Listings/GetListings";
 import CreateListing from "./components/Listings/CreateListing";
 import ListingView from "./components/Listings/ListingView";
+// Attendees Routes
+import GetAttendees from "./components/Attendees/GetAttendees";
+import CreateAttendee from "./components/Attendees/CreateAttendee";
 
 // Token Handling
 let authenticated;
@@ -96,6 +99,8 @@ function App() {
           <Route exact path="/listings" component={GetListings} />
           <AuthRoute exact path="/listings/:id" component={ListingView} />
           <AuthRoute exact path="/createListing" component={CreateListing}/>
+          <Route exact path="/attendees/:houseID" component={GetAttendees}/>
+          <AuthRoute exact path="/createAttendee/:houseID" component={CreateListing}/>
           <Route exacth path="/signout" component={signout}/>
         </Switch>
       </Router>
