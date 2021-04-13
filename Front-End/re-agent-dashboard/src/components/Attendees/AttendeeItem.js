@@ -21,7 +21,7 @@ class AttendeeItem extends React.Component {
   render() {
     return (
       <li style={{border: "3px solid #000000"}}>
-        <b>{this.props.attendees.full_Name}</b>
+        <b>{this.props.attendee.full_Name}</b>
         <b>Phone: {this.props.attendee.number}</b>
         <b>Email: {this.props.attendee.email}</b>
         <br />

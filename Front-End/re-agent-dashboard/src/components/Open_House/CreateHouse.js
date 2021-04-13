@@ -68,7 +68,6 @@ class CreateHouse extends React.Component
             date: this.state.date,
             sellers_Names: this.state.sellers_Names,
             price: this.state.price,
-            attendees: this.state.attendees,
             imageUrl: this.state.imageUrl
         };
 

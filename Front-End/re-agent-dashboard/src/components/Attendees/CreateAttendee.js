@@ -49,7 +49,7 @@ class CreateAttendee extends React.Component
     constructor() {
         super();
         this.state = {
-          full_name: "",
+          full_Name: "",
           number: "",
           email: "",
           contacted: false,
@@ -65,24 +65,24 @@ class CreateAttendee extends React.Component
           loading: true,
         });
         const newAttendee = {
-          full_name: this.state.full_name,
+          full_Name: this.state.full_Name,
           number: this.state.number,
           email: this.state.email,
           contacted: this.state.contacted,
           interesed: this.state.interested
         };
         axios
-          .post("/attendees/", newAttendee)
+          .post(`/attendees/${this.props.match.params.houseID}`, newAttendee)
           .then((res) => {
             console.log(res.data);
             this.setState({
               loading: false,
             });
-            this.props.history.push(`/attendees/${houseID}`);
+            this.props.history.push(`/attendees/${this.props.match.params.houseID}`);
           })
           .catch((err) => {
             this.setState({
-              errors: err.response.data,
+              errors: err,
               loading: false,
             });
           });
@@ -106,14 +106,14 @@ class CreateAttendee extends React.Component
               </Typography>
               <form noValidate onSubmit={this.handleSubmit}>
                 <TextField
-                  id="full_name"
-                  name="full_name"
+                  id="full_Name"
+                  name="full_Name"
                   type="text"
                   label="Full Name of Attendee"
                   className={classes.textField}
-                  helperText={errors.full_name}
-                  error={errors.full_name ? true : false}
-                  value={this.state.full_name}
+                  helperText={errors.full_Name}
+                  error={errors.full_Name ? true : false}
+                  value={this.state.full_Name}
                   onChange={this.handleChange}
                 />
                 <TextField

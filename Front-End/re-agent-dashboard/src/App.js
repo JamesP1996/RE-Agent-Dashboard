@@ -100,7 +100,7 @@ function App() {
           <AuthRoute exact path="/listings/:id" component={ListingView} />
           <AuthRoute exact path="/createListing" component={CreateListing}/>
           <Route exact path="/attendees/:houseID" component={GetAttendees}/>
-          <AuthRoute exact path="/createAttendee/:houseID" component={CreateListing}/>
+          <AuthRoute exact path="/createAttendee/:houseID" component={CreateAttendee}/>
           <Route exacth path="/signout" component={signout}/>
         </Switch>
       </Router>

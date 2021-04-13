@@ -26,7 +26,6 @@ exports.getAllHouses = (req, res) => {
             date: doc.data().date,
             sellers_Names: doc.data().sellers_Names,
             price: doc.data().price,
-            attendees: doc.data().attendees,
 
             userHandle: doc.data().userHandle,
             createdAt: doc.data().createdAt,
@@ -53,7 +52,6 @@ exports.postNewHouse = (req, res) => {
     date: req.body.date,
     sellers_Names: req.body.sellers_Names,
     price: req.body.price,
-    attendees: req.body.attendees,
     imageUrl: `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${noImg}?alt=media`,
     userHandle: req.user.handle,
     createdAt: new Date().toISOString(),
@@ -147,7 +145,6 @@ exports.updateHouse = (req, res) => {
           date: req.body.date,
           sellers_Names: req.body.sellers_Names,
           price: req.body.price,
-          attendees: req.body.attendees,
 
           userHandle: req.user.handle,
           createdAt: new Date().toISOString(),

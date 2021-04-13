@@ -10,6 +10,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Button from "@material-ui/core/Button";
 import { useParams } from "react-router";
+import {Link} from "react-router-dom";
 function OpenHouseView() {
   const [house, setHouse] = useState({});
   const [open, setOpen] = React.useState(false);
@@ -63,10 +64,10 @@ function OpenHouseView() {
   }
 
 
-  const dateParsed = () => {
-    const date = new Date(house.createdAt).toLocaleString();
-    return date;
-  };
+  // const dateParsed = () => {
+  //   const date = new Date(house.createdAt).toLocaleString();
+  //   return date;
+  // };
   
   useEffect(() => {
     getData();
@@ -102,10 +103,9 @@ function OpenHouseView() {
         <p>Date of Open_House{house.date}</p>
         <p>Lot Size Sqft:{house.sqft_Lot}</p>
         <p>Sqft:{house.sqft}</p>
-        <p>Attendees:{house.attendees}</p>
         <Button
             component={Link}
-            to={`/attendees/${house.houseID}`}
+            to={`/attendees/${props.id}`}
             variant="contained"
             color="primary"
           >See Attendees</Button>
