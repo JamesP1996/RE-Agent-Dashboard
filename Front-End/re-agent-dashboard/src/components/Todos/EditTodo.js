@@ -35,16 +35,30 @@ const styles = {
     },
   };
 
-class CreateNote extends React.Component
+class EditTodo extends React.Component
 {
     constructor() {
         super();
         this.state = {
-          title: "",
-          description: "",
+          Title: "",
+          Description: "",
           loading: false,
           errors: {},
         };
+      }
+
+      
+      componentDidMount() {
+        console.log(this.props.match.params.todoID);
+        axios
+          .get("/todos/"+this.props.match.params.todoID)
+          .then((response) => {
+            this.setState({ Title: response.data.Title,
+                            Description: response.data.Description });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       }
 
       handleSubmit = (event) => {
@@ -52,18 +66,19 @@ class CreateNote extends React.Component
         this.setState({
           loading: true,
         });
-        const newNote = {
-          title: this.state.title,
-          description: this.state.description,
+        const EditedTodo = {
+          Title: this.state.Title,
+          Description: this.state.Description,
+          Checked: "Unchecked"
         };
         axios
-          .post("/notes", newNote)
+          .put("/todos/"+this.props.match.params.todoID, EditedTodo)
           .then((res) => {
             console.log(res.data);
             this.setState({
               loading: false,
             });
-            this.props.history.push("/notes");
+            this.props.history.push("/todos");
           })
           .catch((err) => {
             this.setState({
@@ -87,39 +102,38 @@ class CreateNote extends React.Component
             <Grid item sm />
             <Grid item sm>
               <Typography variant="h2" className={classes.pageTitle}>
-                Create a Note
+                Edit a Todo
               </Typography>
               <form noValidate onSubmit={this.handleSubmit}>
                 <TextField
-                  id="title"
-                  name="title"
+                  id="Title"
+                  name="Title"
                   type="text"
                   label="Title"
                   className={classes.textField}
-                  helperText={errors.title}
-                  error={errors.title ? true : false}
-                  value={this.state.title}
+                  helperText={errors.Title}
+                  error={errors.Title ? true : false}
+                  value={this.state.Title}
                   onChange={this.handleChange}
-                  fullWidth
                 />
                 <TextField
-                  id="description"
-                  name="description"
+                  id="Description"
+                  name="Description"
                   type="text"
                   label="Description"
                   className={classes.textField}
-                  helperText={errors.description}
-                  error={errors.description ? true : false}
-                  value={this.state.description}
+                  helperText={errors.Description}
+                  error={errors.Description ? true : false}
+                  value={this.state.Description}
                   onChange={this.handleChange}
+                  fullWidth
                   multiline={true}
                   rows={5}
-                  fullWidth
                 />
                 <br></br>
                 {errors.error && (
                   <Typography variant="body2" className={classes.customError}>
-                    Please Signup/Login to Create Notes
+                    Please Signup/Login to Create a Todo
                   </Typography>
                 )}
                 <Button
@@ -129,7 +143,7 @@ class CreateNote extends React.Component
                   className={classes.button}
                   disabled={loading}
                 >
-                  Create Note
+                  Submit
                   {loading && (
                     <CircularProgress size={30} className={classes.progress} />
                   )}
@@ -141,10 +155,9 @@ class CreateNote extends React.Component
         );
       }
 
-
       
 }
-CreateNote.propTypes = {
+EditTodo.propTypes = {
     classes: PropTypes.object.isRequired,
   };
-  export default withStyles(styles)(CreateNote);
+  export default withStyles(styles)(EditTodo);

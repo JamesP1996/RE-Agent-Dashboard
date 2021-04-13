@@ -24,7 +24,7 @@ class TodoItem extends React.Component {
         <b>{this.props.todo.Title}</b>
         <br />
         <p>
-          {this.props.todo.Description} by -- {this.props.todo.userHandle}
+          {this.props.todo.Description}
         </p>
         <b>{this.props.todo.Checked}</b>
         <br></br>
@@ -37,7 +37,7 @@ class TodoItem extends React.Component {
           Delete
         </Button>
         <Link
-          to={"/edit/" + this.props.todo.todoID}
+          to={"/todos/edit/" + this.props.todo.todoID}
           variant="contained"
           color="secondary"
         >

@@ -23,6 +23,7 @@ import CreateNote from "./components/Notes/CreateNote";
 // Todo Routes
 import GetTodos from "./components/Todos/GetTodos";
 import CreateTodo from "./components/Todos/CreateTodo";
+import EditTodo from "./components/Todos/EditTodo";
 // Calendar Routes
 import GetCalendar from "./components/Calendars/GetCalendar";
 import CreateCalendar from "./components/Calendars/CreateCalendar";
@@ -37,6 +38,7 @@ import ListingView from "./components/Listings/ListingView";
 // Attendees Routes
 import GetAttendees from "./components/Attendees/GetAttendees";
 import CreateAttendee from "./components/Attendees/CreateAttendee";
+import EditNote from "./components/Notes/EditNote";
 
 // Token Handling
 let authenticated;
@@ -74,6 +76,8 @@ function App() {
       <Router>
         <Navbar />
         <Switch>
+
+          {/* User Routes */}
           <AuthRoute
             exact
             path="/login"
@@ -86,22 +90,39 @@ function App() {
             component={signup}
             authenticated={authenticated}
           />
+           <Route exacth path="/signout" component={signout}/>
+          {/* Home Page */}
           <Route exact path="/" component={home} />
+
+          {/* Note Routes */}
           <Route exact path="/notes" component={GetNotes} />
           <AuthRoute exact path ="/createNote" component={CreateNote}/>
+          <AuthRoute exact path ="/notes/edit/:noteID" component={EditNote}/>
+
+           {/* Todo Routes */}
           <Route exact path="/todos" component={GetTodos} />
           <AuthRoute exact path ="/createTodo" component={CreateTodo}/>
+          <AuthRoute exact path ="/todos/edit/:todoID" component={EditTodo}/>
+
+           {/* Calendar Routes */}
           <Route exact path="/calendars" component={GetCalendar} />
           <AuthRoute exact path ="/createCalendar" component={CreateCalendar}/>
+
+           {/* Open House Routes */}
           <Route exact path="/open_houses" component={GetHouses} />
           <AuthRoute exact path="/open_houses/:id" component={OpenHouseView}/>
           <AuthRoute exact path="/createHouse" component={CreateHouse}/>
+
+           {/* Listing Routes */}
           <Route exact path="/listings" component={GetListings} />
           <AuthRoute exact path="/listings/:id" component={ListingView} />
           <AuthRoute exact path="/createListing" component={CreateListing}/>
+
+           {/* Atteendee Routes */}
           <Route exact path="/attendees/:houseID" component={GetAttendees}/>
           <AuthRoute exact path="/createAttendee/:houseID" component={CreateAttendee}/>
-          <Route exacth path="/signout" component={signout}/>
+
+         
         </Switch>
       </Router>
     </div>

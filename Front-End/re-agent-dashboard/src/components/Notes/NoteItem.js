@@ -29,7 +29,7 @@ class NoteItem extends React.Component {
         <Button variant="contained" color="secondary" onClick={this.DeleteNote}>
           Delete
         </Button>
-        <Link to={"/edit/" +this.props.note.noteID} variant="contained" color="secondary">
+        <Link to={"/notes/edit/" +this.props.note.noteID} variant="contained" color="secondary">
             Edit
         </Link>
       </li>
