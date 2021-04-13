@@ -31,6 +31,31 @@ exports.getAllAttendees = (req, res) => {
     .catch((err) => console.error(err));
 };
 
+exports.getAttendeeDetails = (req, res) => {
+  let attendeeData = {};
+  console.log("function attendee is running")
+  db.doc(`/attendees/${req.params.attendeeID}`)
+    .get()
+    .then((doc) => {
+      if (!doc.exists) {
+        return res.status(404).json({ error: "Attendee not found" });
+      }
+      attendeeData = doc.data();
+      attendeeData.attendeeID = doc.attendeeID;
+      return db
+        .collection("attendees")
+        .where("attendeeID", "==", req.params.attendeeID)
+        .get();
+    })
+    .then((data) => {
+      return res.json(attendeeData);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({ error: err.code });
+    });
+};
+
 exports.postAttendee = (req, res) => {
   const newAttendee = {
     full_Name: req.body.full_Name,
@@ -93,14 +118,13 @@ exports.updateAttendee = (req, res) => {
     } else {
       document
         .set({
-          attendeeID: req.body.attendeeID,
           full_Name: req.body.full_Name,
           number: req.body.number,
           email: req.body.email,
           contacted: req.body.contacted,
           interested: req.body.interested,
           
-          houseID: req.params.houseID,
+          houseID: req.body.houseID,
           userHandle: req.user.handle,
           createdAt: new Date().toISOString(),
         })

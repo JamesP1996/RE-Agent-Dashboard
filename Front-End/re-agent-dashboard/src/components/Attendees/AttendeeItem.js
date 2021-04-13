@@ -31,7 +31,7 @@ class AttendeeItem extends React.Component {
         <Button variant="contained" color="secondary" onClick={this.DeleteAttendee}>
           Delete
         </Button>
-        <Link to={"/edit/" +this.props.attendee.attendeeID} variant="contained" color="secondary">
+        <Link to={"/attendees/edit/" +this.props.attendee.attendeeID} variant="contained" color="secondary">
             Edit
         </Link>
       </li>

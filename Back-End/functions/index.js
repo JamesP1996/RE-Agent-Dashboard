@@ -44,7 +44,7 @@ const {
 const {
   getAllAttendees,
   postAttendee,
-  getAttendee,
+  getAttendeeDetails,
   deleteAttendee,
   updateAttendee,
 } = require("./handlers/attendees");
@@ -96,6 +96,7 @@ app.put("/open_houses/image/:houseID", FBAuth, uploadHouseImage);
 
 // -- ATTENDEES ROUTES --
 app.get("/attendees/:houseID", FBAuth, getAllAttendees);
+app.get("/attendee/:attendeeID", FBAuth, getAttendeeDetails);
 app.delete("/attendees/:attendeeID", FBAuth, deleteAttendee);
 app.post("/attendees/:houseID", FBAuth, postAttendee);
 app.put("/attendees/:attendeeID", FBAuth, updateAttendee);
