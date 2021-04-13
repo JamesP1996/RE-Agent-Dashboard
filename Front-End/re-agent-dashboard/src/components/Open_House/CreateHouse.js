@@ -47,7 +47,6 @@ class CreateHouse extends React.Component
             date: "",
             sellers_Names: "",
             price: "",
-            attendees: "",
             imageUrl: "",
 
           loading: false,
@@ -149,6 +148,8 @@ class CreateHouse extends React.Component
                   error={errors.address ? true : false}
                   value={this.state.address}
                   onChange={this.handleChange}
+                  fullWidth={true}
+                  rows={5}
                 />
                 <TextField
                   id="date"
@@ -180,17 +181,6 @@ class CreateHouse extends React.Component
                   helperText={errors.price}
                   error={errors.price ? true : false}
                   value={this.state.price}
-                  onChange={this.handleChange}
-                />
-                <TextField
-                  id="attendees"
-                  name="attendees"
-                  type="text"
-                  label="Number of Attendees"
-                  className={classes.textField}
-                  helperText={errors.attendees}
-                  error={errors.attendees ? true : false}
-                  value={this.state.attendees}
                   onChange={this.handleChange}
                 />
                 <br></br>

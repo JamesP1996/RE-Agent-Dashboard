@@ -31,7 +31,7 @@ class HouseItem extends React.Component {
         <Button variant="contained" color="secondary" onClick={this.DeleteHouse}>
           Delete
         </Button>
-        <Link to={"/edit/" +this.props.house.houseID} variant="contained" color="secondary">
+        <Link to={"/open_houses/edit/" +this.props.house.houseID} variant="contained" color="secondary">
             Edit
         </Link>
         <Link

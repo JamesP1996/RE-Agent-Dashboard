@@ -6,7 +6,7 @@ import axios from "axios";
 
 // Utilities
 // Route for Grabbing User ID and Ensuring User has a Token
-import AuthRoute from "./util/AuthRoute"; 
+import AuthRoute from "./util/AuthRoute";
 import Navbar from "./components/Navbar/navbar";
 
 // User Routes
@@ -20,6 +20,7 @@ import home from "./pages/home";
 // Notes Routes
 import GetNotes from "./components/Notes/GetNotes";
 import CreateNote from "./components/Notes/CreateNote";
+import EditNote from "./components/Notes/EditNote";
 // Todo Routes
 import GetTodos from "./components/Todos/GetTodos";
 import CreateTodo from "./components/Todos/CreateTodo";
@@ -31,6 +32,7 @@ import CreateCalendar from "./components/Calendars/CreateCalendar";
 import GetHouses from "./components/Open_House/GetHouses";
 import CreateHouse from "./components/Open_House/CreateHouse";
 import OpenHouseView from "./components/Open_House/OpenHouseView";
+import EditOpenHouse from "./components/Open_House/EditOpenHouse";
 // Listing Routes
 import GetListings from "./components/Listings/GetListings";
 import CreateListing from "./components/Listings/CreateListing";
@@ -38,7 +40,7 @@ import ListingView from "./components/Listings/ListingView";
 // Attendees Routes
 import GetAttendees from "./components/Attendees/GetAttendees";
 import CreateAttendee from "./components/Attendees/CreateAttendee";
-import EditNote from "./components/Notes/EditNote";
+
 import EditAttendee from "./components/Attendees/EditAttendee";
 
 // Token Handling
@@ -57,27 +59,27 @@ if (token) {
 }
 
 const signout = () => {
-  try{
+  try {
     localStorage.clear();
-    authenticated=false;
+    authenticated = false;
     axios.defaults.headers.common["Authorization"] = null;
-  }catch(err){console.log(err);}
+  } catch (err) {
+    console.log(err);
+  }
   window.location.replace("/login");
   return null;
-}
-
+};
 
 function App() {
   return (
     <div className="App">
-       <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, user-scalable=0, maximum-scale=1, minimum-scale=1"
-        />
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, user-scalable=0, maximum-scale=1, minimum-scale=1"
+      />
       <Router>
         <Navbar />
         <Switch>
-
           {/* User Routes */}
           <AuthRoute
             exact
@@ -91,40 +93,50 @@ function App() {
             component={signup}
             authenticated={authenticated}
           />
-           <Route exacth path="/signout" component={signout}/>
+          <Route exacth path="/signout" component={signout} />
           {/* Home Page */}
           <Route exact path="/" component={home} />
 
           {/* Note Routes */}
           <Route exact path="/notes" component={GetNotes} />
-          <AuthRoute exact path ="/createNote" component={CreateNote}/>
-          <AuthRoute exact path ="/notes/edit/:noteID" component={EditNote}/>
+          <AuthRoute exact path="/createNote" component={CreateNote} />
+          <AuthRoute exact path="/notes/edit/:noteID" component={EditNote} />
 
-           {/* Todo Routes */}
+          {/* Todo Routes */}
           <Route exact path="/todos" component={GetTodos} />
-          <AuthRoute exact path ="/createTodo" component={CreateTodo}/>
-          <AuthRoute exact path ="/todos/edit/:todoID" component={EditTodo}/>
+          <AuthRoute exact path="/createTodo" component={CreateTodo} />
+          <AuthRoute exact path="/todos/edit/:todoID" component={EditTodo} />
 
-           {/* Calendar Routes */}
+          {/* Calendar Routes */}
           <Route exact path="/calendars" component={GetCalendar} />
-          <AuthRoute exact path ="/createCalendar" component={CreateCalendar}/>
+          <AuthRoute exact path="/createCalendar" component={CreateCalendar} />
 
-           {/* Open House Routes */}
+          {/* Open House Routes */}
           <Route exact path="/open_houses" component={GetHouses} />
-          <AuthRoute exact path="/open_houses/:id" component={OpenHouseView}/>
-          <AuthRoute exact path="/createHouse" component={CreateHouse}/>
-
-           {/* Listing Routes */}
+          <AuthRoute exact path="/open_houses/:id" component={OpenHouseView} />
+          <AuthRoute exact path="/createHouse" component={CreateHouse} />
+          <AuthRoute
+            exact
+            path="/open_houses/edit/:id"
+            component={EditOpenHouse}
+          />
+          {/* Listing Routes */}
           <Route exact path="/listings" component={GetListings} />
           <AuthRoute exact path="/listings/:id" component={ListingView} />
-          <AuthRoute exact path="/createListing" component={CreateListing}/>
+          <AuthRoute exact path="/createListing" component={CreateListing} />
 
-           {/* Atteendee Routes */}
-          <Route exact path="/attendees/:houseID" component={GetAttendees}/>
-          <AuthRoute exact path="/createAttendee/:houseID" component={CreateAttendee}/>
-          <AuthRoute exact path ="/attendees/edit/:attendeeID" component={EditAttendee}/>
-
-         
+          {/* Atteendee Routes */}
+          <Route exact path="/attendees/:houseID" component={GetAttendees} />
+          <AuthRoute
+            exact
+            path="/createAttendee/:houseID"
+            component={CreateAttendee}
+          />
+          <AuthRoute
+            exact
+            path="/attendees/edit/:attendeeID"
+            component={EditAttendee}
+          />
         </Switch>
       </Router>
     </div>

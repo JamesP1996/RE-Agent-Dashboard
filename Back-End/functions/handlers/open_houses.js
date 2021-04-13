@@ -137,7 +137,6 @@ exports.updateHouse = (req, res) => {
     } else {
       document
         .set({
-          houseID: req.body.houseID,
           property_Name: req.body.property_Name,
           sqft: req.body.sqft,
           sqft_Lot: req.body.sqft_Lot,
@@ -148,6 +147,8 @@ exports.updateHouse = (req, res) => {
 
           userHandle: req.user.handle,
           createdAt: new Date().toISOString(),
+          imageUrl: req.body.imageUrl
+
         })
         .then(() => {
           res.json("House updated Successfully");
