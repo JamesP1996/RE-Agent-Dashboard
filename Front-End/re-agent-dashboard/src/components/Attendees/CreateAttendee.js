@@ -82,7 +82,7 @@ class CreateAttendee extends React.Component
           })
           .catch((err) => {
             this.setState({
-              errors: err,
+              errors: err.response.data,
               loading: false,
             });
           });

@@ -104,3 +104,16 @@ exports.validateOpenHouseData = (data) => {
     valid: Object.keys(errors).length === 0 ? true : false,
   };
 }
+
+exports.validateAttendeeData = (data) => {
+  let errors = {};
+
+  if (isEmpty(data.full_Name)) errors.full_Name = "Please Enter Attendee Name";
+  if (isEmpty(data.email) || isEmail(data.email) === false) errors.email = "Email Not Valid / Empty";
+  if (isEmpty(data.number)) errors.number = "Please Enter Phone Number";
+
+  return {
+    errors,
+    valid: Object.keys(errors).length === 0 ? true : false,
+  };
+}

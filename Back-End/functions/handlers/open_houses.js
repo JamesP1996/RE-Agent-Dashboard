@@ -7,6 +7,7 @@ const { db, admin } = require("../utilities/admin");
 
 const config = require("../utilities/config");
 const { v4: uuid } = require("uuid");
+const {validateOpenHouseData} = require("../utilities/validators");
 
 exports.getAllHouses = (req, res) => {
   db.collection("open_houses")
@@ -40,9 +41,6 @@ exports.getAllHouses = (req, res) => {
 };
 
 exports.postNewHouse = (req, res) => {
-  if (req.body.property_Name === "") {
-    return res.status(400).json({ body: "Body must not be empty" });
-  }
   const noImg = "no-house-img.png";
   const newHouse = {
     property_Name: req.body.property_Name,
@@ -56,7 +54,8 @@ exports.postNewHouse = (req, res) => {
     userHandle: req.user.handle,
     createdAt: new Date().toISOString(),
   };
-
+  const { valid, errors } = validateOpenHouseData(newHouse);
+  if (!valid) return res.status(400).json(errors);
   db.collection("open_houses")
     .add(newHouse)
     .then((doc) => {
@@ -128,6 +127,10 @@ exports.deleteHouse = (req, res) => {
 
 exports.updateHouse = (req, res) => {
   const document = db.doc(`/open_houses/${req.params.houseID}`);
+
+  const { valid, errors } = validateOpenHouseData(req.body);
+  if (!valid) return res.status(400).json(errors);
+
   document.get().then((doc) => {
     if (!doc.exists) {
       return res.status(404).json({ error: "House not found" });

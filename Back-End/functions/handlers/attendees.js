@@ -1,6 +1,8 @@
+/* eslint-disable consistent-return */
 /* eslint-disable promise/no-nesting */
 /* eslint-disable promise/always-return */
 const { db } = require("../utilities/admin");
+const {validateAttendeeData} = require("../utilities/validators");
 
 exports.getAllAttendees = (req, res) => {
   db.collection("attendees")
@@ -32,8 +34,8 @@ exports.getAllAttendees = (req, res) => {
 };
 
 exports.getAttendeeDetails = (req, res) => {
+
   let attendeeData = {};
-  console.log("function attendee is running")
   db.doc(`/attendees/${req.params.attendeeID}`)
     .get()
     .then((doc) => {
@@ -57,6 +59,7 @@ exports.getAttendeeDetails = (req, res) => {
 };
 
 exports.postAttendee = (req, res) => {
+
   const newAttendee = {
     full_Name: req.body.full_Name,
     number: req.body.number,
@@ -68,6 +71,9 @@ exports.postAttendee = (req, res) => {
     userHandle: req.user.handle,
     createdAt: new Date().toISOString(),
   };
+  
+  const { valid, errors } = validateAttendeeData(newAttendee);
+  if (!valid) return res.status(400).json(errors);
 
   db.collection("attendees")
     .add(newAttendee)
@@ -108,7 +114,10 @@ exports.deleteAttendee = (req, res) => {
 
 exports.updateAttendee = (req, res) => {
   const document = db.doc(`/attendees/${req.params.attendeeID}`);
-  // eslint-disable-next-line consistent-return
+
+  const { valid, errors } = validateAttendeeData(req.body);
+  if (!valid) return res.status(400).json(errors);
+
   document.get().then((doc) => {
     if (!doc.exists) {
       return res.status(404).json({ error: "Attendee not found" });
@@ -138,6 +147,7 @@ exports.updateAttendee = (req, res) => {
         });
     }
   }).catch((err)=>{
-    console.log(err);
+    return console.log(err);
   });
+  return false;
 };
