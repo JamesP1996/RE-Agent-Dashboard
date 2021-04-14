@@ -143,13 +143,12 @@ exports.updateListing = (req, res) => {
     } else {
       document
         .set({
-          listingID: req.body.listingID,
           owners: req.body.owners,
           sqft: req.body.sqft,
           sqft_Lot: req.body.sqft_Lot,
           address: req.body.address,
           price: req.body.price,
-
+      
           style: req.body.style,
           stories: req.body.stories,
           bedrooms: req.body.bedrooms,
@@ -159,7 +158,7 @@ exports.updateListing = (req, res) => {
           parking: req.body.parking,
           basement: req.body.basement,
           other_features: req.body.other_Features,
-
+          imageUrl: req.body.imageUrl,
           userHandle: req.user.handle,
           createdAt: new Date().toISOString(),
         })

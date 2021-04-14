@@ -45,7 +45,7 @@ class ListingItem extends React.Component {
           Delete
         </Button>
         <Link
-          to={"/edit/" + this.props.listing.listingID}
+          to={"/listings/edit/" + this.props.listing.listingID}
           variant="contained"
           color="secondary"
         >

@@ -96,7 +96,7 @@ function ListingView() {
         <p>{listing.heating}</p>
         <p>{listing.parking}</p>
         <p>{listing.basement}</p>
-        <p>{listing.other_Features}</p>
+        <b>Features : {listing.other_features}</b>
         <p>{dateParsed()}</p>
       </div>
       <div>

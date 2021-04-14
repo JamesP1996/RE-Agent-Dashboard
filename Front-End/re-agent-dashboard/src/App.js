@@ -42,6 +42,7 @@ import GetAttendees from "./components/Attendees/GetAttendees";
 import CreateAttendee from "./components/Attendees/CreateAttendee";
 
 import EditAttendee from "./components/Attendees/EditAttendee";
+import EditListing from "./components/Listings/EditListing";
 
 // Token Handling
 let authenticated;
@@ -124,6 +125,7 @@ function App() {
           <Route exact path="/listings" component={GetListings} />
           <AuthRoute exact path="/listings/:id" component={ListingView} />
           <AuthRoute exact path="/createListing" component={CreateListing} />
+          <AuthRoute exact path="/listings/edit/:id" component={EditListing} />
 
           {/* Atteendee Routes */}
           <Route exact path="/attendees/:houseID" component={GetAttendees} />
