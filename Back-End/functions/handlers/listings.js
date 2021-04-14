@@ -3,7 +3,8 @@
 const { db, admin } = require("../utilities/admin");
 
 const config = require("../utilities/config");
-const { v4: uuid } = require('uuid');
+const { v4: uuid } = require("uuid");
+const { validateListingData } = require("../utilities/validators");
 
 exports.getAllListings = (req, res) => {
   db.collection("listings")
@@ -13,29 +14,29 @@ exports.getAllListings = (req, res) => {
       let listings = [];
       data.forEach((doc) => {
         if (doc.data().userHandle === req.user.handle) {
-        listings.push({
-          listingID: doc.id,
-          owners: doc.data().owners,
-          sqft: doc.data().sqft,
-          sqft_Lot: doc.data().sqft_lot,
-          address: doc.data().address,
-          price: doc.data().price,
+          listings.push({
+            listingID: doc.id,
+            owners: doc.data().owners,
+            sqft: doc.data().sqft,
+            sqft_Lot: doc.data().sqft_lot,
+            address: doc.data().address,
+            price: doc.data().price,
 
-          style: doc.data().style,
-          stories: doc.data().stories,
-          bedrooms: doc.data().bedrooms,
-          bathrooms: doc.data().bathrooms,
-          cooling: doc.data().cooling,
-          heating: doc.data().heating,
-          parking: doc.data().parking,
-          basement: doc.data().basement,
-          other_Features: doc.data().other_features,
+            style: doc.data().style,
+            stories: doc.data().stories,
+            bedrooms: doc.data().bedrooms,
+            bathrooms: doc.data().bathrooms,
+            cooling: doc.data().cooling,
+            heating: doc.data().heating,
+            parking: doc.data().parking,
+            basement: doc.data().basement,
+            other_Features: doc.data().other_features,
 
-          userHandle: doc.data().userHandle,
-          createdAt: doc.data().createdAt,
-          imageUrl: doc.data().imageUrl,
-        });
-      }
+            userHandle: doc.data().userHandle,
+            createdAt: doc.data().createdAt,
+            imageUrl: doc.data().imageUrl,
+          });
+        }
       });
       return res.json(listings);
     })
@@ -43,9 +44,6 @@ exports.getAllListings = (req, res) => {
 };
 
 exports.postNewListing = (req, res) => {
-  if (req.body.owners.trim() === "") {
-    return res.status(400).json({ body: "Body must not be empty" });
-  }
   const noImg = "no-listing-img.png";
   const newListing = {
     owners: req.body.owners,
@@ -68,6 +66,9 @@ exports.postNewListing = (req, res) => {
     createdAt: new Date().toISOString(),
   };
 
+  const { valid, errors } = validateListingData(newListing);
+  if (!valid) return res.status(400).json(errors);
+
   db.collection("listings")
     .add(newListing)
     .then((doc) => {
@@ -79,7 +80,7 @@ exports.postNewListing = (req, res) => {
       console.log(err);
     });
 
-    return false;
+  return false;
 };
 
 exports.getListing = (req, res) => {
@@ -105,7 +106,7 @@ exports.getListing = (req, res) => {
       res.status(500).json({ error: err.code });
     });
 
-    return false;
+  return false;
 };
 
 exports.deleteListing = (req, res) => {
@@ -134,6 +135,9 @@ exports.deleteListing = (req, res) => {
 
 exports.updateListing = (req, res) => {
   const document = db.doc(`/listings/${req.params.listingID}`);
+
+  const { valid, errors } = validateListingData(req.body);
+  if (!valid) return res.status(400).json(errors);
   document.get().then((doc) => {
     if (!doc.exists) {
       return res.status(404).json({ error: "Listing not found" });
@@ -148,7 +152,7 @@ exports.updateListing = (req, res) => {
           sqft_Lot: req.body.sqft_Lot,
           address: req.body.address,
           price: req.body.price,
-      
+
           style: req.body.style,
           stories: req.body.stories,
           bedrooms: req.body.bedrooms,
@@ -173,6 +177,7 @@ exports.updateListing = (req, res) => {
     }
     return false;
   });
+  return false;
 };
 
 exports.uploadListingImage = (req, res) => {
@@ -193,7 +198,9 @@ exports.uploadListingImage = (req, res) => {
     if (mimetype !== "image/jpeg" && mimetype !== "image/png") {
       return res
         .status(400)
-        .json({ error: "Wrong File Type Uploaded! -- Only Accepts PNG/JPEG/JPG" });
+        .json({
+          error: "Wrong File Type Uploaded! -- Only Accepts PNG/JPEG/JPG",
+        });
     }
     const imageExtension = filename.split(".")[filename.split(".").length - 1];
 
@@ -219,9 +226,7 @@ exports.uploadListingImage = (req, res) => {
       })
       .then(() => {
         const imageUrl = `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${imageFileName}?alt=media&token=${generatedToken}`;
-        return db
-          .doc(`/listings/${req.params.listingID}`)
-          .update({ imageUrl });
+        return db.doc(`/listings/${req.params.listingID}`).update({ imageUrl });
       })
       .then(() => {
         return res.json({ message: "Image uploaded successfully" });
@@ -235,4 +240,3 @@ exports.uploadListingImage = (req, res) => {
   });
   busboy.end(req.rawBody);
 };
-

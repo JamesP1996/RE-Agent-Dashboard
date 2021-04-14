@@ -36,8 +36,8 @@ exports.validateSignupData = (data) => {
 exports.validateLoginData = (data) => {
   let errors = {};
 
-  if (isEmpty(data.email)) errors.email = "Must not be empty";
-  if (isEmpty(data.password)) errors.password = "Must not be empty";
+  if (isEmpty(data.email)) errors.email = "Email must not be empty";
+  if (isEmpty(data.password)) errors.password = "Password cannot be empty";
 
   return {
     errors,
@@ -48,8 +48,8 @@ exports.validateLoginData = (data) => {
 exports.validateNoteData = (data) => {
   let errors = {};
 
-  if (isEmpty(data.title)) errors.title = "Must not be empty";
-  if (isEmpty(data.description)) errors.description = "Must not be empty";
+  if (isEmpty(data.title)) errors.title = "Note Requires a Title";
+  if (isEmpty(data.description)) errors.description = "Descriptionm must not be empty";
 
   return {
     errors,
@@ -60,9 +60,45 @@ exports.validateNoteData = (data) => {
 exports.validateTodoData = (data) => {
   let errors = {};
 
-  if (isEmpty(data.Title)) errors.title = "Must not be empty";
-  if (isEmpty(data.Description)) errors.description = "Must not be empty";
+  if (isEmpty(data.Title)) errors.title = "Todo must not be empty";
+  if (isEmpty(data.Description)) errors.description = "Description cannot be empty";
 
+  return {
+    errors,
+    valid: Object.keys(errors).length === 0 ? true : false,
+  };
+}
+
+exports.validateListingData = (data) => {
+  let errors = {};
+  if (isEmpty(data.owners)) errors.owners = "House needs Owners";
+  if (isEmpty(data.sqft)) errors.sqft = "Please Enter Sqft";
+  if (isEmpty(data.sqft_Lot)) errors.sqft_Lot = "Please Enter Sqft_Lot";
+  if (isEmpty(data.address)) errors.address = "House needs an Address";
+  if (isEmpty(data.price)) errors.price = "Price cannot be empty";
+  if (isEmpty(data.style)) errors.style = "House Style cannot be empty";
+  if (isEmpty(data.stories)) errors.stories = "Please Enter Stories";
+  if (isEmpty(data.bathrooms)) errors.bathrooms = "Please Enter Number of Bathrooms";
+  if (isEmpty(data.bedrooms)) errors.bedrooms = "Please Enter Number of Bedrooms";
+  if (isEmpty(data.cooling)) errors.cooling = "Please Enter Cooling Type";
+  if (isEmpty(data.heating)) errors.heating = "Please Enter Heating Type";
+  if (isEmpty(data.parking)) errors.parking = "Please Enter Parking Type";
+  if (isEmpty(data.basement)) errors.basement = "Please Enter Basement Information";
+  return {
+    errors,
+    valid: Object.keys(errors).length === 0 ? true : false,
+  };
+}
+
+exports.validateOpenHouseData = (data) => {
+  let errors = {};
+  if (isEmpty(data.property_Name)) errors.property_Name = "House needs Owners";
+  if (isEmpty(data.sqft)) errors.sqft = "Please Enter Sqft";
+  if (isEmpty(data.sqft_Lot)) errors.sqft_Lot = "Please Enter Sqft_Lot";
+  if (isEmpty(data.address)) errors.address = "House needs an Address";
+  if (isEmpty(data.price)) errors.price = "Price cannot be empty";
+  if (isEmpty(data.sellers_Names)) errors.sellers_Names = "Please Enter Seller/'s Names";
+  if (isEmpty(data.date)) errors.date = "Please Enter The Date of the Open House";
   return {
     errors,
     valid: Object.keys(errors).length === 0 ? true : false,
