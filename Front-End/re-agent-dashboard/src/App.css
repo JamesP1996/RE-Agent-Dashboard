@@ -11,6 +11,24 @@ body{
   pointer-events: none;
 }
 
+.fc-event{
+  cursor: pointer;
+}
+
+.fc-content {
+  cursor: pointer;
+}
+#container{
+  padding: 20,0,20,0;
+}
+.fc-toolbar-title{
+  color:darkmagenta;
+}
+
+.fc-scrollgrid-section-header{
+  background-color:chocolate;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

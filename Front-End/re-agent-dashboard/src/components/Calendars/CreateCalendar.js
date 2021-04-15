@@ -9,6 +9,8 @@ import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import MomentUtils from "@date-io/moment";
+import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 
 // Material UI Styles
 const styles = {
@@ -39,9 +41,11 @@ class CreateCalendar extends React.Component {
   constructor() {
     super();
     this.state = {
-      Title: "",
-      Description: "",
-      Date: "",
+      title: "",
+      description: "",
+      start: "",
+      end: "",
+      allDay: false,
       loading: false,
       errors: {},
     };
@@ -53,9 +57,11 @@ class CreateCalendar extends React.Component {
       loading: true,
     });
     const newCalendar = {
-      Title: this.state.title,
-      Description: this.state.description,
-      Date: this.state.date,
+      title: this.state.title,
+      description: this.state.description,
+      start: this.state.start,
+      end: this.state.end,
+      allDay: this.state.allDay
     };
     axios
       .post("/calendars", newCalendar)
@@ -80,73 +86,101 @@ class CreateCalendar extends React.Component {
     });
   };
 
+  handleStartDateChange(date) {
+    this.setState({
+      start: date
+    });
+  }
+
+  handleEndDateChange(date) {
+    this.setState({
+      end: date
+    });
+  }
+
+  handleCheckChange = (e) => {
+    const { checked } = e.target;
+    this.setState({
+      allDay: checked,
+    });
+  };
+
   render() {
     const { classes } = this.props;
     const { errors, loading } = this.state;
     return (
-      <Grid container className={classes.form}>
-        <Grid item sm />
-        <Grid item sm>
-          <Typography variant="h2" className={classes.pageTitle}>
-            Create a Calendar Entry
-          </Typography>
-          <form noValidate onSubmit={this.handleSubmit}>
-            <TextField
-              id="title"
-              name="title"
-              type="text"
-              label="Title"
-              className={classes.textField}
-              helperText={errors.title}
-              error={errors.title ? true : false}
-              value={this.state.title}
-              onChange={this.handleChange}
-            />
-            <TextField
-              id="description"
-              name="description"
-              type="text"
-              label="Description"
-              className={classes.textField}
-              helperText={errors.description}
-              error={errors.description ? true : false}
-              value={this.state.description}
-              onChange={this.handleChange}
-            />
-            <br></br>
-            <p>Date Entry:</p>
-            <TextField
-              id="date"
-              name="date"
-              type="date"
-              className={classes.textField}
-              helperText={errors.date}
-              error={errors.date ? true : false}
-              value={this.state.date}
-              onChange={this.handleChange}
-            />
-            <br></br>
-            {errors.error && (
-              <Typography variant="body2" className={classes.customError}>
-                Please Signup/Login to Create Calendar Entries
-              </Typography>
-            )}
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              className={classes.button}
-              disabled={loading}
-            >
-              Create Calendar
-              {loading && (
-                <CircularProgress size={30} className={classes.progress} />
+      <MuiPickersUtilsProvider utils={MomentUtils}>
+        <Grid container className={classes.form}>
+          <Grid item sm />
+          <Grid item sm>
+            <Typography variant="h2" className={classes.pageTitle}>
+              Create a Calendar Entry
+            </Typography>
+            <form noValidate onSubmit={this.handleSubmit}>
+              <TextField
+                id="title"
+                name="title"
+                type="text"
+                label="Title of Event"
+                className={classes.textField}
+                helperText={errors.title}
+                error={errors.title ? true : false}
+                value={this.state.title}
+                onChange={this.handleChange}
+              />
+              <TextField
+                id="description"
+                name="description"
+                type="text"
+                label="Description of Event"
+                className={classes.textField}
+                helperText={errors.description}
+                error={errors.description ? true : false}
+                value={this.state.description}
+                onChange={this.handleChange}
+              />
+              <br></br>
+              <p>Start Date-Time:</p>
+              <DateTimePicker
+                value={this.state.start}
+                selected={this.state.start}
+                onChange={(e) => this.handleStartDateChange(e)}
+              />
+              <p>End Date-Time:</p>
+              <DateTimePicker
+                value={this.state.end}
+                selected={this.state.end}
+                onChange={(e) => this.handleEndDateChange(e)}
+              />
+              <p>All Day?</p>
+              <input
+                type="checkbox"
+                onChange={(e) => this.handleCheckChange(e)}
+                defaultChecked={this.state.allDay}
+              />
+              <br></br>
+              {errors.error && (
+                <Typography variant="body2" className={classes.customError}>
+                  Please Signup/Login to Create Calendar Entries
+                </Typography>
               )}
-            </Button>
-          </form>
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                disabled={loading}
+              >
+                Create Calendar
+                {loading && (
+                  <CircularProgress size={30} className={classes.progress} />
+                )}
+              </Button>
+            </form>
+          </Grid>
+          <Grid item sm />
         </Grid>
-        <Grid item sm />
-      </Grid>
+      </MuiPickersUtilsProvider>
     );
   }
 }

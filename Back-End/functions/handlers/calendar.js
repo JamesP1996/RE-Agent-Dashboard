@@ -13,10 +13,12 @@ exports.getAllCalendarEntries = (req, res) => {
       data.forEach((doc) => {
         if (doc.data().userHandle === req.user.handle) {
           calendars.push({
-            calendarID: doc.id,
-            Title: doc.data().Title,
-            Description: doc.data().Description,
-            Date: doc.data().Date,
+            id: doc.id,
+            title: doc.data().title,
+            description: doc.data().description,
+            start: doc.data().start,
+            end: doc.data().end,
+            allDay: doc.data().allDay,
             userHandle: doc.data().userHandle,
             createdAt: doc.data().createdAt,
           });
@@ -29,14 +31,16 @@ exports.getAllCalendarEntries = (req, res) => {
 };
 
 exports.postNewCalendar = (req, res) => {
-  if (req.body.Description.trim() === "") {
+  if (req.body.description.trim() === "") {
     return res.status(400).json({ body: "Body must not be empty" });
   }
 
   const newCalendars = {
-    Title: req.body.Title,
-    Description: req.body.Description,
-    Date: req.body.Date,
+    title: req.body.title,
+    description: req.body.description,
+    start: req.body.start,
+    end: req.body.end,
+    allDay: req.body.allDay,
     userHandle: req.user.handle,
     createdAt: new Date().toISOString(),
   };
@@ -114,9 +118,11 @@ exports.updateCalendar = (req, res) => {
     } else {
       document
         .set({
-          Title: req.body.Title,
-          Description: req.body.Description,
-          Date: req.body.Date,
+          title: req.body.title,
+          description: req.body.description,
+          start: req.body.start,
+          end: req.body.end,
+          allDay: req.body.allDay,
           userHandle: req.user.handle,
           createdAt: new Date().toISOString(),
         })
