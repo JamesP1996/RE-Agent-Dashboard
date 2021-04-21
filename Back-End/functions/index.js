@@ -19,9 +19,7 @@ const {
 const {
   getAllTodos,
   postNewTodo,
-  getTodo,
-  deleteTodo,
-  updateTodo,
+  deleteTodo
 } = require("./handlers/todos");
 
 const {
@@ -66,10 +64,8 @@ app.put("/notes/:noteID", FBAuth, updateNote);
 
 // --TODO's ROUTES--
 app.get("/todos",FBAuth, getAllTodos);
-app.get("/todos/:todoID", getTodo);
 app.delete("/todos/:todoID", FBAuth, deleteTodo);
 app.post("/todos", FBAuth, postNewTodo);
-app.put("/todos/:todoID", FBAuth, updateTodo);
 
 // --CALENDAR ROUTES --
 app.get("/calendars", FBAuth, getAllCalendarEntries);

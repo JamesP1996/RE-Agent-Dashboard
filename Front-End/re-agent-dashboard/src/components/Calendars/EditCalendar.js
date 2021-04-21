@@ -51,23 +51,39 @@ class CreateCalendar extends React.Component {
     };
   }
 
+  componentDidMount() {
+    axios
+      .get("/calendars/"+this.props.match.params.id)
+      .then((response) => {
+        this.setState({ title: response.data.title,
+                        description: response.data.description,
+                        start: response.data.start,
+                        end: response.data.end,
+                        allDay: response.data.allDay,
+                        id: response.data.calendarID  });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   handleSubmit = (event) => {
     event.preventDefault();
     this.setState({
       loading: true,
     });
-    const newCalendar = {
+    const editCalendar = {
       title: this.state.title,
       description: this.state.description,
       start: this.state.start,
       end: this.state.end,
       allDay: this.state.allDay
     };
-    if(newCalendar.allDay === true){
-      newCalendar.end = "";
-  }
+    if(editCalendar.allDay === true){
+        editCalendar.end = "";
+    }
     axios
-      .post("/calendars", newCalendar)
+      .put(`/calendars/${this.props.match.params.id}`, editCalendar)
       .then((res) => {
         console.log(res.data);
         this.setState({
@@ -117,7 +133,7 @@ class CreateCalendar extends React.Component {
           <Grid item sm />
           <Grid item sm>
             <Typography variant="h2" className={classes.pageTitle}>
-              Create a Calendar Entry
+              Edit Calendar Entry
             </Typography>
             <form noValidate onSubmit={this.handleSubmit}>
               <TextField
@@ -174,7 +190,7 @@ class CreateCalendar extends React.Component {
                 className={classes.button}
                 disabled={loading}
               >
-                Create Calendar
+                Submit
                 {loading && (
                   <CircularProgress size={30} className={classes.progress} />
                 )}

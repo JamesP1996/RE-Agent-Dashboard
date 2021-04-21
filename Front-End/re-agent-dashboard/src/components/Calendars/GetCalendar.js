@@ -3,6 +3,10 @@ import axios from "axios";
 import "../../App.css";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
+import Button from "@material-ui/core/Button";
+import {Link} from "react-router-dom";
+import { Typography } from "@material-ui/core";
+
 
 
 class GetCalendar extends React.Component {
@@ -41,8 +45,34 @@ class GetCalendar extends React.Component {
                  <p>{eventInfo.start}</p>
                </>
         )}
+        function createEvent() {
+          this.props.history.push("/createCalendar");
+        };
     return (
       <main id="container">
+        <div id="CalendarList">
+          <span>
+            <Button
+            component={Link}
+            to={`/createCalendar`}
+            variant="contained"
+            color="primary"
+            style={{margin:"20px 20px 20px 20px"}}
+          >
+              Create a New Entry
+          </Button>
+          <Button
+            component={Link}
+            to={`/calendars/list/`}
+            variant="contained"
+            color="primary"
+          >
+              See all Entries in List Format
+          </Button>
+          
+          </span>
+       
+        </div>
         <div id="Calendar">
           <FullCalendar
             plugins={[dayGridPlugin]}
@@ -59,23 +89,9 @@ class GetCalendar extends React.Component {
             eventBackgroundColor={"purple"}
             eventContent={renderEventContent}
             showNonCurrentDates={false}
-            customButtons={{
-                    add_event: {
-                        text: 'Add New Calendar Event',
-                        click: function() {
-                           alert(); 
-                        }
-                    },
-                }}
-            headerToolbar={
-                {
-                    left:'prev,next,today',
-                    center:'title',
-                    right: 'add_event'
-                }
-            }
           />
         </div>
+        
       </main>
     );
   }

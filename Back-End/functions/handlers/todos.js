@@ -17,7 +17,6 @@ exports.getAllTodos = (req, res) => {
           todoID: doc.id,
           Title: doc.data().Title,
           Description: doc.data().Description,
-          Checked: doc.data().Checked,
           userHandle: doc.data().userHandle,
           createdAt: doc.data().createdAt,
         });
@@ -34,7 +33,6 @@ exports.postNewTodo = (req, res) => {
     Title: req.body.Title,
     Description: req.body.Description,
     userHandle: req.user.handle,
-    Checked: req.body.Checked,
     createdAt: new Date().toISOString(),
   };
   const { valid, errors } = validateTodoData(newTodos);
@@ -52,30 +50,6 @@ exports.postNewTodo = (req, res) => {
     });
 
     return false;
-};
-
-exports.getTodo = (req, res) => {
-  let todoData = {};
-  db.doc(`/todos/${req.params.todoID}`)
-    .get()
-    .then((doc) => {
-      if (!doc.exists) {
-        return res.status(404).json({ error: "Todo not found" });
-      }
-      todoData = doc.data();
-      todoData.todoID = doc.todoID;
-      return db
-        .collection("todos")
-        .where("todoID", "==", req.params.todoID)
-        .get();
-    })
-    .then((data) => {
-      return res.json(todoData);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).json({ error: err.code });
-    });
 };
 
 exports.deleteTodo = (req, res) => {
@@ -102,34 +76,3 @@ exports.deleteTodo = (req, res) => {
     });
 };
 
-exports.updateTodo = (req, res) => {
-  const document = db.doc(`/todos/${req.params.todoID}`);
-  document.get().then((doc) => {
-    if (!doc.exists) {
-      return res.status(404).json({ error: "Todo not found" });
-    }
-    if (doc.data().userHandle !== req.user.handle) {
-      return res.status(403).json({ error: "Unauthorized" });
-    } else {
-      document
-        .set({
-          Title: req.body.Title,
-          Description: req.body.Description,
-          userHandle: req.user.handle,
-          Checked: req.body.Checked,
-          createdAt: new Date().toISOString(),
-        })
-        .then(() => {
-          res.json("Todo updated Successfully");
-          return res.json;
-        })
-        .catch((err) => {
-          console.log(err);
-          return res.status(500).json({ error: err.code });
-        });
-    }
-   return false;
-  });
-
-  
-};

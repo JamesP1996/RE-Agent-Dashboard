@@ -24,7 +24,6 @@ import EditNote from "./components/Notes/EditNote";
 // Todo Routes
 import GetTodos from "./components/Todos/GetTodos";
 import CreateTodo from "./components/Todos/CreateTodo";
-import EditTodo from "./components/Todos/EditTodo";
 // Calendar Routes
 import GetCalendar from "./components/Calendars/GetCalendar";
 import CreateCalendar from "./components/Calendars/CreateCalendar";
@@ -43,6 +42,8 @@ import CreateAttendee from "./components/Attendees/CreateAttendee";
 
 import EditAttendee from "./components/Attendees/EditAttendee";
 import EditListing from "./components/Listings/EditListing";
+import CalendarList from "./components/Calendars/CalendarList";
+import EditCalendar from "./components/Calendars/EditCalendar";
 
 // Token Handling
 let authenticated;
@@ -106,10 +107,11 @@ function App() {
           {/* Todo Routes */}
           <Route exact path="/todos" component={GetTodos} />
           <AuthRoute exact path="/createTodo" component={CreateTodo} />
-          <AuthRoute exact path="/todos/edit/:todoID" component={EditTodo} />
 
           {/* Calendar Routes */}
           <Route exact path="/calendars" component={GetCalendar} />
+          <Route exact path="/calendars/list" component={CalendarList}/>
+          <AuthRoute exact path="/calendars/edit/:id" component={EditCalendar}/>
           <AuthRoute exact path="/createCalendar" component={CreateCalendar} />
 
           {/* Open House Routes */}

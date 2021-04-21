@@ -21,6 +21,20 @@ body{
 #container{
   padding: 20,0,20,0;
 }
+
+#CalendarList{
+  background-color: darkmagenta ;
+  display: inline-block;
+  justify-content: center;
+  width: 50%;
+  box-shadow: 4px 4px 3px #888888;
+  margin:"20px 20px 20px 20px";
+}
+
+#Calendar{
+  margin-top: 20px;
+}
+
 .fc-toolbar-title{
   color:darkmagenta;
 }

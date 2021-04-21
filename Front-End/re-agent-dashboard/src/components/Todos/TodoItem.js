@@ -26,7 +26,6 @@ class TodoItem extends React.Component {
         <p>
           {this.props.todo.Description}
         </p>
-        <b>{this.props.todo.Checked}</b>
         <br></br>
         <Button
           variant="contained"
@@ -34,16 +33,8 @@ class TodoItem extends React.Component {
           onClick={this.DeleteTodo}
           size="small"
         >
-          Delete
+          Mark as Done
         </Button>
-        <Link
-          to={"/todos/edit/" + this.props.todo.todoID}
-          variant="contained"
-          color="secondary"
-        >
-          Edit
-        </Link>
-        <Button style={{backgroundColor:"Green"}}>Check as Done</Button>
       </li>
     );
   }

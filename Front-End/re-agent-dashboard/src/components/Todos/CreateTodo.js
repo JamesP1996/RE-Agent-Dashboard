@@ -55,7 +55,6 @@ class CreateTodo extends React.Component
         const newTodo = {
           Title: this.state.title,
           Description: this.state.description,
-          Checked: "Unchecked"
         };
         axios
           .post("/todos", newTodo)
@@ -102,6 +101,7 @@ class CreateTodo extends React.Component
                   value={this.state.title}
                   onChange={this.handleChange}
                 />
+                <br/>
                 <TextField
                   id="description"
                   name="description"
@@ -112,6 +112,9 @@ class CreateTodo extends React.Component
                   error={errors.description ? true : false}
                   value={this.state.description}
                   onChange={this.handleChange}
+                  multiline={true}
+                  rows={5}
+                  fullWidth={true}
                 />
                 <br></br>
                 {errors.error && (
