@@ -117,3 +117,13 @@ exports.validateAttendeeData = (data) => {
     valid: Object.keys(errors).length === 0 ? true : false,
   };
 }
+
+exports.validateCalendarData = (data) => {
+  if(isEmpty(data.title)) errors.title = "Please Enter a Title for the Event";
+  if(isEmpty(data.description)) errors.description = "Please Enter a Description for the Event";
+  if(isEmpty(data.start)) errors.start = "Please Enter a Start Date";
+  return {
+    errors,
+    valid: Object.keys(errors).length === 0 ? true : false,
+  };
+}

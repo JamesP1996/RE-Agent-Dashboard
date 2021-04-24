@@ -2,6 +2,7 @@
 /* eslint-disable promise/always-return */
 /* eslint-disable promise/catch-or-return */
 const { db } = require("../utilities/admin");
+const {validateCalendarData} = require("../utilities/validators");
 
 exports.getAllCalendarEntries = (req, res) => {
   db.collection("calendars")
@@ -31,10 +32,6 @@ exports.getAllCalendarEntries = (req, res) => {
 };
 
 exports.postNewCalendar = (req, res) => {
-  if (req.body.description.trim() === "") {
-    return res.status(400).json({ body: "Body must not be empty" });
-  }
-
   const newCalendars = {
     title: req.body.title,
     description: req.body.description,
@@ -44,6 +41,9 @@ exports.postNewCalendar = (req, res) => {
     userHandle: req.user.handle,
     createdAt: new Date().toISOString(),
   };
+
+  const {valid,errors} = validateCalendarData(newCalendars);
+  if(!valid) return res.status(400).json(errors);
 
   db.collection("calendars")
     .add(newCalendars)
