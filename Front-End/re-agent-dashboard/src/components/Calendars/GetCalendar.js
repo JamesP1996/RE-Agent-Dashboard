@@ -3,6 +3,8 @@ import axios from "axios";
 import "../../App.css";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
+import timeGridPlugin from '@fullcalendar/timegrid';
+import listPlugin from "@fullcalendar/list";
 import Button from "@material-ui/core/Button";
 import {Link} from "react-router-dom";
 import { Typography } from "@material-ui/core";
@@ -10,10 +12,18 @@ import { Typography } from "@material-ui/core";
 
 
 class GetCalendar extends React.Component {
+
+  constructor() {
+    super();
   // Make an Empty Array State for Calendar
-  state = {
+  this.state = {
     events: [],
+    width: 0,
+    mobile: false
   };
+
+  window.addEventListener("resize", this.update)
+}
 
   //   calendarID: doc.id,
   //   Title: doc.data().Title,
@@ -29,12 +39,23 @@ class GetCalendar extends React.Component {
     axios
       .get("/calendars")
       .then((response) => {
-        this.setState({ events: response.data });
+        this.setState({ events: response.data, width:window.innerWidth });
         console.log(this.state.events);
       })
       .catch((error) => {
         console.log(error);
       });
+
+    console.log(this.state.mobile);
+  }
+
+  mobileView = () => {
+    if(this.state.width < 800){
+      this.setState({mobile : true});
+    }
+    else{
+      this.setState({mobile : false});
+    }
   }
 
   render() {
@@ -45,9 +66,6 @@ class GetCalendar extends React.Component {
                  <p>{eventInfo.start}</p>
                </>
         )}
-        function createEvent() {
-          this.props.history.push("/createCalendar");
-        };
     return (
       <main id="container">
         <div id="CalendarList">
@@ -73,10 +91,11 @@ class GetCalendar extends React.Component {
           </span>
        
         </div>
+        <p>To delete calendar entries you must view them in list format.</p>
         <div id="Calendar">
           <FullCalendar
-            plugins={[dayGridPlugin]}
-            initialView="dayGridMonth"
+            plugins={[dayGridPlugin,timeGridPlugin,listPlugin]}
+            initialView = "listWeek"
             events={this.state.events}
             eventClick={function (arg) {
               alert(
@@ -89,6 +108,12 @@ class GetCalendar extends React.Component {
             eventBackgroundColor={"purple"}
             eventContent={renderEventContent}
             showNonCurrentDates={false}
+            headerToolbar={{
+              left: 'prev,next today',
+              center: 'title',
+              right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+          }}
+          eventClassNames={"eventClass"}
           />
         </div>
         
