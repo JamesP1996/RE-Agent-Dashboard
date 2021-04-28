@@ -1,5 +1,30 @@
 .App {
   text-align: center;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 15px;
+  padding-left: 15px;
+  /* for edge cases: */
+  width: 100%;
+  max-width: 100%;
+}
+
+@media (min-width: 768px) {
+  .App{
+    width: 750px;
+  }
+}
+
+@media (min-width: 992px) {
+  .App{
+    width: 970px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .App{
+    width: 1170px;
+  }
 }
 
 body{
@@ -11,13 +36,32 @@ body{
   pointer-events: none;
 }
 
+@media (max-width: 815px) {
+  .fc .fc-toolbar.fc-header-toolbar {
+      display: block;
+      text-align: center;
+  }
+
+  .fc-header-toolbar .fc-toolbar-chunk {
+      display: block;
+      padding-top: 2vh;
+  }
+
+  .eventClass{
+    overflow:auto;
+  }
+}
+
+
 .fc-event{
   cursor: pointer;
+  overflow: auto;
 }
 
 .fc-content {
   cursor: pointer;
 }
+
 #container{
   padding: 20,0,20,0;
 }
