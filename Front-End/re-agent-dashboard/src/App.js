@@ -8,6 +8,7 @@ import axios from "axios";
 // Route for Grabbing User ID and Ensuring User has a Token
 import AuthRoute from "./util/AuthRoute";
 import Navbar from "./components/Navbar/navbar";
+import DrawerResponsive from "./components/Drawer/DrawerResponsive";
 
 // User Routes
 import signup from "./pages/signup";
@@ -80,8 +81,9 @@ function App() {
         content="width=device-width, initial-scale=1, user-scalable=0, maximum-scale=1, minimum-scale=1"
       /> */}
       <Router>
-        <Navbar />
+        <DrawerResponsive/>
         <Switch>
+          
           {/* User Routes */}
           <AuthRoute
             exact
