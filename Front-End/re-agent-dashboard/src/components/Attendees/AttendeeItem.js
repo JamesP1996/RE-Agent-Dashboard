@@ -22,11 +22,13 @@ class AttendeeItem extends React.Component {
     return (
       <li style={{border: "3px solid #000000"}}>
         <b>{this.props.attendee.full_Name}</b>
+        <br />
         <b>Phone: {this.props.attendee.number}</b>
+        <br />
         <b>Email: {this.props.attendee.email}</b>
         <br />
         <p>
-          {this.props.attendee.contacted} by -- {this.props.attendee.interested}
+          Contacted : {this.props.attendee.contacted}  Interested : {this.props.attendee.interested}
         </p>
         <Button variant="contained" color="secondary" onClick={this.DeleteAttendee}>
           Delete

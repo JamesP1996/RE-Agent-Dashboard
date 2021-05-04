@@ -7,7 +7,6 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from "@fullcalendar/list";
 import Button from "@material-ui/core/Button";
 import {Link} from "react-router-dom";
-import { Typography } from "@material-ui/core";
 
 
 
@@ -74,7 +73,7 @@ class GetCalendar extends React.Component {
             component={Link}
             to={`/createCalendar`}
             variant="contained"
-            color="primary"
+            color="secondary"
             style={{margin:"20px 20px 20px 20px"}}
           >
               Create a New Entry
@@ -83,7 +82,7 @@ class GetCalendar extends React.Component {
             component={Link}
             to={`/calendars/list/`}
             variant="contained"
-            color="primary"
+            color="secondary"
           >
               See all Entries in List Format
           </Button>

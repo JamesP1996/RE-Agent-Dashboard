@@ -1,3 +1,10 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+body, html { 
+  font-family: 'Quicksand', sans-serif  !important;
+}
+
+
 .App {
   text-align: center;
   margin-right: auto;
@@ -67,12 +74,11 @@ body{
 }
 
 #CalendarList{
-  background-color: darkmagenta ;
+  background-color: rgb(230, 230, 230) ;
   display: inline-block;
   justify-content: center;
   width: 50%;
   box-shadow: 4px 4px 3px #888888;
-  margin:"20px 20px 20px 20px";
 }
 
 #Calendar{
@@ -84,7 +90,8 @@ body{
 }
 
 .fc-scrollgrid-section-header{
-  background-color:chocolate;
+  background-color:rgb(210, 51, 30);
+  color: white;
 }
 
 @media (prefers-reduced-motion: no-preference) {

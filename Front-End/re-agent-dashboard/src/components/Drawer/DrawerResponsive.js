@@ -154,7 +154,7 @@ function DrawerResponsive(props) {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar position="fixed" className={classes.appBar}>
+      <AppBar position="fixed" className={classes.appBar} color="primary">
         <Toolbar>
           <IconButton
             color="inherit"

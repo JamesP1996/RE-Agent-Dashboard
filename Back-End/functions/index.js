@@ -100,7 +100,6 @@ app.put("/attendees/:attendeeID", FBAuth, updateAttendee);
 // --USER ROUTES--
 app.post("/signup", signup);
 app.post("/login", login);
-app.post("/user/image", FBAuth, uploadImage);
 app.get('/user', FBAuth, getAuthenticatedUser);
 
 
