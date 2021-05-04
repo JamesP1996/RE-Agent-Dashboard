@@ -24,6 +24,7 @@ class GetListings extends React.Component {
   }
 
   render() {
+    document.title = "Listings";
     return (
       <div id="listingread">
         <div id="listingData">

@@ -110,6 +110,7 @@ class CreateListing extends React.Component
       };
 
       render() {
+        document.title = "Create Listing";
         const { classes } = this.props;
         const { errors, loading } = this.state;
         return (

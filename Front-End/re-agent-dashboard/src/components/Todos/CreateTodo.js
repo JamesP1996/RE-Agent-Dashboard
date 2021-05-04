@@ -80,6 +80,7 @@ class CreateTodo extends React.Component
       };
 
       render() {
+        document.title = "Create Todo";
         const { classes } = this.props;
         const { errors, loading } = this.state;
         return (

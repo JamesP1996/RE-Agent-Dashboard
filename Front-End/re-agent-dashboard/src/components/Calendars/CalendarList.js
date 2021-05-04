@@ -22,6 +22,7 @@ class CalendarList extends React.Component {
   }
 
   render() {
+    document.title = "Calendar List";
     return (
       <div id="noteread">
         <div id="noteData">

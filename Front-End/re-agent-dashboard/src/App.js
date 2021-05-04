@@ -22,17 +22,17 @@ import home from "./pages/home";
 
 // Component Imports
 // Notes Routes
-import GetNotes from "./components/Notes/GetNotes";
+import Notes from "./components/Notes/Notes";
 import CreateNote from "./components/Notes/CreateNote";
 import EditNote from "./components/Notes/EditNote";
 // Todo Routes
-import GetTodos from "./components/Todos/GetTodos";
+import Todos from "./components/Todos/Todos";
 import CreateTodo from "./components/Todos/CreateTodo";
 // Calendar Routes
 import GetCalendar from "./components/Calendars/GetCalendar";
 import CreateCalendar from "./components/Calendars/CreateCalendar";
 // Open_House Routes
-import GetHouses from "./components/Open_House/GetHouses";
+import Houses from "./components/Open_House/Houses";
 import CreateHouse from "./components/Open_House/CreateHouse";
 import OpenHouseView from "./components/Open_House/OpenHouseView";
 import EditOpenHouse from "./components/Open_House/EditOpenHouse";
@@ -129,12 +129,12 @@ function App() {
             <Route exact path="/" component={home} />
 
             {/* Note Routes */}
-            <Route exact path="/notes" component={GetNotes} />
+            <Route exact path="/notes" component={Notes} />
             <AuthRoute exact path="/createNote" component={CreateNote} />
             <AuthRoute exact path="/notes/edit/:noteID" component={EditNote} />
 
             {/* Todo Routes */}
-            <Route exact path="/todos" component={GetTodos} />
+            <Route exact path="/todos" component={Todos} />
             <AuthRoute exact path="/createTodo" component={CreateTodo} />
 
             {/* Calendar Routes */}
@@ -152,7 +152,7 @@ function App() {
             />
 
             {/* Open House Routes */}
-            <Route exact path="/open_houses" component={GetHouses} />
+            <Route exact path="/open_houses" component={Houses} />
             <AuthRoute
               exact
               path="/open_houses/:id"

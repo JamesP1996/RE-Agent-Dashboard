@@ -19,7 +19,7 @@ class CalendarItem extends React.Component {
   }
 
   render() {
-
+    document.title = "Calendar Entry";
     function parseDate(date){
       return new Date(date).toUTCString();
     }

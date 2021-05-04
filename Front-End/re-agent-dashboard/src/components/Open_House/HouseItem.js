@@ -19,6 +19,7 @@ class HouseItem extends React.Component {
   }
 
   render() {
+    document.title = "Open House";
     return (
       <li style={{border: "3px solid #000000"}}>
         <b>{this.props.house.address}</b>

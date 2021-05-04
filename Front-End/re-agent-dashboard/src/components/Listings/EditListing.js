@@ -138,6 +138,7 @@ class EditListing extends React.Component
       };
 
       render() {
+        document.title = "Edit Listing";
         const { classes } = this.props;
         const { errors, loading } = this.state;
         return (

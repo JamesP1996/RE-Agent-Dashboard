@@ -35,6 +35,7 @@ class GetCalendar extends React.Component {
 
   // Grab the Calendar Data from Backend when this component is mounted
   componentDidMount() {
+    document.title = "Calendar";
     axios
       .get("/calendars")
       .then((response) => {
@@ -90,6 +91,7 @@ class GetCalendar extends React.Component {
           </span>
        
         </div>
+        <p>You may click on any calendar entry to see it's details.</p>
         <p>To delete calendar entries you must view them in list format.</p>
         <div id="Calendar">
           <FullCalendar

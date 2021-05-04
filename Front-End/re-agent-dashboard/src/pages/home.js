@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 
 export default class home extends Component {
+    
     render() {
+        document.title = "RE-Agent Dashboard Home";
         return (
             <div>
                 <h1>Welcome to Re Agent-Dashboard</h1>

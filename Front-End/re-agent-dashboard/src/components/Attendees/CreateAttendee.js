@@ -95,6 +95,7 @@ class CreateAttendee extends React.Component
       };
 
       render() {
+        document.title = "Create Attendee";
         const { classes } = this.props;
         const { errors, loading } = this.state;
         return (

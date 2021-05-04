@@ -81,6 +81,7 @@ class signup extends Component {
     });
   };
   render() {
+    document.title = "RE-Agent Dashboard Signup";
     const { classes } = this.props;
     const { errors, loading } = this.state;
     return (

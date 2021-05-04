@@ -48,6 +48,7 @@ class EditNote extends React.Component
       }
 
       componentDidMount() {
+        document.title = "Edit Note";
         axios
           .get("/notes/"+this.props.match.params.noteID)
           .then((response) => {

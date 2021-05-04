@@ -70,6 +70,7 @@ function OpenHouseView() {
   // };
   
   useEffect(() => {
+    document.title = "Open House View";
     getData();
     //(Stop Warning Coming up, do not have a tracked var type within [])
     // eslint-disable-next-line 
@@ -112,7 +113,7 @@ function OpenHouseView() {
       </div>
       <div>
         <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-          Open form dialog
+          Upload a Image
         </Button>
         <Dialog
           open={open}

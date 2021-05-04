@@ -109,6 +109,7 @@ class CreateCalendar extends React.Component {
   };
 
   render() {
+    document.title = "Create Calendar Entry";
     const { classes } = this.props;
     const { errors, loading } = this.state;
     return (

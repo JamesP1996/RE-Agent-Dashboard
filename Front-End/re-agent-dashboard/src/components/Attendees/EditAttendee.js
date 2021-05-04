@@ -61,6 +61,7 @@ class EditAttendee extends React.Component
       }
 
       componentDidMount() {
+        document.title = "Edit Attendee";
         axios
           .get("/attendee/"+this.props.match.params.attendeeID)
           .then((response) => {

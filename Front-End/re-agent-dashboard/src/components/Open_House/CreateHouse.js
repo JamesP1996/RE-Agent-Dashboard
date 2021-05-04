@@ -95,6 +95,7 @@ class CreateHouse extends React.Component
       };
 
       render() {
+        document.title = "Create Open House";
         const { classes } = this.props;
         const { errors, loading } = this.state;
         return (

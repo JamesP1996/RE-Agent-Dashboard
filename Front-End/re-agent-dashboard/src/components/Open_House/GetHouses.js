@@ -24,6 +24,7 @@ class GetHouses extends React.Component {
   }
 
   render() {
+    document.title = "Open House List";
     return (
       <div id="listingread">
         <div id="listingData">

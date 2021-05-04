@@ -19,6 +19,7 @@ class AttendeeItem extends React.Component {
   }
 
   render() {
+    document.title = "Attendee";
     return (
       <li style={{border: "3px solid #000000"}}>
         <b>{this.props.attendee.full_Name}</b>

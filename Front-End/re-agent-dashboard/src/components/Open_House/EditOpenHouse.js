@@ -114,6 +114,7 @@ class EditOpenHouse extends React.Component {
   };
 
   render() {
+    document.title = "Edit Open House";
     const { classes } = this.props;
     const { errors, loading } = this.state;
     return (

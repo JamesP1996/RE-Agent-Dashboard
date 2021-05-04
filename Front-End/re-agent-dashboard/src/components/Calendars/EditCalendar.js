@@ -52,6 +52,7 @@ class CreateCalendar extends React.Component {
   }
 
   componentDidMount() {
+    document.title = "Edit Calendar Entry";
     axios
       .get("/calendars/"+this.props.match.params.id)
       .then((response) => {

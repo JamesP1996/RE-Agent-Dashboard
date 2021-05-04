@@ -19,6 +19,7 @@ class ListingItem extends React.Component {
   }
 
   render() {
+    document.title = "Listing";
     return (
       <li style={{ border: "3px solid #000000" }}>
         <b>{this.props.listing.address}</b>

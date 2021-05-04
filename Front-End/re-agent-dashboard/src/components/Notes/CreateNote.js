@@ -78,8 +78,9 @@ class CreateNote extends React.Component
           [event.target.name]: event.target.value,
         });
       };
-
+      
       render() {
+        document.title = "Create Note";
         const { classes } = this.props;
         const { errors, loading } = this.state;
         return (

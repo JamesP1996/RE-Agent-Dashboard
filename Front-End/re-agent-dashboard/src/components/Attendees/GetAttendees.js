@@ -12,6 +12,7 @@ class GetAttendees extends React.Component {
   };
   // Grab the Note Data from Backend when this component is mounted
   componentDidMount() {
+    document.title = "Attendees";
     axios
       .get(`/attendees/${this.props.match.params.houseID}`)
       .then((response) => {
