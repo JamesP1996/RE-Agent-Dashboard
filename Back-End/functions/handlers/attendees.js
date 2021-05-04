@@ -4,6 +4,7 @@
 const { db } = require("../utilities/admin");
 const {validateAttendeeData} = require("../utilities/validators");
 
+// Get all Attendees under the current user
 exports.getAllAttendees = (req, res) => {
   db.collection("attendees")
     .orderBy("createdAt", "desc")
@@ -33,6 +34,7 @@ exports.getAllAttendees = (req, res) => {
     .catch((err) => console.error(err));
 };
 
+// Get the details of a single attendee by ID
 exports.getAttendeeDetails = (req, res) => {
 
   let attendeeData = {};
@@ -58,6 +60,7 @@ exports.getAttendeeDetails = (req, res) => {
     });
 };
 
+// Post a new Attendee under the currently logged in user
 exports.postAttendee = (req, res) => {
 
   const newAttendee = {
@@ -112,6 +115,7 @@ exports.deleteAttendee = (req, res) => {
     });
 };
 
+// Update an Attendee by ID if the user owns it
 exports.updateAttendee = (req, res) => {
   const document = db.doc(`/attendees/${req.params.attendeeID}`);
 

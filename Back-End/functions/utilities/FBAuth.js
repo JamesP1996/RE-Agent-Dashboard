@@ -1,5 +1,6 @@
 const { admin , db} = require("./admin");
 
+// Checks if user is authorized based off their token
 module.exports = (req, res, next) => {
   let idToken;
   if (
@@ -24,6 +25,8 @@ module.exports = (req, res, next) => {
         .get();
     })
     .then((data) => {
+      // If Token on the userID is equal to the current userID then progress them through
+      // the system
       req.user.handle = data.docs[0].data().handle;
       return next();
     })

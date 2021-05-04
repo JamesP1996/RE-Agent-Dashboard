@@ -6,6 +6,7 @@ const config = require("../utilities/config");
 const { v4: uuid } = require("uuid");
 const { validateListingData } = require("../utilities/validators");
 
+// Get all the listing belonging to the current user
 exports.getAllListings = (req, res) => {
   db.collection("listings")
     .orderBy("createdAt", "desc")
@@ -43,6 +44,7 @@ exports.getAllListings = (req, res) => {
     .catch((err) => console.error(err));
 };
 
+// Post a new listing under the current user
 exports.postNewListing = (req, res) => {
   const noImg = "no-listing-img.png";
   const newListing = {
@@ -83,6 +85,7 @@ exports.postNewListing = (req, res) => {
   return false;
 };
 
+// Get a Listing by ID
 exports.getListing = (req, res) => {
   let listingData = {};
   db.doc(`/listings/${req.params.listingID}`)
@@ -109,6 +112,7 @@ exports.getListing = (req, res) => {
   return false;
 };
 
+// Delete a listing if the user owns it
 exports.deleteListing = (req, res) => {
   const document = db.doc(`/listings/${req.params.listingID}`);
   document
@@ -133,6 +137,7 @@ exports.deleteListing = (req, res) => {
     });
 };
 
+// Update a listing by ID , if the user owns it
 exports.updateListing = (req, res) => {
   const document = db.doc(`/listings/${req.params.listingID}`);
 
@@ -180,6 +185,7 @@ exports.updateListing = (req, res) => {
   return false;
 };
 
+// Upload image using busboy to encrypt it for Firebase Usage
 exports.uploadListingImage = (req, res) => {
   const BusBoy = require("busboy");
   const path = require("path");

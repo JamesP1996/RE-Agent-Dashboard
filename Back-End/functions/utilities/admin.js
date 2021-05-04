@@ -1,3 +1,4 @@
+// Module to export the admin and database components
 const admin = require("firebase-admin");
 
 admin.initializeApp();

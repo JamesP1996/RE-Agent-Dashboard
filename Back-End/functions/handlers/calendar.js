@@ -4,6 +4,7 @@
 const { db } = require("../utilities/admin");
 const {validateCalendarData} = require("../utilities/validators");
 
+// Get all the Calendar Entries by the current User
 exports.getAllCalendarEntries = (req, res) => {
   db.collection("calendars")
     .orderBy("createdAt", "desc")
@@ -31,6 +32,7 @@ exports.getAllCalendarEntries = (req, res) => {
     .catch((err) => console.error(err));
 };
 
+// Post a New Calendar under the current user
 exports.postNewCalendar = (req, res) => {
   const newCalendars = {
     title: req.body.title,
@@ -59,6 +61,7 @@ exports.postNewCalendar = (req, res) => {
   return false;
 };
 
+// Get a calendar entry
 exports.getCalendar = (req, res) => {
   let calendarData = {};
   db.doc(`/calendars/${req.params.calendarID}`)
@@ -83,6 +86,7 @@ exports.getCalendar = (req, res) => {
     });
 };
 
+// Delete the Calendar Entry if the user owns it
 exports.deleteCalendar = (req, res) => {
   const document = db.doc(`/calendars/${req.params.calendarID}`);
   document
@@ -107,6 +111,7 @@ exports.deleteCalendar = (req, res) => {
     });
 };
 
+// Update a Calendar Entry
 exports.updateCalendar = (req, res) => {
   const document = db.doc(`/calendars/${req.params.calendarID}`);
   document.get().then((doc) => {

@@ -164,6 +164,7 @@ exports.updateHouse = (req, res) => {
   });
 };
 
+// Upload a House Image using BusBoy to encrypt it for Firebase Usage
 exports.uploadHouseImage = (req, res) => {
   const BusBoy = require("busboy");
   const path = require("path");

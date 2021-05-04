@@ -3,6 +3,7 @@
 const { db } = require("../utilities/admin");
 const {validateTodoData} = require("../utilities/validators");
 
+// Get all the todo's a user has made
 exports.getAllTodos = (req, res) => {
   db.collection("todos")
     .orderBy("createdAt", "desc")
@@ -28,6 +29,7 @@ exports.getAllTodos = (req, res) => {
     .catch((err) => console.error(err));
 };
 
+// Post a New Todo under the current user's handle
 exports.postNewTodo = (req, res) => {
   const newTodos = {
     Title: req.body.Title,
@@ -52,6 +54,7 @@ exports.postNewTodo = (req, res) => {
     return false;
 };
 
+// Delete a Todo if the User Owns it
 exports.deleteTodo = (req, res) => {
   const document = db.doc(`/todos/${req.params.todoID}`);
   document

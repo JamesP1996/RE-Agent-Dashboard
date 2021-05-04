@@ -3,6 +3,7 @@
 const { db } = require("../utilities/admin");
 const {validateNoteData} = require("../utilities/validators");
 
+// Get all the currently logged in User's Notes
 exports.getAllNotes = (req, res) => {
   db.collection("notes")
     .orderBy("createdAt", "desc")
@@ -26,6 +27,7 @@ exports.getAllNotes = (req, res) => {
     .catch((err) => console.error(err));
 };
 
+// Post a new note under the current user handle
 exports.postNewNote = (req, res) => {
   const newNotes = {
     title: req.body.title,
@@ -51,6 +53,7 @@ exports.postNewNote = (req, res) => {
     return db;
 };
 
+// Get a Single Note by ID
 exports.getNote = (req,res)=>{
   let noteData = {};
   db.doc(`/notes/${req.params.noteID}`)
@@ -75,6 +78,7 @@ exports.getNote = (req,res)=>{
     });
 };
 
+// Delete a note using a ID, if the user owns it
 exports.deleteNote = (req, res) => {
   const document = db.doc(`/notes/${req.params.noteID}`);
   document
@@ -99,6 +103,7 @@ exports.deleteNote = (req, res) => {
     });
 };
 
+// Update a note using a noteID
 exports.updateNote = (req, res) => {
   
   const document = db.doc(`/notes/${req.params.noteID}`);

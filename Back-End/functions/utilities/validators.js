@@ -1,9 +1,12 @@
 // Helper Functions
+
+// Checks if a String is Empty
 const isEmpty = (string) => {
   if (string.trim() === "") return true;
   else return false;
 };
 
+// Checks if a email is empty
 const isEmail = (email) => {
   //eslint-disable-next-line
   const regEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -11,6 +14,7 @@ const isEmail = (email) => {
   else return false;
 };
 
+// Validates Signup Data Using Email and Password
 exports.validateSignupData = (data) => {
   // setup an errors object
   let errors = {};
@@ -33,6 +37,7 @@ exports.validateSignupData = (data) => {
   };
 };
 
+// Validates User Login Data 
 exports.validateLoginData = (data) => {
   let errors = {};
 
@@ -45,6 +50,7 @@ exports.validateLoginData = (data) => {
   };
 }
 
+// Validates Created Note Data
 exports.validateNoteData = (data) => {
   let errors = {};
 
@@ -57,6 +63,7 @@ exports.validateNoteData = (data) => {
   };
 }
 
+// Validates Todo Data
 exports.validateTodoData = (data) => {
   let errors = {};
 
@@ -69,6 +76,7 @@ exports.validateTodoData = (data) => {
   };
 }
 
+// Validates Listing Data
 exports.validateListingData = (data) => {
   let errors = {};
   if (isEmpty(data.owners)) errors.owners = "House needs Owners";
@@ -90,6 +98,7 @@ exports.validateListingData = (data) => {
   };
 }
 
+// Validates Open House Data
 exports.validateOpenHouseData = (data) => {
   let errors = {};
   if (isEmpty(data.property_Name)) errors.property_Name = "House needs Owners";
@@ -105,6 +114,7 @@ exports.validateOpenHouseData = (data) => {
   };
 }
 
+// Validates the Attendee Data
 exports.validateAttendeeData = (data) => {
   let errors = {};
 
@@ -118,6 +128,7 @@ exports.validateAttendeeData = (data) => {
   };
 }
 
+// Validates Calendar Entries
 exports.validateCalendarData = (data) => {
   let errors = {};
   if(isEmpty(data.title)) errors.title = "Please Enter a Title for the Event";

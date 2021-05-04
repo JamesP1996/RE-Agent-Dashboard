@@ -1,3 +1,5 @@
+
+// Contains a configuration for Firebase Development
 module.exports = {
   apiKey: "AIzaSyA9XbXYjAlgalSifIKaEzqaPNunDjrVfYw",
   authDomain: "re-agent-dashboard-22410.firebaseapp.com",

@@ -7,11 +7,13 @@ const { v4: uuid } = require('uuid');
 const firebase = require("firebase");
 firebase.initializeApp(config);
 
+// Use Previously Created Validators
 const {
   validateSignupData,
   validateLoginData,
 } = require("../utilities/validators");
 
+// Signup the User with a Empty Image to FireBase
 exports.signup = (req, res) => {
   const newUser = {
     email: req.body.email,
@@ -66,6 +68,7 @@ exports.signup = (req, res) => {
     return false;
 };
 
+// Login a user to firebase and authenticate if the are legititimate
 exports.login = (req, res) => {
   const user = {
     email: req.body.email,
@@ -110,60 +113,4 @@ exports.getAuthenticatedUser = (req, res) => {
       console.error(err);
       return res.status(500).json({ error: err.code });
     });
-};
-
-exports.uploadImage = (req, res) => {
-  const BusBoy = require("busboy");
-  const path = require("path");
-  const os = require("os");
-  const fs = require("fs");
-
-  const busboy = new BusBoy({ headers: req.headers });
-
-  let rand = `${Math.round(Math.random() * 1000000 )}`;
-  let imageFileName;
-  let imageToBeUploaded = {};
-  let generatedToken = uuid();
-
-  busboy.on("file", (fieldname, file, filename, encoding, mimetype) => {
-    console.log(filename,mimetype);
-    if(mimetype !== 'image/jpeg' && mimetype !== 'image/png'){
-      return res.status(400).json({error: "Wrong File Type Uploaded!\nOnly Accepts PNG/JPEG"})
-    }
-    const imageExtension = filename.split(".")[filename.split(".").length - 1];
-    
-    imageFileName = `${rand}.${imageExtension}`;
-    
-    const filepath = path.join(os.tmpdir(), imageFileName);
-    imageToBeUploaded = { filepath, mimetype };
-    file.pipe(fs.createWriteStream(filepath));
-    return false;
-  });
-  busboy.on("finish", () => {
-    admin
-      .storage()
-      .bucket()
-      .upload(imageToBeUploaded.filepath, {
-        resumable: false,
-        metadata: {
-          metadata: {
-            contentType: imageToBeUploaded.mimetype,
-            firebaseStorageDownloadTokens: generatedToken,
-          },
-        },
-      })
-      .then(() => {
-        const imageUrl = `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${imageFileName}?alt=media&token=${generatedToken}`;
-        return db.doc(`/users/${req.user.handle}`).update({ imageUrl });
-      })
-      .then(() => {
-        return res.json({ message: "Image uploaded successfully" });
-      })
-      .catch((err) => {
-        console.error(err);
-        return res.status(500).json({ error: `something went wrong: ${err.code}`});
-      });
-  });
-  busboy.end(req.rawBody);
-  
 };
