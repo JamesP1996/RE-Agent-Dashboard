@@ -60,6 +60,94 @@ exports.getAttendeeDetails = (req, res) => {
     });
 };
 
+// Update an Attendee as Interested
+exports.MarkAsInterested = (req, res) => {
+  const document = db.doc(`/attendees/${req.params.attendeeID}`);
+  document.get().then((doc) => {
+    if (!doc.exists) {
+      return res.status(404).json({ error: "Attendee not found" });
+    }
+    if (doc.data().userHandle !== req.user.handle) {
+      return res.status(403).json({ error: "Unauthorized" });
+    } else {
+        document
+        .update({
+          interested: true
+        })
+        .then(() => {
+          res.json("Attendee Marked As Interested");
+          return res;
+        })
+        .catch((err) => {
+          console.log(err);
+          return res.status(500).json({ error: err.code });
+        }); 
+    }
+  }).catch((err)=>{
+    return console.log(err);
+  });
+  return false;
+};
+
+// Update an Attendee as Uninterested
+exports.MarkAsUninterested = (req, res) => {
+  const document = db.doc(`/attendees/${req.params.attendeeID}`);
+  document.get().then((doc) => {
+    if (!doc.exists) {
+      return res.status(404).json({ error: "Attendee not found" });
+    }
+    if (doc.data().userHandle !== req.user.handle) {
+      return res.status(403).json({ error: "Unauthorized" });
+    } else {
+        document
+        .update({
+          interested: false
+        })
+        .then(() => {
+          res.json("Attendee marked as UnInterested");
+          return res;
+        })
+        .catch((err) => {
+          console.log(err);
+          return res.status(500).json({ error: err.code });
+        }); 
+    }
+  }).catch((err)=>{
+    return console.log(err);
+  });
+  return false;
+};
+
+
+// Update an Attendee Contacted
+exports.MarkAsContacted = (req, res) => {
+  const document = db.doc(`/attendees/${req.params.attendeeID}`);
+  document.get().then((doc) => {
+    if (!doc.exists) {
+      return res.status(404).json({ error: "Attendee not found" });
+    }
+    if (doc.data().userHandle !== req.user.handle) {
+      return res.status(403).json({ error: "Unauthorized" });
+    } else {
+        document
+        .update({
+          contacted: true
+        })
+        .then(() => {
+          res.json("Attendee Marked as Contacted");
+          return res;
+        })
+        .catch((err) => {
+          console.log(err);
+          return res.status(500).json({ error: err.code });
+        }); 
+    }
+  }).catch((err)=>{
+    return console.log(err);
+  });
+  return false;
+};
+
 // Post a new Attendee under the currently logged in user
 exports.postAttendee = (req, res) => {
 

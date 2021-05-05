@@ -45,6 +45,9 @@ const {
   getAttendeeDetails,
   deleteAttendee,
   updateAttendee,
+  MarkAsContacted,
+  MarkAsInterested,
+  MarkAsUninterested
 } = require("./handlers/attendees");
 
 const FBAuth = require("./utilities/FBAuth");
@@ -96,6 +99,10 @@ app.get("/attendee/:attendeeID", FBAuth, getAttendeeDetails);
 app.delete("/attendees/:attendeeID", FBAuth, deleteAttendee);
 app.post("/attendees/:houseID", FBAuth, postAttendee);
 app.put("/attendees/:attendeeID", FBAuth, updateAttendee);
+app.put("/attendees/interest/:attendeeID",FBAuth,MarkAsInterested);
+app.put("/attendees/uninterest/:attendeeID",FBAuth,MarkAsUninterested);
+app.put("/attendees/contacted/:attendeeID",FBAuth,MarkAsContacted);
+
 
 // --USER ROUTES--
 app.post("/signup", signup);

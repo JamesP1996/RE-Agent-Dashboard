@@ -97,7 +97,7 @@ class EditOpenHouse extends React.Component {
           loading: false,
         });
 
-        this.props.history.push("/open_houses");
+        this.props.history.push("/open_houses/"+this.props.match.params.id);
       })
       .catch((err) => {
         this.setState({

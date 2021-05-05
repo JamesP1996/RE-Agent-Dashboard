@@ -8,6 +8,9 @@ class AttendeeItem extends React.Component {
   constructor() {
     super();
     this.DeleteAttendee = this.DeleteAttendee.bind(this);
+    this.MarkAsInterested = this.MarkAsInterested.bind(this);
+    this.MarkAsUninterested = this.MarkAsUninterested.bind(this);
+    this.MarkAsContacted = this.MarkAsContacted.bind(this);
   }
 
   // Delete Note From Server Based off NoteID
@@ -15,7 +18,30 @@ class AttendeeItem extends React.Component {
     axios
       .delete("/attendees/" + this.props.attendee.attendeeID)
       .then(window.location.reload())
-      .catch(console.log("Note could not be deleted"));
+      .catch(console.log("Attendee could not be deleted"));
+  }
+
+  MarkAsInterested(e){
+    console.log(this.props.attendee.attendeeID+ " Called by Interest Function");
+    axios
+    .put("/attendees/interest/" + this.props.attendee.attendeeID)
+    .then(window.location.reload())
+    .catch(console.log("Attendee Marked as Interested"))
+  }
+  MarkAsUninterested(e){
+    console.log(this.props.attendee.attendeeID+ " Called by Uninterest Function");
+    axios
+    .put("/attendees/uninterest/" + this.props.attendee.attendeeID)
+    .then(window.location.reload())
+    .catch(console.log("Attendee Marked as Uninterested"))
+  }
+
+  MarkAsContacted(e){
+    console.log(this.props.attendee.attendeeID+ " Called by Contacted Function");
+    axios
+    .put("/attendees/contacted/" + this.props.attendee.attendeeID)
+    .then(window.location.reload())
+    .catch(console.log("Attendee Marked as Contacted"))
   }
 
   render() {
@@ -26,6 +52,36 @@ class AttendeeItem extends React.Component {
       }
       else return '❌'
     }
+
+    function ContactedButton(input,button){
+      if(input === false){
+        return(
+      <Button variant="outlined" color="primary" onClick={button} size="small" style={{margin:"5px"}}>
+        Mark as Contacted
+      </Button>
+      )
+      }else{
+        return <p></p>;
+      }
+    }
+
+    function InterestedButton(input,InterestFunc,UninterestedFunc){
+      if(input === false){
+        return(
+       <Button variant="outlined" color="primary" onClick={InterestFunc} size="small" style={{margin:"5px"}}>
+        Mark as Interested
+      </Button>
+        )
+      }
+      else{
+        return(
+        <Button variant="outlined" color="primary" onClick={UninterestedFunc} size="small" style={{margin:"5px"}}>
+        Mark as Uninterested
+      </Button>
+        )
+      }
+    }
+
     return (
       <li>
         <b>{this.props.attendee.full_Name}</b>
@@ -38,9 +94,9 @@ class AttendeeItem extends React.Component {
           Contacted : {CheckMark(this.props.attendee.contacted)}  Interested : {CheckMark(this.props.attendee.interested)}
         </b>
         < br/>
-        <Button variant="contained" color="secondary" onClick={this.DeleteAttendee} size="small" style={{margin:"5px"}}>
-          Delete
-        </Button>
+        {ContactedButton(this.props.attendee.contacted,this.MarkAsContacted)}
+        {InterestedButton(this.props.attendee.interested,this.MarkAsInterested,this.MarkAsUninterested)}
+        < br/>
         <Button
         size="small"
             variant="contained"
@@ -49,7 +105,10 @@ class AttendeeItem extends React.Component {
             to={"/attendees/edit/" +this.props.attendee.attendeeID}
           >
             Edit
-          </Button>
+        </Button>
+        <Button variant="contained" color="secondary" onClick={this.DeleteAttendee} size="small" style={{margin:"5px"}}>
+          Delete
+        </Button>
       </li>
     );
   }

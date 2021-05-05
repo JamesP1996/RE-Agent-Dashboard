@@ -272,12 +272,15 @@ class CreateListing extends React.Component
                   name="other_Features"
                   type="text"
                   label="Description of Other Features"
+                  multiline={true}
+                  rows={3}
                   className={classes.textField}
                   helperText={errors.other_Features}
                   error={errors.other_Features ? true : false}
                   value={this.state.other_Features}
                   onChange={this.handleChange}
-                  fullWidth={true}
+                  fullWidth
+                
                 />
                  
                 <br></br>
