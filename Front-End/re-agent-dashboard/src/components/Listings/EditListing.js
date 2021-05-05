@@ -187,11 +187,14 @@ class EditListing extends React.Component
                   name="address"
                   type="text"
                   label="Address"
+                  multiline={true}
+                  rows={5}
                   className={classes.textField}
                   helperText={errors.address}
                   error={errors.address ? true : false}
                   value={this.state.address}
                   onChange={this.handleChange}
+                  fullWidth
                 />
                 <TextField
                   id="price"

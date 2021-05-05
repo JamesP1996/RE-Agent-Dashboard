@@ -9,6 +9,7 @@ import {
   } from "@material-ui/core";
   import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
   import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
+  import CreateIcon from '@material-ui/icons/Create';
   import React from "react";
 
   export default function OpenHouseCard({ listing, handleDelete }) {
@@ -28,9 +29,12 @@ import {
               Price: <br />${listing.price}
             </Typography>
           </CardContent>
-          <CardActions style={{paddingLeft:"35%"}}>
+          <CardActions style={{paddingLeft:"28%"}}>
           <IconButton title="View Listing Details" aria-label="View Listing Details" href={"/listings/"+listing.listingID}>
             <VisibilityOutlinedIcon/>
+          </IconButton> 
+          <IconButton title="Edit Listing" aria-label="Edit Listing" href={"/listings/edit/"+listing.listingID}>
+            <CreateIcon/>
           </IconButton>  
           <IconButton color="secondary" title="Delete" aria-label="Delete" onClick={() => {if(window.confirm('Are you sure you wish to delete this item?')) handleDelete(listing.listingID) }}>
             <DeleteOutlinedIcon />

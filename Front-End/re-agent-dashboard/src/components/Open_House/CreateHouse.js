@@ -139,6 +139,7 @@ class CreateHouse extends React.Component
                   value={this.state.sqft_Lot}
                   onChange={this.handleChange}
                 />
+                < br/>
                 <TextField
                   id="address"
                   name="address"
