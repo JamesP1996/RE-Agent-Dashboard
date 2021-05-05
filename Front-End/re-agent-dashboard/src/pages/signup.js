@@ -45,6 +45,7 @@ class signup extends Component {
       handle: "",
       loading: false,
       errors: {},
+      errorMessage: ""
     };
   }
   handleSubmit = (event) => {
@@ -71,6 +72,7 @@ class signup extends Component {
       .catch((err) => {
         this.setState({
           errors: err.response.data,
+          errorMessage: err,
           loading: false,
         });
       });
@@ -88,8 +90,9 @@ class signup extends Component {
       <Grid container className={classes.form}>
         <Grid item sm />
         <Grid item sm>
+        <img src="https://cdn.pixabay.com/photo/2017/06/05/19/05/house-2374925_960_720.png" alt="HouseIMG" height="150px" width="150px"/>
           <Typography variant="h2" className={classes.pageTitle}>
-            Signup
+            Sign Up
           </Typography>
           <form noValidate onSubmit={this.handleSubmit}>
             <TextField
@@ -141,7 +144,7 @@ class signup extends Component {
               <Typography variant="body2" className={classes.customError}>
                 {errors.general}
               </Typography>
-            )}
+            )} 
             <Button
               type="submit"
               variant="contained"

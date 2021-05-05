@@ -14,6 +14,13 @@ const isEmail = (email) => {
   else return false;
 };
 
+const isTooWeak = (password) => {
+  //eslint-disable-next-line
+  const regEx = /^(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
+  if (password.match(regEx)) return true;
+  else return false;
+};
+
 // Validates Signup Data Using Email and Password
 exports.validateSignupData = (data) => {
   // setup an errors object
@@ -29,6 +36,9 @@ exports.validateSignupData = (data) => {
   if (isEmpty(data.password)) errors.password = "Must not be empty!";
   if (data.password !== data.confirmPassword)
     errors.confirmPassword = "Passwords must match!";
+  if (!isTooWeak(data.password)) {
+      errors.password = "Password is to weak!";
+    }
   if(isEmpty(data.handle)) errors.handle = "Must not be empty!";
 
   return {

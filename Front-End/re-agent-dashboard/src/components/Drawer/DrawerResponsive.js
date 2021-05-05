@@ -74,7 +74,7 @@ function DrawerResponsive(props) {
   const drawer = (
     <div>
       <div className={classes.toolbar} />
-      <img src="https://cdn.pixabay.com/photo/2017/06/05/19/05/house-2374925_960_720.png" height="25px" width="25px"></img>
+      <img alt="HouseIMG" src="https://cdn.pixabay.com/photo/2017/06/05/19/05/house-2374925_960_720.png" height="25px" width="25px"/>
       <br />
       Menu
       <Divider />
