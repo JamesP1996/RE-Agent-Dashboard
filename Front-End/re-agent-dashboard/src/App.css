@@ -18,7 +18,15 @@ body, html {
   width: 100%;
   max-width: 100%;
 }
-
+ul {
+  list-style: none;
+}
+li {
+  border: 3px solid #000000;
+  margin-top: 20px;
+  padding-bottom: 20px;
+  padding-top: 5px;
+}
 .viewImage{
   background-repeat: no-repeat;
   background-size: contain;

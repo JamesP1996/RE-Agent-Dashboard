@@ -20,23 +20,36 @@ class AttendeeItem extends React.Component {
 
   render() {
     document.title = "Attendee";
+    function CheckMark(input){
+      if(input){
+        return '✅';
+      }
+      else return '❌'
+    }
     return (
-      <li style={{border: "3px solid #000000"}}>
+      <li>
         <b>{this.props.attendee.full_Name}</b>
         <br />
         <b>Phone: {this.props.attendee.number}</b>
         <br />
         <b>Email: {this.props.attendee.email}</b>
         <br />
-        <p>
-          Contacted : {this.props.attendee.contacted}  Interested : {this.props.attendee.interested}
-        </p>
-        <Button variant="contained" color="secondary" onClick={this.DeleteAttendee}>
+        <b>
+          Contacted : {CheckMark(this.props.attendee.contacted)}  Interested : {CheckMark(this.props.attendee.interested)}
+        </b>
+        < br/>
+        <Button variant="contained" color="secondary" onClick={this.DeleteAttendee} size="small" style={{margin:"5px"}}>
           Delete
         </Button>
-        <Link to={"/attendees/edit/" +this.props.attendee.attendeeID} variant="contained" color="secondary">
+        <Button
+        size="small"
+            variant="contained"
+            color="primary"
+            component={Link}
+            to={"/attendees/edit/" +this.props.attendee.attendeeID}
+          >
             Edit
-        </Link>
+          </Button>
       </li>
     );
   }
