@@ -95,7 +95,7 @@ function OpenHouseView() {
           className="card-image"
           alt="house-img"
         ></img>
-        <h1>Property_Name:{house.property_name}</h1>
+        <h1>Property_Name:{house.property_Name}</h1>
         <h2>Address: {house.address}</h2>
         <h2>${house.price}</h2>
         <h2>Sellers:{house.sellers_Names}</h2>

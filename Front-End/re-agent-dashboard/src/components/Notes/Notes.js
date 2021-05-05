@@ -1,4 +1,4 @@
-import { Container, Grid } from "@material-ui/core";
+import { Container, Grid, Typography } from "@material-ui/core";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import NoteCard from "./NoteCard";
@@ -34,7 +34,8 @@ export default function Notes() {
 
   return (
     <Container>
-      <Grid container spacing={3}>
+      <Typography variant="h4">Notes</Typography>
+      <Grid container spacing={3} style={{paddingTop:"20px"}}>
         {notes.map(note =>(
           <Grid item key={note.noteID} xs={12} md={6} lg={4}>
             <NoteCard note={note} handleDelete={handleDelete}/>

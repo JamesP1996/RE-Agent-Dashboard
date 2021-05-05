@@ -1,4 +1,4 @@
-import { Container, Grid } from "@material-ui/core";
+import { Container, Grid, Typography } from "@material-ui/core";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import OpenHouseCard from "./OpenHouseCard";
@@ -34,14 +34,15 @@ export default function Houses() {
 
   return (
     <Container>
-      <Grid container spacing={3}>
+     <Typography variant="h4">Open Houses</Typography>
+      <Grid container spacing={3} style={{paddingTop:"20px"}}>
         {houses.map(house =>(
           <Grid item key={house.houseID} xs={12} md={6} lg={4}>
             <OpenHouseCard house={house} handleDelete={handleDelete}/>
           </Grid>
         ))}
       </Grid>
-      <Fab color="secondary" title="Add House" href="/createTodo" style={{marginTop:"20px"}}>
+      <Fab color="secondary" title="Add House" href="/createHouse" style={{marginTop:"20px"}}>
         <AddIcon/>
       </Fab>
     </Container>

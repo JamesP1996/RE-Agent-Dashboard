@@ -37,7 +37,7 @@ import CreateHouse from "./components/Open_House/CreateHouse";
 import OpenHouseView from "./components/Open_House/OpenHouseView";
 import EditOpenHouse from "./components/Open_House/EditOpenHouse";
 // Listing Routes
-import GetListings from "./components/Listings/GetListings";
+import Listings from "./components/Listings/Listings";
 import CreateListing from "./components/Listings/CreateListing";
 import ListingView from "./components/Listings/ListingView";
 // Attendees Routes
@@ -165,7 +165,7 @@ function App() {
               component={EditOpenHouse}
             />
             {/* Listing Routes */}
-            <Route exact path="/listings" component={GetListings} />
+            <Route exact path="/listings" component={Listings} />
             <AuthRoute exact path="/listings/:id" component={ListingView} />
             <AuthRoute exact path="/createListing" component={CreateListing} />
             <AuthRoute

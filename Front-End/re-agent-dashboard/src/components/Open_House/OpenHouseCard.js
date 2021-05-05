@@ -17,11 +17,11 @@ import {
     return (
       <div>
         <Card elevation={1} >
-          <CardHeader title={house.property_Name} subheader={house.date}/>
+          <CardHeader title={house.property_Name} subheader={"Date: "+house.date}/>
           <CardMedia style = {{ height: 0, paddingTop: '56%'}} image={house.imageUrl}/>
           <CardContent>
             <Typography variant="body2" color="textSecondary">
-              {house.address}
+              Address: <br />{house.address}
             </Typography>
           </CardContent>
           <CardActions style={{paddingLeft:"28%"}}>

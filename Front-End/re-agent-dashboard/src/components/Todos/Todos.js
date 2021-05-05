@@ -1,4 +1,4 @@
-import { Container, Grid } from "@material-ui/core";
+import { Container, Grid, Typography } from "@material-ui/core";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import TodoCard from "./TodoCard";
@@ -34,7 +34,8 @@ export default function Todos() {
 
   return (
     <Container>
-      <Grid container spacing={3}>
+      <Typography variant="h4">To-Do's</Typography>
+      <Grid container spacing={3} style={{paddingTop:"20px"}}>
         {todos.map(todo =>(
           <Grid item key={todo.todoID} xs={12} md={6} lg={4}>
             <TodoCard todo={todo} handleDelete={handleDelete}/>
