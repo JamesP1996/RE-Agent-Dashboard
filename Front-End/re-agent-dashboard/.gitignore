@@ -3,7 +3,7 @@
 
 #VS-CODE
 .vscode
-
+.eslintcache
 # dependencies
 /node_modules
 /.pnp
