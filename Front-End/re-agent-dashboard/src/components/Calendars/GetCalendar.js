@@ -77,7 +77,7 @@ class GetCalendar extends React.Component {
             color="secondary"
             style={{margin:"20px 20px 20px 20px"}}
           >
-              Create a New Entry
+              Create a New Event
           </Button>
           <Button
             component={Link}
@@ -85,14 +85,14 @@ class GetCalendar extends React.Component {
             variant="contained"
             color="secondary"
           >
-              See all Entries in List Format
+              See all Events
           </Button>
           
           </span>
        
         </div>
         <p>You may click on any calendar entry to see it's details.</p>
-        <p>To delete calendar entries you must view them in list format.</p>
+        <p>To delete calendar events you must click on "See all Events".</p>
         <div id="Calendar">
           <FullCalendar
             plugins={[dayGridPlugin,timeGridPlugin,listPlugin]}

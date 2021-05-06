@@ -118,7 +118,7 @@ class CreateCalendar extends React.Component {
           <Grid item sm />
           <Grid item sm>
             <Typography variant="h2" className={classes.pageTitle}>
-              Create a Calendar Entry
+              Create a Calendar Event
             </Typography>
             <form noValidate onSubmit={this.handleSubmit}>
               <TextField
@@ -165,7 +165,7 @@ class CreateCalendar extends React.Component {
               <br></br>
               {errors.error && (
                 <Typography variant="body2" className={classes.customError}>
-                  Please Signup/Login to Create Calendar Entries
+                  Please Signup/Login to Create Calendar Events
                 </Typography>
               )}
               <Button
@@ -175,7 +175,7 @@ class CreateCalendar extends React.Component {
                 className={classes.button}
                 disabled={loading}
               >
-                Create Calendar
+                Submit
                 {loading && (
                   <CircularProgress size={30} className={classes.progress} />
                 )}

@@ -134,7 +134,7 @@ class CreateCalendar extends React.Component {
           <Grid item sm />
           <Grid item sm>
             <Typography variant="h2" className={classes.pageTitle}>
-              Edit Calendar Entry
+              Edit Calendar Event
             </Typography>
             <form noValidate onSubmit={this.handleSubmit}>
               <TextField

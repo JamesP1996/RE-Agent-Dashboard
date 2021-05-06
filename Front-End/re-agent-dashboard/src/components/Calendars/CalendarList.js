@@ -22,11 +22,11 @@ class CalendarList extends React.Component {
   }
 
   render() {
-    document.title = "Calendar List";
+    document.title = "Calendar Event List";
     return (
       <div id="noteread">
         <div id="noteData">
-          <h1>Calendar List</h1>
+          <h1>Calendar Event List</h1>
           <ul id="ListParent">
             <Calendars myCalendars={this.state.calendars}></Calendars>
           </ul>

@@ -42,7 +42,7 @@ class CalendarItem extends React.Component {
         <br/>
         <br />
         <Button variant="contained" color="secondary" onClick={this.DeleteCalendar}>
-          Delete Entry
+          Delete
         </Button>
         <Button
             component={Link}
@@ -50,7 +50,7 @@ class CalendarItem extends React.Component {
             variant="contained"
             color="primary"
           >
-               Edit Entry
+               Edit
           </Button>
       </li>
     );
