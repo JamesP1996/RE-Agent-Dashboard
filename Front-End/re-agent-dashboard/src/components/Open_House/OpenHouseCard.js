@@ -11,6 +11,7 @@ import {
   import PeopleOutlineOutlinedIcon from '@material-ui/icons/PeopleOutlineOutlined';
   import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
   import CreateIcon from '@material-ui/icons/Create';
+  import {Link} from "react-router-dom";
   import React from "react";
 
   export default function OpenHouseCard({ house, handleDelete }) {
@@ -32,7 +33,8 @@ import {
           <IconButton title="Edit Open House" aria-label="Edit Open House" href={"/open_houses/edit/"+house.houseID}>
             <CreateIcon/>
           </IconButton>
-          <IconButton title="View Attendees" aria-label="View Attendees" href={"/attendees/"+house.houseID}>
+          <IconButton title="View Attendees" aria-label="View Attendees" component={Link}
+            to={`/attendees/${house.houseID}`}>
             <PeopleOutlineOutlinedIcon/>
           </IconButton>
           <IconButton color="secondary" title="Delete" aria-label="Delete" onClick={() => {if(window.confirm('Are you sure you wish to delete this item?')) handleDelete(house.houseID) }}>

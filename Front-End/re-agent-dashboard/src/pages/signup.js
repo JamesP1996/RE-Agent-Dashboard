@@ -67,7 +67,7 @@ class signup extends Component {
         this.setState({
           loading: false,
         });
-        this.props.history.push("/");
+        this.props.history.push("/login");
       })
       .catch((err) => {
         this.setState({

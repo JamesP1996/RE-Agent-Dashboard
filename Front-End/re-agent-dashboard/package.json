@@ -1,5 +1,6 @@
 {
   "name": "re-agent-dashboard",
+  "homepage": "/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -48,4 +49,5 @@
     ]
   },
   "proxy": "https://europe-west2-re-agent-dashboard-22410.cloudfunctions.net/api/"
+  
 }

@@ -36,7 +36,7 @@ function OpenHouseView() {
     fd.append("image", File);
     axios
       .put(
-        `http://localhost:5000/re-agent-dashboard-22410/europe-west2/api/open_houses/image/${props.id}`,
+        `/open_houses/image/${props.id}`,
         fd
       )
       .then((res) => {

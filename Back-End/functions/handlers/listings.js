@@ -187,6 +187,7 @@ exports.updateListing = (req, res) => {
 
 // Upload image using busboy to encrypt it for Firebase Usage
 exports.uploadListingImage = (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
   const BusBoy = require("busboy");
   const path = require("path");
   const os = require("os");

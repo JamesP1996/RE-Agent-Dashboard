@@ -53,10 +53,9 @@ const {
 const FBAuth = require("./utilities/FBAuth");
 
 const app = require("express")();
-const cors = require('cors');
 // Automatically allow cross-origin requests
-app.use(cors({ origin: true }));
-
+const cors = require('cors')({origin: true});
+app.use(cors);
 
 // --NOTES ROUTES--
 app.get("/notes", FBAuth, getAllNotes);
@@ -83,7 +82,7 @@ app.get("/listings/:listingID", getListing);
 app.delete("/listings/:listingID", FBAuth, deleteListing);
 app.post("/listings", FBAuth, postNewListing);
 app.put("/listings/:listingID", FBAuth, updateListing);
-app.put("/listings/image/:listingID", FBAuth, uploadListingImage);
+app.put("/listings/image/:listingID", uploadListingImage);
 
 // -- OPEN-HOUSES ROUTES --
 app.get("/open_houses", FBAuth, getAllHouses);
@@ -91,7 +90,7 @@ app.get("/open_houses/:houseID", getHouse);
 app.delete("/open_houses/:houseID", FBAuth, deleteHouse);
 app.post("/open_houses", FBAuth, postNewHouse);
 app.put("/open_houses/:houseID", FBAuth, updateHouse);
-app.put("/open_houses/image/:houseID", FBAuth, uploadHouseImage);
+app.put("/open_houses/image/:houseID", uploadHouseImage);
 
 // -- ATTENDEES ROUTES --
 app.get("/attendees/:houseID", FBAuth, getAllAttendees);

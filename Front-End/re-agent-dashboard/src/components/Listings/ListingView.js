@@ -37,7 +37,7 @@ function ListingView() {
     fd.append("image", File);
     axios
       .put(
-        `http://localhost:5000/re-agent-dashboard-22410/europe-west2/api/listings/image/${props.id}`,
+        `/listings/image/${props.id}`,
         fd
       )
       .then((res) => {

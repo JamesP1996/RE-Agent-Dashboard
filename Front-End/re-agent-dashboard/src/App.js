@@ -51,6 +51,8 @@ import EditCalendar from "./components/Calendars/EditCalendar";
 
 // Token Handling
 let authenticated;
+
+axios.defaults.baseURL = "https://europe-west2-re-agent-dashboard-22410.cloudfunctions.net/api"
 const token = localStorage.FBIdToken;
 if (token) {
   const decodedToken = jwtDecode(token);
@@ -63,6 +65,9 @@ if (token) {
     axios.defaults.headers.common["Authorization"] = token;
   }
 }
+
+axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
+
 
 const signout = () => {
   try {
@@ -166,7 +171,7 @@ function App() {
             />
             {/* Listing Routes */}
             <Route exact path="/listings" component={Listings} />
-            <AuthRoute exact path="/listings/:id" component={ListingView} />
+            <Route exact path="/listings/:id" component={ListingView} />
             <AuthRoute exact path="/createListing" component={CreateListing} />
             <AuthRoute
               exact
