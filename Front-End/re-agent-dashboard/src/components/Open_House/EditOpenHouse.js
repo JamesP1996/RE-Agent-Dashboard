@@ -172,6 +172,7 @@ class EditOpenHouse extends React.Component {
               multiline={true}
               rows={5}
             />
+            <p>Date of Open House:</p>
             <TextField
               id="date"
               name="date"
@@ -183,6 +184,7 @@ class EditOpenHouse extends React.Component {
               onChange={this.handleChange}
               fullWidth
             />
+            <br />
             <TextField
               id="sellers_Names"
               name="sellers_Names"
@@ -193,6 +195,7 @@ class EditOpenHouse extends React.Component {
               error={errors.sellers_Names ? true : false}
               value={this.state.sellers_Names}
               onChange={this.handleChange}
+              fullWidth
             />
             <TextField
               id="price"

@@ -47,5 +47,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5000/re-agent-dashboard-22410/europe-west2/api"
+  "proxy": "https://europe-west2-re-agent-dashboard-22410.cloudfunctions.net/api/"
 }

@@ -159,6 +159,7 @@ class EditListing extends React.Component
                   error={errors.owners ? true : false}
                   value={this.state.owners}
                   onChange={this.handleChange}
+                  fullWidth
                 />
                 <TextField
                   id="sqft"
@@ -294,6 +295,7 @@ class EditListing extends React.Component
                   error={errors.basement ? true : false}
                   value={this.state.basement}
                   onChange={this.handleChange}
+                  fullWidth
                 />
                 <TextField
                   id="other_Features"

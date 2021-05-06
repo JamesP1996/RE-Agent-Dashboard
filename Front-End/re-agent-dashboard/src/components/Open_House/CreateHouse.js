@@ -153,6 +153,7 @@ class CreateHouse extends React.Component
                   fullWidth={true}
                   rows={5}
                 />
+                <p>Date of Open House:</p>
                 <TextField
                   id="date"
                   name="date"
@@ -163,6 +164,7 @@ class CreateHouse extends React.Component
                   value={this.state.date}
                   onChange={this.handleChange}
                 />
+                <br />
                 <TextField
                   id="sellers_Names"
                   name="sellers_Names"
@@ -173,6 +175,7 @@ class CreateHouse extends React.Component
                   error={errors.sellers_Names ? true : false}
                   value={this.state.sellers_Names}
                   onChange={this.handleChange}
+                  fullWidth
                 />
                 <TextField
                   id="price"
