@@ -64,29 +64,12 @@ function OpenHouseView() {
     setHouse(result.data);
   }
 
-  // const dateParsed = () => {
-  //   const date = new Date(house.createdAt).toLocaleString();
-  //   return date;
-  // };
-
   useEffect(() => {
     document.title = "Open House View";
     getData();
     //(Stop Warning Coming up, do not have a tracked var type within [])
     // eslint-disable-next-line
   }, []);
-  //   houseID: req.body.houseID,
-  //   property_Name: req.body.property_Name,
-  //   sqft: req.body.sqft,
-  //   sqft_Lot: req.body.sqft_Lot,
-  //   address: req.body.address,
-  //   date: req.body.date,
-  //   sellers_Names: req.body.sellers_Names,
-  //   price: req.body.price,
-  //   attendees: req.body.attendees,
-
-  //   userHandle: req.user.handle,
-  //   createdAt: new Date().toISOString(),
   return (
     <div>
 

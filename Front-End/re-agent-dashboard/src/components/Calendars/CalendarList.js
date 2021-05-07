@@ -4,12 +4,12 @@ import axios from "axios";
 import "../../App.css";
 
 class CalendarList extends React.Component {
-  // Make an Empty Array State for Notes
+  // Make an Empty Array State for Calendars
   state = {
     calendars: [],
   };
 
-  // Grab the Note Data from Backend when this component is mounted
+  // Grab the Calendar Data from the API
   componentDidMount() {
     axios
       .get("/calendars")

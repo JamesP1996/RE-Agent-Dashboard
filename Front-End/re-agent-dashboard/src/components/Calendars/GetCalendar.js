@@ -23,16 +23,6 @@ class GetCalendar extends React.Component {
 
   window.addEventListener("resize", this.update)
 }
-
-  //   calendarID: doc.id,
-  //   Title: doc.data().Title,
-  //   Description: doc.data().Description,
-  //   StartDateTime: doc.data().StartDateTime,
-  //   EndDateTime: doc.data().EndDateTime,
-  //   AllDay: doc.data().AllDay,
-  //   userHandle: doc.data().userHandle,
-  //   createdAt: doc.data().createdAt,
-
   // Grab the Calendar Data from Backend when this component is mounted
   componentDidMount() {
     document.title = "Calendar";

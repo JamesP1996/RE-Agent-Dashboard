@@ -20,10 +20,14 @@ class CalendarItem extends React.Component {
 
   render() {
     document.title = "Calendar Entry";
+
+    // Parse a Date to UTCString Format.
     function parseDate(date){
       return new Date(date).toUTCString();
     }
 
+    // Parse the allDay Datafield and return a checkmark if all day 
+    //or a parsed date if not.
     function parseAllDay(allDay,endTime){
       if(allDay === false){
         return <b>End Time: {parseDate(endTime)}</b>;

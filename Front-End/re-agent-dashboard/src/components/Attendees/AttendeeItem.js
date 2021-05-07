@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import  Button from "@material-ui/core/Button";
 
 class AttendeeItem extends React.Component {
-  // Set up Constructor and Delete Reference
+  // Set up Constructor and Method References Binding 
   constructor() {
     super();
     this.DeleteAttendee = this.DeleteAttendee.bind(this);
@@ -13,7 +13,7 @@ class AttendeeItem extends React.Component {
     this.MarkAsContacted = this.MarkAsContacted.bind(this);
   }
 
-  // Delete Note From Server Based off NoteID
+  // Delete Attendee From Server Based off Attendee ID
   DeleteAttendee(e) {
     axios
       .delete("/attendees/" + this.props.attendee.attendeeID)
@@ -21,6 +21,7 @@ class AttendeeItem extends React.Component {
       .catch(console.log("Attendee could not be deleted"));
   }
 
+  // Mark an Attendee as Interested
   MarkAsInterested(e){
     console.log(this.props.attendee.attendeeID+ " Called by Interest Function");
     axios
@@ -28,6 +29,8 @@ class AttendeeItem extends React.Component {
     .then(window.location.reload())
     .catch(console.log("Attendee Marked as Interested"))
   }
+
+  // Mark an Attendee as Uninterested
   MarkAsUninterested(e){
     console.log(this.props.attendee.attendeeID+ " Called by Uninterest Function");
     axios
@@ -36,6 +39,7 @@ class AttendeeItem extends React.Component {
     .catch(console.log("Attendee Marked as Uninterested"))
   }
 
+  // Mark an Attendee as Contacted
   MarkAsContacted(e){
     console.log(this.props.attendee.attendeeID+ " Called by Contacted Function");
     axios
@@ -46,6 +50,8 @@ class AttendeeItem extends React.Component {
 
   render() {
     document.title = "Attendee";
+
+    // If input is true, return a check mark else a X
     function CheckMark(input){
       if(input){
         return '✅';
@@ -53,6 +59,8 @@ class AttendeeItem extends React.Component {
       else return '❌'
     }
 
+    // Function to remove the contacted button if the attendee in question
+    // has Been Contacted.
     function ContactedButton(input,button){
       if(input === false){
         return(
@@ -65,6 +73,8 @@ class AttendeeItem extends React.Component {
       }
     }
 
+    // Function to change the state of the Interested Button
+    // Based on what the current value is.
     function InterestedButton(input,InterestFunc,UninterestedFunc){
       if(input === false){
         return(

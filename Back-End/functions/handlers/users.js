@@ -68,7 +68,7 @@ exports.signup = (req, res) => {
     return false;
 };
 
-// Login a user to firebase and authenticate if the are legititimate
+// Login a user to firebase and authenticate if the are legitimate
 exports.login = (req, res) => {
   const user = {
     email: req.body.email,

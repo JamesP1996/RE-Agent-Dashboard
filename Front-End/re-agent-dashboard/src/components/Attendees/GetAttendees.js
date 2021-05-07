@@ -6,7 +6,7 @@ import Button from "@material-ui/core/Button";
 import {Link} from "react-router-dom";
 
 class GetAttendees extends React.Component {
-  // Make an Empty Array State for Notes
+  // Make an Empty Array State for Attendees
   state = {
     attendees: [],
   };
@@ -22,7 +22,8 @@ class GetAttendees extends React.Component {
         console.log(error);
       });
   }
-
+  // Render a Create Attendees Button and the actual attendees relevant
+  // to this house.
   render() {
     return (
       <div id="noteread">

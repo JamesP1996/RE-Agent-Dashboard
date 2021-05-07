@@ -34,16 +34,6 @@ const styles = {
       position: "absolute",
     },
   };
-  // attendeeID: req.body.attendeeID,
-  // full_Name: req.body.full_Name,
-  // number: req.body.number,
-  // email: req.body.email,
-  // contacted: req.body.contacted,
-  // interested: req.body.interested,
-
-  // houseID: req.params.houseID,
-  // userHandle: req.user.handle,
-  // createdAt: new Date().toISOString(),
 class EditAttendee extends React.Component
 {
     constructor() {

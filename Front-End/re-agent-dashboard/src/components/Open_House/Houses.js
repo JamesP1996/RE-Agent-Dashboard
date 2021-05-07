@@ -7,7 +7,7 @@ import AddIcon from '@material-ui/icons/Add';
 
 export default function Houses() {
   const [houses,setHouses] = useState([])
-
+  // Set the State to the houses from the api
   useEffect(() => {
     document.title = "Open House Cards";
     axios
@@ -19,7 +19,7 @@ export default function Houses() {
         console.log(error);
       });
   },[])
-
+  // Handle Deletion of Open Houses
   const handleDelete = async (id) => {
     await axios.delete("/open_houses/" + id)
     .then(res =>{
@@ -29,9 +29,7 @@ export default function Houses() {
     })
   }
 
-  
-
-
+  // Return a Grid of House Card along with a Add Button
   return (
     <Container>
      <Typography variant="h4">Open Houses</Typography>

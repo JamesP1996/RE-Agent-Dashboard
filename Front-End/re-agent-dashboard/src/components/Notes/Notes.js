@@ -29,9 +29,6 @@ export default function Notes() {
     })
   }
 
-  
-
-
   return (
     <Container>
       <Typography variant="h4">Notes</Typography>

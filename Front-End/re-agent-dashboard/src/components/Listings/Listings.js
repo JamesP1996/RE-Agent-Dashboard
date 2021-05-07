@@ -29,9 +29,7 @@ export default function Listing() {
     })
   }
 
-  
-
-
+  // List the Listings in a Card Grid with Options included
   return (
     <Container>
      <Typography variant="h4">Listings</Typography>

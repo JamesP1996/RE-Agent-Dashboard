@@ -34,7 +34,7 @@ const styles = {
   },
 };
 
-// Login Class
+// Signup Class
 class signup extends Component {
   constructor() {
     super();

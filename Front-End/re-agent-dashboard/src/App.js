@@ -43,7 +43,6 @@ import ListingView from "./components/Listings/ListingView";
 // Attendees Routes
 import GetAttendees from "./components/Attendees/GetAttendees";
 import CreateAttendee from "./components/Attendees/CreateAttendee";
-
 import EditAttendee from "./components/Attendees/EditAttendee";
 import EditListing from "./components/Listings/EditListing";
 import CalendarList from "./components/Calendars/CalendarList";
@@ -51,8 +50,11 @@ import EditCalendar from "./components/Calendars/EditCalendar";
 
 // Token Handling
 let authenticated;
-
+// The API URL (Allows use of shorthand axios method calls)
 axios.defaults.baseURL = "https://europe-west2-re-agent-dashboard-22410.cloudfunctions.net/api"
+
+// Set the Token and Check it's expire date.
+// If the current token is older than the expirery date, log the user out.
 const token = localStorage.FBIdToken;
 if (token) {
   const decodedToken = jwtDecode(token);
@@ -65,10 +67,10 @@ if (token) {
     axios.defaults.headers.common["Authorization"] = token;
   }
 }
-
+// Push Cross Origin Access from Front-END 
 axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
 
-
+// Signout the User and Remove their authorization status
 const signout = () => {
   try {
     localStorage.clear();
@@ -77,10 +79,11 @@ const signout = () => {
   } catch (err) {
     console.log(err);
   }
-  window.location.replace("/login");
+  window.location.replace("/");
   return null;
 };
 
+// Change the default MUI theme
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -95,12 +98,7 @@ const theme = createMuiTheme({
     typography: {
       fontFamily: 'Quicksand',
     },
-    // Used by `getContrastText()` to maximize the contrast between
-    // the background and the text.
     contrastThreshold: 3,
-    // Used by the functions below to shift a color's luminance by approximately
-    // two indexes within its tonal palette.
-    // E.g., shift from Red 500 to Red 300 or Red 700.
     tonalOffset: 0.2,
   },
 });
@@ -108,10 +106,6 @@ const theme = createMuiTheme({
 function App() {
   return (
     <div className="App">
-      {/* <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1, user-scalable=0, maximum-scale=1, minimum-scale=1"
-      /> */}
       <ThemeProvider theme={theme}>
         <Router>
           <DrawerResponsive />

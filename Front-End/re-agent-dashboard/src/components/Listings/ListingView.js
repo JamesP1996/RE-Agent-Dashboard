@@ -16,11 +16,11 @@ function ListingView() {
   const [open, setOpen] = React.useState(false);
   const [File, setFile] = React.useState({});
 
+  // Handles the opening and closing of the form dialog
   const handleClickOpen = () => {
     setOpen(true);
-    console.log(process.env.MAP_API_KEY);
   };
-
+  // Handle the file selected (Pre-Upload)
   const fileSelectedHandler = (event) => {
     let file_size = event.target.files[0].size;
     // Give warning if user tries to upload file larger then 5Mb
@@ -31,7 +31,7 @@ function ListingView() {
       setFile(event.target.files[0]);
     }
   };
-
+  // Handle File Uploads.
   const fileUploadHandler = () => {
     const fd = new FormData();
     fd.append("image", File);

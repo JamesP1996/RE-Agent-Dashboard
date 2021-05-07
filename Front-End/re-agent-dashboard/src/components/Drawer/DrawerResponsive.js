@@ -66,7 +66,7 @@ function DrawerResponsive(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
+  // Handle the Drawer Toggle based on if device is mobile
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -149,7 +149,7 @@ function DrawerResponsive(props) {
       
     </div>
   );
-
+ // Setup the Container
   const container =
     window !== undefined ? () => window().document.body : undefined;
 

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import CalendarItem from "./CalendarItem";
 
+// Map Calendars to Calendar Items
 class Calendars extends Component {
   render() {
     return this.props.myCalendars.map((calendar) => {
