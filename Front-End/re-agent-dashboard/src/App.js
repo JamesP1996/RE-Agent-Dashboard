@@ -54,7 +54,7 @@ let authenticated;
 axios.defaults.baseURL = "https://europe-west2-re-agent-dashboard-22410.cloudfunctions.net/api"
 
 // Set the Token and Check it's expire date.
-// If the current token is older than the expirery date, log the user out.
+// If the current token is older than the expiry date, log the user out.
 const token = localStorage.FBIdToken;
 if (token) {
   const decodedToken = jwtDecode(token);
@@ -67,8 +67,6 @@ if (token) {
     axios.defaults.headers.common["Authorization"] = token;
   }
 }
-// Push Cross Origin Access from Front-END 
-axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
 
 // Signout the User and Remove their authorization status
 const signout = () => {
