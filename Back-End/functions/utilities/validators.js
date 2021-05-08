@@ -6,7 +6,7 @@ const isEmpty = (string) => {
   else return false;
 };
 
-// Checks if a email is empty
+// Checks if a email is valid/empty
 const isEmail = (email) => {
   //eslint-disable-next-line
   const regEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
