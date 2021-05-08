@@ -67,6 +67,8 @@ class signup extends Component {
         this.setState({
           loading: false,
         });
+        alert(`User ${newUserData.handle} Successfully Signed Up!\n
+              Redirecting to Login Page`);
         this.props.history.push("/login");
       })
       .catch((err) => {
