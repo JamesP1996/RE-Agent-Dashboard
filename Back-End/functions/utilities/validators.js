@@ -37,7 +37,7 @@ exports.validateSignupData = (data) => {
   if (data.password !== data.confirmPassword)
     errors.confirmPassword = "Passwords must match!";
   if (!isTooWeak(data.password)) {
-      errors.password = "Password is to weak!";
+      errors.password = "Password is too weak!";
     }
   if(isEmpty(data.handle)) errors.handle = "Must not be empty!";
 
@@ -51,8 +51,8 @@ exports.validateSignupData = (data) => {
 exports.validateLoginData = (data) => {
   let errors = {};
 
-  if (isEmpty(data.email)) errors.email = "Email must not be empty";
-  if (isEmpty(data.password)) errors.password = "Password cannot be empty";
+  if (isEmpty(data.email)) errors.email = "Email must not be empty!";
+  if (isEmpty(data.password)) errors.password = "Password cannot be empty!";
 
   return {
     errors,
@@ -64,8 +64,8 @@ exports.validateLoginData = (data) => {
 exports.validateNoteData = (data) => {
   let errors = {};
 
-  if (isEmpty(data.title)) errors.title = "Note Requires a Title";
-  if (isEmpty(data.description)) errors.description = "Descriptionm must not be empty";
+  if (isEmpty(data.title)) errors.title = "Notes require a Title";
+  if (isEmpty(data.description)) errors.description = "Note description must not be empty!";
 
   return {
     errors,
@@ -77,8 +77,8 @@ exports.validateNoteData = (data) => {
 exports.validateTodoData = (data) => {
   let errors = {};
 
-  if (isEmpty(data.Title)) errors.title = "Todo must not be empty";
-  if (isEmpty(data.Description)) errors.description = "Description cannot be empty";
+  if (isEmpty(data.Title)) errors.title = "To-do Title must not be empty!";
+  if (isEmpty(data.Description)) errors.description = "Description cannot be empty!";
 
   return {
     errors,
@@ -89,7 +89,7 @@ exports.validateTodoData = (data) => {
 // Validates Listing Data
 exports.validateListingData = (data) => {
   let errors = {};
-  if (isEmpty(data.owners)) errors.owners = "House needs Owners";
+  if (isEmpty(data.owners)) errors.owners = "Please Enter House Owner's Names";
   if (isEmpty(data.sqft)) errors.sqft = "Please Enter Sqft";
   if (isEmpty(data.sqft_Lot)) errors.sqft_Lot = "Please Enter Sqft_Lot";
   if (isEmpty(data.address)) errors.address = "House needs an Address";
@@ -111,7 +111,7 @@ exports.validateListingData = (data) => {
 // Validates Open House Data
 exports.validateOpenHouseData = (data) => {
   let errors = {};
-  if (isEmpty(data.property_Name)) errors.property_Name = "House needs Owners";
+  if (isEmpty(data.property_Name)) errors.property_Name = "Please Enter a Property Name!";
   if (isEmpty(data.sqft)) errors.sqft = "Please Enter Sqft";
   if (isEmpty(data.sqft_Lot)) errors.sqft_Lot = "Please Enter Sqft_Lot";
   if (isEmpty(data.address)) errors.address = "House needs an Address";
