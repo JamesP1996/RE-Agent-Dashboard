@@ -90,18 +90,17 @@ export default function AttendeeItem({
           style={{ borderBottom: "2px solid lightgray" }}
         />
         <CardContent>
-          <Typography variant="body1" color="textSecondary">
-            Phone Number: <br />
+          <Typography variant="body1" color="textSecondary" style={{borderBottom:"solid Gray 1px",paddingBottom:"2px"}}>
+           <b>Phone Number:</b>  <br />
             {attendee.number}
             <br />
-            Email: <br />
+            <b>Email:</b> <br />
             {attendee.email}
             <br />
           </Typography>
-          <Typography variant="body1" color="textSecondary" id="contacted">
+          <br />
+          <Typography variant="body1" color="textSecondary" id="contacted" >
             Contacted: {CheckMark(attendee.contacted)}
-          </Typography>
-          <Typography variant="body1" color="textSecondary" id="interested">
             Interested: {CheckMark(attendee.interested)}
           </Typography>
         </CardContent>

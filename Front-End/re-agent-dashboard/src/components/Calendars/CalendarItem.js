@@ -29,15 +29,14 @@ export default function CalendarItem({ calendar, handleDelete }) {
         />
         <CardContent>
           <Typography variant="body1" color="textSecondary">
-            Start: <br />
-            {parseDate(calendar.start)}
+            <b>Start:</b> {parseDate(calendar.start)}
             <br />
-            End: <br />
-            {parseDate(calendar.end)}
+            <b>End:</b> {parseDate(calendar.end)}
             <br />
-            All Day: {CheckMark(calendar.allDay)}
+            <b>All Day:</b> {CheckMark(calendar.allDay)}
             <br />
-            Description: <br />
+            <br />
+            <b style={{textDecoration: "underline"}}>Description:</b> <br />
             {calendar.description}
           </Typography>
         </CardContent>
