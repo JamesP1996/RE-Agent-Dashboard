@@ -1,66 +1,67 @@
-import React,{Component} from "react";
-import axios from "axios";
-import { Link } from "react-router-dom";
-import  Button from "@material-ui/core/Button";
+import {
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  IconButton,
+  Typography,
+} from "@material-ui/core";
+import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
+import CreateIcon from "@material-ui/icons/Create";
+import React from "react";
 
-class CalendarItem extends Component {
-  // Set up Constructor and Delete Reference
-  constructor() {
-    super();
-    this.DeleteCalendar = this.DeleteCalendar.bind(this);
+export default function CalendarItem({ calendar, handleDelete }) {
+  document.title = "Calendar Items";
+  function parseDate(date) {
+    return new Date(date).toUTCString();
   }
-
-  // Delete Note From Server Based off NoteID
-  DeleteCalendar(e) {
-    axios
-      .delete(`/calendars/${this.props.calendar.id}`)
-      .then(window.location.reload())
-      .catch(console.log("Calendar could not be deleted"));
+  function CheckMark(input) {
+    if (input) {
+      return "✅";
+    } else return "❌";
   }
-
-  render() {
-    document.title = "Calendar Entry";
-
-    // Parse a Date to UTCString Format.
-    function parseDate(date){
-      return new Date(date).toUTCString();
-    }
-
-    // Parse the allDay Datafield and return a checkmark if all day 
-    //or a parsed date if not.
-    function parseAllDay(allDay,endTime){
-      if(allDay === false){
-        return <b>End Time: {parseDate(endTime)}</b>;
-      }
-      else return <b>All Day:'✅'</b>;
-    }
-    return (
-      <li style={{border: "3px solid #000000"}}>
-        <b>{this.props.calendar.title}</b>
-        <br/>
-        <b><i>{this.props.calendar.description}</i></b>
-        <br/>
-        <b>Start Time: {parseDate(this.props.calendar.start)}</b>
-        <br/>
-          {parseAllDay(this.props.calendar.allDay,this.props.calendar.end)}
-        <br/>
-        <br />
-        <Button variant="contained" color="secondary" onClick={this.DeleteCalendar}>
-          Delete
-        </Button>
-        <Button
-            component={Link}
-            to={"/calendars/edit/" +this.props.calendar.id} 
-            variant="contained"
-            color="primary"
+  return (
+    <div>
+      <Card elevation={3}>
+        <CardHeader
+          title={calendar.title}
+          style={{ borderBottom: "2px solid lightgray" }}
+        />
+        <CardContent>
+          <Typography variant="body1" color="textSecondary">
+            Start: <br />
+            {parseDate(calendar.start)}
+            <br />
+            End: <br />
+            {parseDate(calendar.end)}
+            <br />
+            All Day: {CheckMark(calendar.allDay)}
+            <br />
+            Description: <br />
+            {calendar.description}
+          </Typography>
+        </CardContent>
+        <CardActions style={{ paddingLeft: "45%" }}>
+          <IconButton
+            title="Edit Calendar"
+            aria-label="Edit Calendar"
+            href={"/calendars/edit/" + calendar.id}
           >
-               Edit
-          </Button>
-      </li>
-    );
-  }
-
-
+            <CreateIcon />
+          </IconButton>
+          <IconButton
+            color="secondary"
+            title="Delete"
+            aria-label="Delete"
+            onClick={() => {
+              if (window.confirm("Are you sure you wish to delete this item?"))
+                handleDelete(calendar.id);
+            }}
+          >
+            <DeleteOutlinedIcon />
+          </IconButton>
+        </CardActions>
+      </Card>
+    </div>
+  );
 }
-
-export default CalendarItem;

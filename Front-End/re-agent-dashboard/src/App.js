@@ -30,6 +30,8 @@ import Todos from "./components/Todos/Todos";
 import CreateTodo from "./components/Todos/CreateTodo";
 // Calendar Routes
 import GetCalendar from "./components/Calendars/GetCalendar";
+import CalendarsList from "./components/Calendars/CalendarsList";
+import EditCalendar from "./components/Calendars/EditCalendar";
 import CreateCalendar from "./components/Calendars/CreateCalendar";
 // Open_House Routes
 import Houses from "./components/Open_House/Houses";
@@ -41,12 +43,11 @@ import Listings from "./components/Listings/Listings";
 import CreateListing from "./components/Listings/CreateListing";
 import ListingView from "./components/Listings/ListingView";
 // Attendees Routes
-import GetAttendees from "./components/Attendees/GetAttendees";
 import CreateAttendee from "./components/Attendees/CreateAttendee";
 import EditAttendee from "./components/Attendees/EditAttendee";
 import EditListing from "./components/Listings/EditListing";
-import CalendarList from "./components/Calendars/CalendarList";
-import EditCalendar from "./components/Calendars/EditCalendar";
+import Attendees from "./components/Attendees/Attendees";
+
 
 // Token Handling
 let authenticated;
@@ -137,7 +138,7 @@ function App() {
 
             {/* Calendar Routes */}
             <Route exact path="/calendars" component={GetCalendar} />
-            <Route exact path="/calendars/list" component={CalendarList} />
+            <Route exact path="/calendars/list" component={CalendarsList} />
             <AuthRoute
               exact
               path="/calendars/edit/:id"
@@ -173,7 +174,7 @@ function App() {
             />
 
             {/* Atteendee Routes */}
-            <Route exact path="/attendees/:houseID" component={GetAttendees} />
+            <Route exact path="/attendees/:houseID" component={Attendees} />
             <AuthRoute
               exact
               path="/createAttendee/:houseID"

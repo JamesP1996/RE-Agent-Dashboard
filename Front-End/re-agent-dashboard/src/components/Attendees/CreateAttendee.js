@@ -142,7 +142,7 @@ class CreateAttendee extends React.Component
                   className={classes.button}
                   disabled={loading}
                 >
-                  Create Attendee
+                  Submit
                   {loading && (
                     <CircularProgress size={30} className={classes.progress} />
                   )}

@@ -34,7 +34,7 @@ import {
             <CreateIcon/>
           </IconButton>
           <IconButton title="View Attendees" aria-label="View Attendees" component={Link}
-            to={`/attendees/${house.houseID}`}>
+            to={`/attendees/${house.houseID}`} >
             <PeopleOutlineOutlinedIcon/>
           </IconButton>
           <IconButton color="secondary" title="Delete" aria-label="Delete" onClick={() => {if(window.confirm('Are you sure you wish to delete this item?')) handleDelete(house.houseID) }}>
