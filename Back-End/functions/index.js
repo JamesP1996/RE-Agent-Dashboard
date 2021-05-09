@@ -72,7 +72,7 @@ app.post("/todos", FBAuth, postNewTodo);
 // --CALENDAR ROUTES --
 app.get("/calendars", FBAuth, getAllCalendarEntries);
 app.get("/calendars/:calendarID", getCalendar);
-app.delete("/calendars/:calendarID", FBAuth, deleteCalendar);
+app.delete("/calendars/:id", FBAuth, deleteCalendar);
 app.post("/calendars", FBAuth, postNewCalendar);
 app.put("/calendars/:calendarID", FBAuth, updateCalendar);
 

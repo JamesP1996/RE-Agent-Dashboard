@@ -88,7 +88,7 @@ exports.getCalendar = (req, res) => {
 
 // Delete the Calendar Entry if the user owns it
 exports.deleteCalendar = (req, res) => {
-  const document = db.doc(`/calendars/${req.params.calendarID}`);
+  const document = db.doc(`/calendars/${req.params.id}`);
   document
     .get()
     .then((doc) => {
