@@ -1,9 +1,9 @@
-import React from "react";
+import React,{Component} from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import  Button from "@material-ui/core/Button";
 
-class CalendarItem extends React.Component {
+class CalendarItem extends Component {
   // Set up Constructor and Delete Reference
   constructor() {
     super();
@@ -13,7 +13,7 @@ class CalendarItem extends React.Component {
   // Delete Note From Server Based off NoteID
   DeleteCalendar(e) {
     axios
-      .delete("/calendars/" + this.props.calendar.id)
+      .delete(`/calendars/${this.props.calendar.id}`)
       .then(window.location.reload())
       .catch(console.log("Calendar could not be deleted"));
   }
