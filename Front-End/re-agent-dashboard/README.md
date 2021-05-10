@@ -1,4 +1,4 @@
-# This is a boiler plate README created by Create-React-APP, to give instructions on how to run their files. If you want details of the project itself please go to the [Main Page](https://github.com/JamesP1996/RE-Agent-Dashboard)
+# This is a boiler plate README created by Create-React-App, to help give instructions on how to run the various react commands. If you want details of the re-agent-dashboard project itself please go to the [Main Page](https://github.com/JamesP1996/RE-Agent-Dashboard)
 
 ---  	
 
