@@ -14,6 +14,18 @@ const isEmail = (email) => {
   else return false;
 };
 
+const isNumber = (string) =>{
+  const regEx = /^\d+$/;
+  if(string.match(regEx)) return true;
+  else return false;
+}
+
+const isPhone = (string) =>{
+  const regEx = /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
+  if(string.match(regEx)) return true;
+  else return false;
+}
+
 const isTooWeak = (password) => {
   //eslint-disable-next-line
   const regEx = /^(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
@@ -90,14 +102,14 @@ exports.validateTodoData = (data) => {
 exports.validateListingData = (data) => {
   let errors = {};
   if (isEmpty(data.owners)) errors.owners = "Please Enter House Owner's Names";
-  if (isEmpty(data.sqft)) errors.sqft = "Please Enter Sqft";
-  if (isEmpty(data.sqft_Lot)) errors.sqft_Lot = "Please Enter Sqft_Lot";
+  if (isEmpty(data.sqft) || isNumber(data.sqft)) errors.sqft = "Please Enter Number of Sqft";
+  if (isEmpty(data.sqft_Lot) || isNumber(data.sqft_Lot)) errors.sqft_Lot = "Please Enter Number of Sqft_Lot";
   if (isEmpty(data.address)) errors.address = "House needs an Address";
-  if (isEmpty(data.price)) errors.price = "Price cannot be empty";
+  if (isEmpty(data.price) || isNumber(data.price)) errors.price = "Price is invalid. Please Try Again";
   if (isEmpty(data.style)) errors.style = "House Style cannot be empty";
-  if (isEmpty(data.stories)) errors.stories = "Please Enter Stories";
-  if (isEmpty(data.bathrooms)) errors.bathrooms = "Please Enter Number of Bathrooms";
-  if (isEmpty(data.bedrooms)) errors.bedrooms = "Please Enter Number of Bedrooms";
+  if (isEmpty(data.stories) || isNumber(data.stories)) errors.stories = "Please Enter  Number of Stories";
+  if (isEmpty(data.bathrooms) || isNumber(data.bathrooms)) errors.bathrooms = "Please Enter  Number of Bathrooms";
+  if (isEmpty(data.bedrooms) || isNumber(data.bedrooms)) errors.bedrooms = "Please Enter Number of Bedrooms";
   if (isEmpty(data.cooling)) errors.cooling = "Please Enter Cooling Type";
   if (isEmpty(data.heating)) errors.heating = "Please Enter Heating Type";
   if (isEmpty(data.parking)) errors.parking = "Please Enter Parking Type";
@@ -112,10 +124,10 @@ exports.validateListingData = (data) => {
 exports.validateOpenHouseData = (data) => {
   let errors = {};
   if (isEmpty(data.property_Name)) errors.property_Name = "Please Enter a Property Name!";
-  if (isEmpty(data.sqft)) errors.sqft = "Please Enter Sqft";
-  if (isEmpty(data.sqft_Lot)) errors.sqft_Lot = "Please Enter Sqft_Lot";
+  if (isEmpty(data.sqft)|| isNumber(data.sqft)) errors.sqft = "Please Enter Number of Sqft";
+  if (isEmpty(data.sqft_Lot)|| isNumber(data.sqft_Lot)) errors.sqft_Lot = "Please Enter Number of Sqft in Lot";
   if (isEmpty(data.address)) errors.address = "House needs an Address";
-  if (isEmpty(data.price)) errors.price = "Price cannot be empty";
+  if (isEmpty(data.price)|| isNumber(data.price)) errors.price = "Price is invalid. Please Try Again";
   if (isEmpty(data.sellers_Names)) errors.sellers_Names = "Please Enter Seller/'s Names";
   if (isEmpty(data.date)) errors.date = "Please Enter The Date of the Open House";
   return {
@@ -130,7 +142,7 @@ exports.validateAttendeeData = (data) => {
 
   if (isEmpty(data.full_Name)) errors.full_Name = "Please Enter Attendee Name";
   if (isEmpty(data.email) || isEmail(data.email) === false) errors.email = "Email Not Valid / Empty";
-  if (isEmpty(data.number)) errors.number = "Please Enter Phone Number";
+  if (isEmpty(data.number) || isPhone(data.number) ) errors.number = "Please Enter Valid Phone Number";
 
   return {
     errors,
