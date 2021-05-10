@@ -116,7 +116,7 @@ At a minimum, the application should have:
 
 ### Relevant Links
 * [Deployed Application](https://re-agent-dashboard-22410.web.app/)
-* [Dissertation]()
+* [Dissertation](https://github.com/JamesP1996/RE-Agent-Dashboard/blob/main/Minor%20Dissertation.pdf)
 * [Screencast](https://youtu.be/OyztJUNIovU)
 * [Base API Link](https://europe-west2-re-agent-dashboard-22410.cloudfunctions.net/api)
 
