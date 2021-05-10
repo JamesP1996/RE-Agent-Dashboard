@@ -108,7 +108,7 @@ export default function AttendeeItem({
           <IconButton
             title="Edit Attendee"
             aria-label="Edit Attendee"
-            href={"/attendee/edit/" + attendee.attendeeID}
+            href={"/attendees/edit/" + attendee.attendeeID}
           >
             <CreateIcon />
           </IconButton>
