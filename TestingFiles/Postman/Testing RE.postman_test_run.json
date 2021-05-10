@@ -1,0 +1,544 @@
+{
+	"id": "79e6801c-2248-42c0-941f-6bada201d64f",
+	"name": "Testing RE",
+	"timestamp": "2021-05-05T23:45:19.710Z",
+	"collection_id": "36912fab-07d0-4926-bb46-26f823b442cd",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 21,
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "65716bd8-2255-4504-bf5a-44a1a0c4291c",
+			"name": "Signup",
+			"url": "http://localhost:5000/re-agent-dashboard-22410/europe-west2/api/signup",
+			"time": 3951,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Response is Status Code 201": true,
+				"response must be valid and have a body": true
+			},
+			"testPassFailCounts": {
+				"Response is Status Code 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"response must be valid and have a body": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				3951
+			],
+			"allTests": [
+				{
+					"Response is Status Code 201": true,
+					"response must be valid and have a body": true
+				}
+			]
+		},
+		{
+			"id": "43fa9de1-18b0-4f4d-9a61-3d2cfcc8193b",
+			"name": "UserAlreadyExists",
+			"url": "http://localhost:5000/re-agent-dashboard-22410/europe-west2/api/signup",
+			"time": 150,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Response is Status Code 400": true,
+				"Warns user that the username is already taken": true
+			},
+			"testPassFailCounts": {
+				"Response is Status Code 400": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Warns user that the username is already taken": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				150
+			],
+			"allTests": [
+				{
+					"Response is Status Code 400": true,
+					"Warns user that the username is already taken": true
+				}
+			]
+		},
+		{
+			"id": "910667de-ae9d-476d-bbe9-9495f25d91a7",
+			"name": "BadPassword",
+			"url": "http://localhost:5000/re-agent-dashboard-22410/europe-west2/api/signup",
+			"time": 9,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"response must be valid and have a body": true,
+				"Warns USER Password is to Weak!": true
+			},
+			"testPassFailCounts": {
+				"response must be valid and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Warns USER Password is to Weak!": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				9
+			],
+			"allTests": [
+				{
+					"response must be valid and have a body": true,
+					"Warns USER Password is to Weak!": true
+				}
+			]
+		},
+		{
+			"id": "deed5038-7bf7-4a6d-a3cc-158f093e7e7f",
+			"name": "Bad Login",
+			"url": "http://localhost:5000/re-agent-dashboard-22410/europe-west2/api/login",
+			"time": 227,
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden"
+			},
+			"tests": {
+				"response must be valid and have a body": true,
+				"Gives Warning that Crediantials are Wrong": true
+			},
+			"testPassFailCounts": {
+				"response must be valid and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Gives Warning that Crediantials are Wrong": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				227
+			],
+			"allTests": [
+				{
+					"response must be valid and have a body": true,
+					"Gives Warning that Crediantials are Wrong": true
+				}
+			]
+		},
+		{
+			"id": "09e0f351-ecf5-438d-af07-ec2fb9ed53b0",
+			"name": "Login",
+			"url": "http://localhost:5000/re-agent-dashboard-22410/europe-west2/api/login",
+			"time": 450,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Response is Status Code 200": true,
+				"response must be valid and have a body": true
+			},
+			"testPassFailCounts": {
+				"Response is Status Code 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"response must be valid and have a body": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				450
+			],
+			"allTests": [
+				{
+					"Response is Status Code 200": true,
+					"response must be valid and have a body": true
+				}
+			]
+		},
+		{
+			"id": "0bf2bd8b-9bda-4bb5-954d-556ccdd07262",
+			"name": "Create Note",
+			"url": "http://localhost:5000/re-agent-dashboard-22410/europe-west2/api/notes",
+			"time": 339,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"response must be valid and have a body": true
+			},
+			"testPassFailCounts": {
+				"response must be valid and have a body": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				339
+			],
+			"allTests": [
+				{
+					"response must be valid and have a body": true
+				}
+			]
+		},
+		{
+			"id": "08f95148-0bcd-4ad8-bc8e-791b510370cb",
+			"name": "GetNotes",
+			"url": "http://localhost:5000/re-agent-dashboard-22410/europe-west2/api/notes",
+			"time": 318,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"response must be valid and have a body": true
+			},
+			"testPassFailCounts": {
+				"response must be valid and have a body": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				318
+			],
+			"allTests": [
+				{
+					"response must be valid and have a body": true
+				}
+			]
+		},
+		{
+			"id": "ec0949e7-7776-4f1e-a1f3-01109f485315",
+			"name": "CreateTodo",
+			"url": "http://localhost:5000/re-agent-dashboard-22410/europe-west2/api/todos",
+			"time": 336,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"response must be valid and have a body": true
+			},
+			"testPassFailCounts": {
+				"response must be valid and have a body": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				336
+			],
+			"allTests": [
+				{
+					"response must be valid and have a body": true
+				}
+			]
+		},
+		{
+			"id": "6e14c20e-3980-4274-8ff4-5c91a63e1ef0",
+			"name": "GetTodos",
+			"url": "http://localhost:5000/re-agent-dashboard-22410/europe-west2/api/todos",
+			"time": 322,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"response must be valid and have a body": true
+			},
+			"testPassFailCounts": {
+				"response must be valid and have a body": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				322
+			],
+			"allTests": [
+				{
+					"response must be valid and have a body": true
+				}
+			]
+		},
+		{
+			"id": "987bb5dd-7461-4eac-aad4-b5843f5cc243",
+			"name": "CreateCalendarEntry",
+			"url": "http://localhost:5000/re-agent-dashboard-22410/europe-west2/api/calendars",
+			"time": 347,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"response must be valid and have a body": true
+			},
+			"testPassFailCounts": {
+				"response must be valid and have a body": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				347
+			],
+			"allTests": [
+				{
+					"response must be valid and have a body": true
+				}
+			]
+		},
+		{
+			"id": "befd26ad-ac82-4fc6-ae9f-4ba51dafc676",
+			"name": "GetCalendar",
+			"url": "http://localhost:5000/re-agent-dashboard-22410/europe-west2/api/calendars",
+			"time": 319,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"response must be valid and have a body": true
+			},
+			"testPassFailCounts": {
+				"response must be valid and have a body": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				319
+			],
+			"allTests": [
+				{
+					"response must be valid and have a body": true
+				}
+			]
+		},
+		{
+			"id": "008f8bae-a2e4-46fd-b8d2-03011a320047",
+			"name": "CreateListingEntry",
+			"url": "http://localhost:5000/re-agent-dashboard-22410/europe-west2/api/listings",
+			"time": 363,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"response must be valid and have a body": true
+			},
+			"testPassFailCounts": {
+				"response must be valid and have a body": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				363
+			],
+			"allTests": [
+				{
+					"response must be valid and have a body": true
+				}
+			]
+		},
+		{
+			"id": "27605ee4-5510-4b97-8dcc-c53e77dcb5f7",
+			"name": "GetListings",
+			"url": "http://localhost:5000/re-agent-dashboard-22410/europe-west2/api/listings",
+			"time": 365,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"response must be valid and have a body": true
+			},
+			"testPassFailCounts": {
+				"response must be valid and have a body": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				365
+			],
+			"allTests": [
+				{
+					"response must be valid and have a body": true
+				}
+			]
+		},
+		{
+			"id": "8496ab4a-0caf-48f1-ad45-41a6a2ecec71",
+			"name": "CreateHouseEntry",
+			"url": "http://localhost:5000/re-agent-dashboard-22410/europe-west2/api/open_houses/",
+			"time": 365,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"response must be valid and have a body": true
+			},
+			"testPassFailCounts": {
+				"response must be valid and have a body": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				365
+			],
+			"allTests": [
+				{
+					"response must be valid and have a body": true
+				}
+			]
+		},
+		{
+			"id": "50b07c7c-c19b-44eb-81eb-fc1897f7ca7a",
+			"name": "GetHouses",
+			"url": "http://localhost:5000/re-agent-dashboard-22410/europe-west2/api/listings",
+			"time": 349,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"response must be valid and have a body": true
+			},
+			"testPassFailCounts": {
+				"response must be valid and have a body": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				349
+			],
+			"allTests": [
+				{
+					"response must be valid and have a body": true
+				}
+			]
+		},
+		{
+			"id": "55d049f9-0b62-45d5-85c6-2d34992e45a6",
+			"name": "BadAuthGetListings",
+			"url": "http://localhost:5000/re-agent-dashboard-22410/europe-west2/api/listings",
+			"time": 9,
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden"
+			},
+			"tests": {
+				"Response Contains forbidden (Un-Authorized)": true
+			},
+			"testPassFailCounts": {
+				"Response Contains forbidden (Un-Authorized)": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				9
+			],
+			"allTests": [
+				{
+					"Response Contains forbidden (Un-Authorized)": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 8219,
+	"collection": {
+		"requests": [
+			{
+				"id": "65716bd8-2255-4504-bf5a-44a1a0c4291c",
+				"method": "POST"
+			},
+			{
+				"id": "43fa9de1-18b0-4f4d-9a61-3d2cfcc8193b",
+				"method": "POST"
+			},
+			{
+				"id": "910667de-ae9d-476d-bbe9-9495f25d91a7",
+				"method": "POST"
+			},
+			{
+				"id": "deed5038-7bf7-4a6d-a3cc-158f093e7e7f",
+				"method": "POST"
+			},
+			{
+				"id": "09e0f351-ecf5-438d-af07-ec2fb9ed53b0",
+				"method": "POST"
+			},
+			{
+				"id": "0bf2bd8b-9bda-4bb5-954d-556ccdd07262",
+				"method": "POST"
+			},
+			{
+				"id": "08f95148-0bcd-4ad8-bc8e-791b510370cb",
+				"method": "GET"
+			},
+			{
+				"id": "ec0949e7-7776-4f1e-a1f3-01109f485315",
+				"method": "POST"
+			},
+			{
+				"id": "6e14c20e-3980-4274-8ff4-5c91a63e1ef0",
+				"method": "GET"
+			},
+			{
+				"id": "987bb5dd-7461-4eac-aad4-b5843f5cc243",
+				"method": "POST"
+			},
+			{
+				"id": "befd26ad-ac82-4fc6-ae9f-4ba51dafc676",
+				"method": "GET"
+			},
+			{
+				"id": "008f8bae-a2e4-46fd-b8d2-03011a320047",
+				"method": "POST"
+			},
+			{
+				"id": "27605ee4-5510-4b97-8dcc-c53e77dcb5f7",
+				"method": "GET"
+			},
+			{
+				"id": "8496ab4a-0caf-48f1-ad45-41a6a2ecec71",
+				"method": "POST"
+			},
+			{
+				"id": "50b07c7c-c19b-44eb-81eb-fc1897f7ca7a",
+				"method": "GET"
+			},
+			{
+				"id": "55d049f9-0b62-45d5-85c6-2d34992e45a6",
+				"method": "GET"
+			}
+		]
+	}
+}
