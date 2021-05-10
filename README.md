@@ -67,8 +67,8 @@ unecessary segrementation of their data online.
 
 ### Running the Back-End
 1. Ensure you have all the dependencies listed above installed for the back-end <i>(You may use the npm install command for this)</i>.
-2. If you are running Firebase, change the config.js file to match your own Firebase enviroment and storage bucket and run ```bash firebase deploy ``` or ```bash firebase serve``` for a non deployment enviroment
-   <br/> <b>OR</b> If you are not running the application on your Firebase Configuration, run ```bash npm start``` to start the index.js file within the back-end.
+2. If you are running Firebase, change the config.js file to match your own Firebase enviroment and storage bucket and run ```firebase deploy ``` or ```firebase serve``` for a non deployment enviroment
+   <br/> <b>OR</b> If you are not running the application on your Firebase Configuration, run ```npm start``` to start the index.js file within the back-end.
 3. Once your Firebase or Local Enviroment is running, you may proceed to the front-end portion.
 
 #### Note: 
@@ -83,9 +83,9 @@ This line will allow you to run my back-end configuration on firebase through th
 ### Running the Front-End
 1. Ensure you have all the dependencies listed above installed for the front-end <i>(You may use the npm install command for this)</i>.
 2. CD into the directory named <b>"re-agent-dashboard"</b> (Front-End/re-agent-dashboard).
-3. Run the command ```bash npm start ``` to locally host the front-end server.
-4. (Optional) You may run ```bash npm run build``` to create a build folder for the application and host it upon your own firebase platform,
-using ```bash firebase deploy``` within the re-agent-dashboard folder.
+3. Run the command ```npm start``` to locally host the front-end server.
+4. (Optional) You may run ```npm run build``` to create a build folder for the application and host it upon your own firebase platform,
+using ```firebase deploy``` within the re-agent-dashboard folder.
 
 
 ### Goals and Features
