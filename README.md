@@ -67,13 +67,12 @@ unecessary segrementation of their data online.
 
 ### Running the Back-End
 1. Ensure you have all the dependencies listed above installed for the back-end <i>(You may use the npm install command for this)</i>.
-2. If you are running Firebase, change the config.js file to match your own Firebase enviroment and storage bucket and run ```firebase deploy ``` or ```firebase serve``` for a non deployment enviroment
-   <br/> <b>OR</b> If you are not running the application on your Firebase Configuration, run ```npm start``` to start the index.js file within the back-end.
+2. If you are running Firebase, change the config.js file to match your own Firebase enviroment and storage bucket and run ```firebase deploy ``` or ```firebase serve``` for a non deployment based enviroment.
+   <br/> <b>OR</b> <br/> If you are not running the application on your Firebase Configuration, run ```npm start``` to start the index.js file within the back-end.
 3. Once your Firebase or Local Enviroment is running, you may proceed to the front-end portion.
 
 #### Note: 
-If you do not wish to create a Firebase configuration, it is possible to the use API link provided within the App.js inside the front-end "re-agent-dashboard" folder within
-this repo.
+If you do not wish to create a Firebase configuration, it is possible to the use API link provided within the App.js inside the front-end "re-agent-dashboard" folder within this repo.
 ```js
 // The API URL (Allows use of shorthand axios method calls)
 axios.defaults.baseURL = "https://europe-west2-re-agent-dashboard-22410.cloudfunctions.net/api"
