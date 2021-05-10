@@ -1,3 +1,7 @@
+# This is a boiler plate README created by Create-React-App, to help give instructions on how to run the various react commands. If you want details of the re-agent-dashboard project itself please go to the [Main Page](https://github.com/JamesP1996/RE-Agent-Dashboard)
+
+---  	
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
